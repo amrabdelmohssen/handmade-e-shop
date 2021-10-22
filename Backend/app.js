@@ -2,6 +2,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
+const ordersRouter = require("./routers/orders")
 
 
 
@@ -17,6 +18,14 @@ app.options("*", cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+
+
+
+// orders routers
+app.use(`${api}/orders`,ordersRouter)
+
+
+
 mongoose
     .connect(process.env.CONNECTION_STRING, {
         useNewUrlParser: true,
@@ -32,3 +41,4 @@ mongoose
 app.listen(3000, () => {
     console.log("Server is running http://localhost:3000");
 });
+
