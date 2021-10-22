@@ -2,17 +2,17 @@ const mongoose = require("mongoose")
 
 const OrderSchema = mongoose.Schema({
 
-    user:[{
+    user:{
         type : mongoose.Schema.ObjectId,
         ref:"User",
         required:true
-    }],
-    orderItems:{
+    },
+    orderItems:[{
         type: mongoose.Schema.ObjectId,
         ref:"OrderItem",
         required:true
 
-    },
+    }],
 
     shippingAddressOne:{
         type: String,
@@ -21,7 +21,7 @@ const OrderSchema = mongoose.Schema({
 
     shippingAddressTwo:{
         type: String,
-        required:true
+        
     },
     city:{
         type:String,
@@ -29,7 +29,7 @@ const OrderSchema = mongoose.Schema({
     },
     zipCode:{
         type:String,
-        required:true
+        
     },
 
     country:{
@@ -42,11 +42,13 @@ const OrderSchema = mongoose.Schema({
     },
     status:{
         type:String,
-        required:true
+        default:"Pending"
+        
     },
     totalPrice:{
-        type:String,
-        required:true
+        type:Number,
+        
+        
     },
 
    
