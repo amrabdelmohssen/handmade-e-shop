@@ -1,10 +1,13 @@
 const Order = require('../models/Order')
 
-exports.createOrder =async (req, res) => {
+exports.createOrder = async (req, res) => {
 
     console.log(req.body)
     try{
-      const {shippingAddressOne,
+      const {
+            user,
+            orderItems,
+            shippingAddressOne,
             shippingAddressTwo,
             city,
             zipCode,
@@ -13,6 +16,8 @@ exports.createOrder =async (req, res) => {
             status,
             totalPrice}=req.body
       const newOrder = new Order({
+          user,
+          orderItems,
          shippingAddressOne,
          shippingAddressTwo,
          city,
@@ -35,13 +40,10 @@ exports.createOrder =async (req, res) => {
 
 exports.getAllOrders = async(req,res)=>{
     try{
-         const order = await Order.find({})
+        const order = await Order.find({})
         return res.status(200).json(order)
-
     }catch(error){
-
         return res.status(500).json(error.message)
-
     }
 }
 
@@ -77,7 +79,10 @@ exports.getOneOrder = async (req, res) => {
 
 exports.updateOrder= async (req,res)=>{
       try{
-        const {shippingAddressOne,
+        const {
+          user,
+          orderItems,
+          shippingAddressOne,
           shippingAddressTwo,
           city,
           zipCode,
@@ -88,6 +93,8 @@ exports.updateOrder= async (req,res)=>{
 
 
           const orderUpdate= await Order.findByIdAndUpdate(req.params.id,{
+            user,
+            orderItems,
             shippingAddressOne,
             shippingAddressTwo,
             city,
@@ -101,20 +108,11 @@ exports.updateOrder= async (req,res)=>{
 
           if(!orderUpdate){
             return res.status(404).send();
-
           }
           res.status(200).send(orderUpdate);
-
-        // const orderUpdated=  orderUpdate.save()
-        // return res.status(200).json(orderUpdated)
       }
 
-      // const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {new: true});
-      //   if (!blog) {
-      //       return res.status(404).send();
-      //   }
-      //   res.status(200).send(blog);
-
+      
 
 
       catch(error){

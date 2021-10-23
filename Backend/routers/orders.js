@@ -7,7 +7,7 @@ const OrderSchema = mongoose.model("Order");
 
 orderRouter
 .route('/')
-// .get(orderController.getAllOrders)
+ .get(orderController.getAllOrders)
 .post(orderController.createOrder)
 
 orderRouter
@@ -17,9 +17,9 @@ orderRouter
 .delete(orderController.deleteOrder)
 
 // pagenation
-orderRouter
-.route('/')
-.get(orderController.getAllOrdersByPagenation)
+// orderRouter
+// .route('/')
+// .get(orderController.getAllOrdersByPagenation)
 
 
 module.exports = orderRouter
