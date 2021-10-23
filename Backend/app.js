@@ -2,15 +2,9 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-<<<<<<< HEAD
-const ProductRouter = require("./routers/ProductRouter");
-const OrderItemRouter = require("./routers/OrderItemRouter");
-=======
 const ordersRouter = require("./routers/orders")
 const ProductRouter = require("./router/productRouter");
 const OrderItemRouter = require("./router/OrderItemRouter");
->>>>>>> fc36d373ca73ba0748d83f9649426c651c937707
-
 const app = express();
 require("dotenv/config");
 const api = process.env.API_URL;
@@ -19,6 +13,7 @@ app.use(cors());
 app.options("*", cors());
 
 //middlewares
+
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
@@ -41,6 +36,9 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
+    // routes
+    app.use(`${api}/productRouter`,ProductRouter);
+
 
 //routers middleware
 app.use(`${api}/ProductRouter`, ProductRouter);
