@@ -11,7 +11,7 @@ exports.getOrderItems = async(req, res) => {
     }
 };
 
-exports.getOneProduct = async(req, res) => {
+exports.getOneOrderItem = async(req, res) => {
     try {
         const prod = await OrderItem.findOne({ _id: req.params.id });
         return res.status(200).json(prod);
@@ -20,10 +20,12 @@ exports.getOneProduct = async(req, res) => {
     }
 };
 
-exports.AddOrderItem = async(req, res) => {
+exports.addOrderItem = async(req, res) => {
     try {
-        const { quantity } = req.body; //required
-        // const { product } = req.body;
+        const {
+            quantity
+            // ,product
+        } = req.body; //required
         const newname = new OrderItem({
             // product,
             quantity,
@@ -40,8 +42,10 @@ exports.AddOrderItem = async(req, res) => {
 
 exports.updateOrderItem = async(req, res) => {
     try {
-        const { quantity } = req.body; //required
-        // const { product } = req.body;
+        const {
+            quantity
+            // ,product
+        } = req.body; //required
         OrderItem.findByIdAndUpdate(
             req.params.id, {
                 // product,
@@ -54,6 +58,7 @@ exports.updateOrderItem = async(req, res) => {
         return res.status(500).json({ error: e.message });
     }
 };
+
 exports.deleteOrderItem = async(req, res) => {
     try {
         const singleOrderItem = await OrderItem.findByIdAndRemove(req.params.id);
