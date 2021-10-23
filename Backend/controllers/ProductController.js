@@ -105,6 +105,19 @@ exports.updateProduct = async(req, res) => {
     }
 };
 
+exports.updateProduct = async(req, res) => {
+    try {
+        const newname = await product.findByIdAndUpdate(req.params.id,
+            req.body, { new: true })
+        if (!newname) {
+            return res.status(404).send()
+        }
+        res.status(200).send(newname)
+    } catch (e) {
+        return res.status(500).json({ error: e.message });
+    }
+};
+
 exports.deleteProduct = async(req, res) => {
     try {
         const prod = await Product.findByIdAndRemove(req.params.id);
