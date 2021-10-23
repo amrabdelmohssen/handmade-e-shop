@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const product = require("./Product");
 
 const OrderItemSchema = mongoose.Schema({
@@ -13,7 +14,7 @@ const OrderItemSchema = mongoose.Schema({
     },
 });
 
-productSchema.virtual("id").get(function() {
+OrderItemSchema.virtual("id").get(function() {
     return this._id.toHexString();
 });
 

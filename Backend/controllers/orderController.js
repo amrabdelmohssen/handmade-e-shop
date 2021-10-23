@@ -28,7 +28,7 @@ exports.createOrder =async (req, res) => {
       }
       return res.status(201).json(order)
     }catch(error){
-    return  res.status(500).json({error:error.message});
+    return res.status(500).json({error:error.message});
     }
   }
   
@@ -45,6 +45,24 @@ exports.getAllOrders = async(req,res)=>{
     }
 }
 
+exports.getAllOrdersByPagenation = async(req,res)=>{
+  try{
+
+      const {page = 1  , limit = 20} = req.query;
+       const order = await Order.find({})
+                                .limit(limit*1)
+                                .skip((page - 1) * limit)
+      return res.status(200).json(order)
+
+  }catch(error){
+
+      return res.status(500).json(error.message)
+
+  }
+}
+
+
+
 
 exports.getOneOrder = async (req, res) => {
     try{
@@ -58,16 +76,47 @@ exports.getOneOrder = async (req, res) => {
 
 
 exports.updateOrder= async (req,res)=>{
-  
-    try{
-        Order.findByIdAndUpdate(req.params.id,{ 
-            city:req.body.city,
-            
-           },{new:true})
+      try{
+        const {shippingAddressOne,
+          shippingAddressTwo,
+          city,
+          zipCode,
+          country,
+          phone,
+          status,
+          totalPrice}=req.body               
 
-        const orderUpdated= await newname.save()
-        return res.status(200).json(orderUpdated)
+
+          const orderUpdate= await Order.findByIdAndUpdate(req.params.id,{
+            shippingAddressOne,
+            shippingAddressTwo,
+            city,
+            zipCode,
+            country,
+            phone,
+            status,
+            totalPrice,
+          }
+          ,{new:true})
+
+          if(!orderUpdate){
+            return res.status(404).send();
+
+          }
+          res.status(200).send(orderUpdate);
+
+        // const orderUpdated=  orderUpdate.save()
+        // return res.status(200).json(orderUpdated)
       }
+
+      // const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {new: true});
+      //   if (!blog) {
+      //       return res.status(404).send();
+      //   }
+      //   res.status(200).send(blog);
+
+
+
       catch(error){
       return  res.status(500).json({error:error.message});
       }
