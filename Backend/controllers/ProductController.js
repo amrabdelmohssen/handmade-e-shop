@@ -1,8 +1,9 @@
-const product = require("../models/Product");
+const Product = require("../models/Product");
 
 exports.getProducts = async(req, res) => {
     try {
-        const prod = await product.find({});
+        // const prod = await product.find({});
+        const prod = await Product.find({});
         console.log("success to get data");
         return res.status(200).json(prod);
     } catch (e) {
@@ -13,17 +14,20 @@ exports.getProducts = async(req, res) => {
 
 exports.getOneProduct = async(req, res) => {
     try {
-        const singleOrderItem = await product.findOne({ _id: req.params.id });
+        const singleOrderItem = await Product.findOne({ _id: req.params.id });
         return res.status(200).json(singleOrderItem);
     } catch (e) {
         return res.status(500).json(e.message);
     }
 };
 
-exports.AddProduct = async(req, res) => {
+exports.addProduct = async(req, res) => {
     try {
-        const { name, description, richDescription, countingStock } = req.body; //required
         const {
+            name,
+            description,
+            richDescription,
+            countingStock,
             image,
             images,
             brand,
@@ -32,9 +36,9 @@ exports.AddProduct = async(req, res) => {
             rating,
             isFeatured,
             dateCreated,
+            // category
         } = req.body;
-        // const { category } = req.body;
-        const newname = new product({
+        const newname = new Product({
             name,
             description,
             richDescription,
@@ -61,8 +65,11 @@ exports.AddProduct = async(req, res) => {
 
 exports.updateProduct = async(req, res) => {
     try {
-        const { name, description, richDescription, countingStock } = req.body; //required
         const {
+            name,
+            description,
+            richDescription,
+            countingStock,
             image,
             images,
             brand,
@@ -71,9 +78,9 @@ exports.updateProduct = async(req, res) => {
             rating,
             isFeatured,
             dateCreated,
+            // category
         } = req.body;
-        // const { category } = req.body;
-        product.findByIdAndUpdate(
+        Product.findByIdAndUpdate(
             req.params.id, {
                 name,
                 description,
@@ -98,9 +105,22 @@ exports.updateProduct = async(req, res) => {
     }
 };
 
+exports.updateProduct = async(req, res) => {
+    try {
+        const newname = await product.findByIdAndUpdate(req.params.id,
+            req.body, { new: true })
+        if (!newname) {
+            return res.status(404).send()
+        }
+        res.status(200).send(newname)
+    } catch (e) {
+        return res.status(500).json({ error: e.message });
+    }
+};
+
 exports.deleteProduct = async(req, res) => {
     try {
-        const prod = await product.findByIdAndRemove(req.params.id);
+        const prod = await Product.findByIdAndRemove(req.params.id);
         return res.status(200).json(prod);
     } catch (e) {
         return res.status(500).json(e.message);

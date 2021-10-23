@@ -2,9 +2,14 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
+<<<<<<< HEAD
+const ProductRouter = require("./routers/ProductRouter");
+const OrderItemRouter = require("./routers/OrderItemRouter");
+=======
 const ordersRouter = require("./routers/orders")
 const ProductRouter = require("./router/productRouter");
 const OrderItemRouter = require("./router/OrderItemRouter");
+>>>>>>> fc36d373ca73ba0748d83f9649426c651c937707
 
 const app = express();
 require("dotenv/config");
@@ -36,7 +41,9 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
-app.use(`${api}/productRouter`, ProductRouter);
+
+//routers middleware
+app.use(`${api}/ProductRouter`, ProductRouter);
 app.use(`${api}/OrderItemRouter`, OrderItemRouter);
 
 app.listen(3000, () => {
