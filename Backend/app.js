@@ -2,6 +2,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
+const ProductRouter = require("./router/productRouter");
+ 
 
 
 
@@ -14,6 +16,7 @@ app.use(cors());
 app.options("*", cors());
 
 //middlewares
+
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
@@ -28,6 +31,9 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
+    // routes
+    app.use(`${api}/productRouter`,ProductRouter);
+
 
 app.listen(3000, () => {
     console.log("Server is running http://localhost:3000");
