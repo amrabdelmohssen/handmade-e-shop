@@ -1,18 +1,24 @@
-let express = require("express");
-let ProductRouter = express.Router();
-let mongoose = require("mongoose");
-let ProductController = require("../controllers/ProductController");
+let express=require("express");
+let ProductRouter=express.Router();
+let mongoose=require("mongoose");
+let productController=require("../controler/productControler");
 require("../models/Product");
-let ProductsSchema = mongoose.model("Products");
+let  productSchema=mongoose.model("products");
 
-ProductRouter.route("/")
-    .get(ProductController.addProduct)
-    .post(ProductController.addProduct);
+ProductRouter
+.route('/')
+.get(productController.getProducts)
+.post(productController.addProduct)
 
-ProductRouter.route("/:id")
-    .get(ProductController.getOneProduct)
-    .post(ProductController.updateProduct);
+ProductRouter
+.route('/:id')
+.get(productController.getOneProduct)
+.post(productController.updateProduct)
 
-ProductRouter.route("/:id").delete(ProductController.deleteProduct);
+ProductRouter
+.route('/:id')
+.delete(productController.deleteProduct)
 
-module.exports = ProductRouter;
+module.exports=ProductRouter
+
+

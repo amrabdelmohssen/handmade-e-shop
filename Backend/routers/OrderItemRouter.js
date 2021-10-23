@@ -3,7 +3,7 @@ let OrderItemRouter = express.Router();
 let mongoose = require("mongoose");
 let OrderItemController = require("../controllers/OrderItemController");
 require("../models/Product");
-let OrderItemSchema = mongoose.model("OrderItem");
+// let OrderItemSchema = mongoose.model("OrderItem");
 
 OrderItemRouter
     .route('/')

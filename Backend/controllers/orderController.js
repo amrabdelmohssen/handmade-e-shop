@@ -1,10 +1,13 @@
 const Order = require('../models/Order')
 
-exports.createOrder =async (req, res) => {
+exports.createOrder = async (req, res) => {
 
     console.log(req.body)
     try{
-      const {shippingAddressOne,
+      const {
+            user,
+            orderItems,
+            shippingAddressOne,
             shippingAddressTwo,
             city,
             zipCode,
@@ -13,6 +16,8 @@ exports.createOrder =async (req, res) => {
             status,
             totalPrice}=req.body
       const newOrder = new Order({
+          user,
+          orderItems,
          shippingAddressOne,
          shippingAddressTwo,
          city,
@@ -28,22 +33,37 @@ exports.createOrder =async (req, res) => {
       }
       return res.status(201).json(order)
     }catch(error){
-    return  res.status(500).json({error:error.message});
+    return res.status(500).json({error:error.message});
     }
   }
   
 
 exports.getAllOrders = async(req,res)=>{
     try{
-         const order = await Order.find({})
+        const order = await Order.find({})
         return res.status(200).json(order)
-
     }catch(error){
-
         return res.status(500).json(error.message)
-
     }
 }
+
+exports.getAllOrdersByPagenation = async(req,res)=>{
+  try{
+
+      const {page = 1  , limit = 20} = req.query;
+       const order = await Order.find({})
+                                .limit(limit*1)
+                                .skip((page - 1) * limit)
+      return res.status(200).json(order)
+
+  }catch(error){
+
+      return res.status(500).json(error.message)
+
+  }
+}
+
+
 
 
 exports.getOneOrder = async (req, res) => {
@@ -58,16 +78,43 @@ exports.getOneOrder = async (req, res) => {
 
 
 exports.updateOrder= async (req,res)=>{
-  
-    try{
-        Order.findByIdAndUpdate(req.params.id,{ 
-            city:req.body.city,
-            
-           },{new:true})
+      try{
+        const {
+          user,
+          orderItems,
+          shippingAddressOne,
+          shippingAddressTwo,
+          city,
+          zipCode,
+          country,
+          phone,
+          status,
+          totalPrice}=req.body               
 
-        const orderUpdated= await newname.save()
-        return res.status(200).json(orderUpdated)
+
+          const orderUpdate= await Order.findByIdAndUpdate(req.params.id,{
+            user,
+            orderItems,
+            shippingAddressOne,
+            shippingAddressTwo,
+            city,
+            zipCode,
+            country,
+            phone,
+            status,
+            totalPrice,
+          }
+          ,{new:true})
+
+          if(!orderUpdate){
+            return res.status(404).send();
+          }
+          res.status(200).send(orderUpdate);
       }
+
+      
+
+
       catch(error){
       return  res.status(500).json({error:error.message});
       }
