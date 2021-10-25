@@ -1,132 +1,68 @@
-const Order = require('../models/Order')
+const Order = require("../models/Order");
+const catchAsync = require("../utils/catchAsync");
+const factory = require("./handlerFactory.js");
+const AppError = require("../utils/appError");
+const Orderitem = require("../models/Orderitem");
 
-exports.createOrder = async (req, res) => {
+exports.getAllOrders = factory.getAll(Order);
+exports.getOneOrder = factory.getOne(Order);
+exports.updateOrder = factory.UpdateOne(Order);
+exports.deleteOrder = factory.deleteOne(Order);
+exports.createOrder = catchAsync(async (req, res, next) => {
+    const { user, orderItems, shippingAddressOne, shippingAddressTwo, city, zipCode, country, phone, status, totalPrice } = req.body;
+    const orderItemIds = Promise.all(
+        orderItems.map(async (orderItem) => {
+            let newOrderItem = new Orderitem({ quantity: orderItem.quantity, product: orderItem.product });
+            newOrderItem = await newOrderItem.save();
+            return newOrderItem._id;
+        })
+    );
+    const orderItemsIdsResolved = await orderItemIds;
 
-    console.log(req.body)
-    try{
-      const {
-            user,
-            orderItems,
-            shippingAddressOne,
-            shippingAddressTwo,
-            city,
-            zipCode,
-            country,
-            phone,
-            status,
-            totalPrice}=req.body
-      const newOrder = new Order({
-          user,
-          orderItems,
-         shippingAddressOne,
-         shippingAddressTwo,
-         city,
-         zipCode,
-         country,
-         phone,
-         status,
-         totalPrice,
-      });
-      const order = await newOrder.save()
-      if(!order){
-          throw new Error("order can not be created")
-      }
-      return res.status(201).json(order)
-    }catch(error){
-    return res.status(500).json({error:error.message});
+    const newOrder = await Order.create({
+        user,
+        orderItems: orderItemsIdsResolved,
+        shippingAddressOne,
+        shippingAddressTwo,
+        city,
+        zipCode,
+        country,
+        phone,
+        status,
+        totalPrice,
+    });
+
+    return res.status(201).json({
+        status: "success",
+        data: {
+            data: newOrder,
+        },
+    });
+});
+
+exports.getTotalSales = catchAsync(async (req, res, next) => {
+    const totalSales = await Order.aggregate([{ $group: { _id: null, totalsales: { $sum: "$totalPrice" } } }]);
+    if (!totalSales) {
+        return next(new AppError("The order Sales Cannot be Generated", 400));
     }
-  }
-  
+    res.status(200).json({ status: "success", data: { data: totalSales.pop().totalsales } });
+});
 
-exports.getAllOrders = async(req,res)=>{
-    try{
-        const order = await Order.find({})
-        return res.status(200).json(order)
-    }catch(error){
-        return res.status(500).json(error.message)
+exports.getNumberOfOrders = catchAsync(async (req, res, next) => {
+    const orderCount = await Order.countDocuments();
+    if (!orderCount) return next(new AppError("There's No orders yet", 500));
+
+    res.status(200).json({ status: "success", data: { data: orderCount } });
+});
+
+exports.getUserOrders = catchAsync(async (req, res, next) => {
+    const userOrderList = await Order.find({ user: req.params.id })
+    .populate({ path: "orderItems", populate: { path: "product", populate: "category" } })
+    .sort({ dateOrdered: -1 });
+
+    if (userOrderList.length == 0) {
+        return next(new AppError("There's No orders for this user", 500));
     }
-}
 
-exports.getAllOrdersByPagenation = async(req,res)=>{
-  try{
-
-      const {page = 1  , limit = 20} = req.query;
-       const order = await Order.find({})
-                                .limit(limit*1)
-                                .skip((page - 1) * limit)
-      return res.status(200).json(order)
-
-  }catch(error){
-
-      return res.status(500).json(error.message)
-
-  }
-}
-
-
-
-
-exports.getOneOrder = async (req, res) => {
-    try{
-        const oneOrder = await Order.findOne({_id:req.params.id});
-        return res.status(200).json(oneOrder);
-      }catch(error){
-        return res.status(500).json(error.message);
-      }
-  };
-  
-
-
-exports.updateOrder= async (req,res)=>{
-      try{
-        const {
-          user,
-          orderItems,
-          shippingAddressOne,
-          shippingAddressTwo,
-          city,
-          zipCode,
-          country,
-          phone,
-          status,
-          totalPrice}=req.body               
-
-
-          const orderUpdate= await Order.findByIdAndUpdate(req.params.id,{
-            user,
-            orderItems,
-            shippingAddressOne,
-            shippingAddressTwo,
-            city,
-            zipCode,
-            country,
-            phone,
-            status,
-            totalPrice,
-          }
-          ,{new:true})
-
-          if(!orderUpdate){
-            return res.status(404).send();
-          }
-          res.status(200).send(orderUpdate);
-      }
-
-      
-
-
-      catch(error){
-      return  res.status(500).json({error:error.message});
-      }
-};
-
-exports.deleteOrder = async(req, res) => {
-    try{
-        const deleteOrder = await Order.findByIdAndRemove(req.params.id);
-        return res.status(200).json(deleteOrder);
-      }catch(error){
-        return res.status(500).json(error.message);
-      }
-}; 
-
-
+    res.status(200).json({ status: "success", data: { data: userOrderList } });
+});

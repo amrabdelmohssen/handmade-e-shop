@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 
-const product = require("./Product");
-
 const OrderItemSchema = mongoose.Schema({
-    product: [{
+    product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
-        required: true
-    }],
+    },
     quantity: {
         type: Number,
         required: true,

@@ -2,9 +2,13 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-const ordersRouter = require("./routers/orders")
-const ProductRouter = require("./router/productRouter");
-const OrderItemRouter = require("./router/OrderItemRouter");
+const path = require("path");
+const ordersRouter = require("./routers/orders");
+const productRouter = require("./routers/ProductRouter");
+const userRouter = require("./routers/userRouter");
+const categoryRouter = require("./routers/categoryRouter");
+const globalErrorHandler = require('./controllers/errorController.js');
+
 const app = express();
 require("dotenv/config");
 const api = process.env.API_URL;
@@ -16,14 +20,7 @@ app.options("*", cors());
 
 app.use(express.json());
 app.use(morgan("tiny"));
-app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
-
-
-
-// orders routers
-app.use(`${api}/orders`,ordersRouter)
-
-
+app.use(express.static(path.join(__dirname, "public")));
 
 mongoose
     .connect(process.env.CONNECTION_STRING, {
@@ -36,15 +33,13 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
-    // routes
-    app.use(`${api}/productRouter`,ProductRouter);
 
-
-//routers middleware
-app.use(`${api}/ProductRouter`, ProductRouter);
-app.use(`${api}/OrderItemRouter`, OrderItemRouter);
-
+// routes
+app.use(`${api}/products`, productRouter);
+app.use(`${api}/categories`, categoryRouter);
+app.use(`${api}/orders`, ordersRouter);
+app.use(`${api}/users`, userRouter);
+app.use(globalErrorHandler)
 app.listen(3000, () => {
     console.log("Server is running http://localhost:3000");
 });
-

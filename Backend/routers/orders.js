@@ -7,7 +7,7 @@ const OrderSchema = mongoose.model("Order");
 
 orderRouter
 .route('/')
- .get(orderController.getAllOrders)
+.get(orderController.getAllOrders)
 .post(orderController.createOrder)
 
 orderRouter
@@ -16,10 +16,9 @@ orderRouter
 .put(orderController.updateOrder)
 .delete(orderController.deleteOrder)
 
-// pagenation
-// orderRouter
-// .route('/')
-// .get(orderController.getAllOrdersByPagenation)
+orderRouter.get("/get/totalsales", orderController.getTotalSales);
+orderRouter.get("/get/count", orderController.getNumberOfOrders);
+orderRouter.get("/get/userorders/:id", orderController.getUserOrders);
 
 
 module.exports = orderRouter
