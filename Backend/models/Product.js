@@ -42,9 +42,8 @@ const productSchema = mongoose.Schema({
     required: true,
   },
 
-  countinStock: {
+  countInStock: {
     type: Number,
-
     required: true,
   },
   rating: {
@@ -69,4 +68,4 @@ productSchema.virtual("id").get(function () {
 });
 productSchema.set("toJSON", { virtuals: true });
 
-module.exports = mongoose.model("products", productSchema);
+module.exports = mongoose.model("Product", productSchema);
