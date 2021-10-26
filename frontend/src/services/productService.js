@@ -1,7 +1,10 @@
 import http from "../utils/http";
 
+const getOne = (id) => {
+    return http.get(`/products/${id}`);
+};
 const ProductService = {
-    // getAll
+    getOne,
 };
 
 export default ProductService;
