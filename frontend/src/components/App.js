@@ -1,5 +1,15 @@
+
+
+import{mycard}from"./Mycard"
+
+
 function App() {
+
     return <div>
+       
+     <Mycard/>
+
+        
       
     </div>;
 }
