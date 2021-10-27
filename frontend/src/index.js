@@ -1,17 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-// import './index.css';
-import App from './components/App';
-import 'bootstrap/dist/css/bootstrap.css';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import reportWebVitals from "./reportWebVitals";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import reducer from "./reducers/combineReducers";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { composeWithDevTools } from "redux-devtools-extension";
 
+const middleware = [thunk];
+
+const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+const initialState = {
+    cartReducer: { cartItems: cartItemsFromStorage },
+};
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

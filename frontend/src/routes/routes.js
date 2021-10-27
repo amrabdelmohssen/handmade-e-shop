@@ -1,8 +1,11 @@
-import { Route } from "react-router-dom"; 
-export function Routes(){
-    return(
+import { Route } from "react-router-dom";
+import productDetail from "../pages/productDetail/productDetail";
+import Cart from "../pages/cart/cart";
+export function Routes() {
+    return (
         <div>
-            {/* <Route path="/" exact component={ListProducts}/> */}
+            <Route path="/product/:id" exact component={productDetail} />
+            <Route path="/cart/:id?" exact component={Cart} />
         </div>
-    )
+    );
 }
