@@ -1,14 +1,15 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes } from "../routes/routes";
-import {Card} from "./card/card"
-
+import ListProducts from "./listProducts/listProducts";
 function App() {
-    return (
-        // <Router>
-        //     <Routes />
-        // </Router>
-        <Card/>
-    );
+  return (
+    <>
+      <Router>
+        <Routes />
+      </Router>
+      <ListProducts />
+    </>
+  );
 }
 
 export default App;
