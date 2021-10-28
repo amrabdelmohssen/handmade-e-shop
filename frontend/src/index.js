@@ -7,8 +7,15 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import reducer from "./reducers/combineReducers";
 import "bootstrap/dist/css/bootstrap.min.css";
-const store = createStore(reducer, applyMiddleware(thunk));
+import { composeWithDevTools } from "redux-devtools-extension";
 
+const middleware = [thunk];
+
+const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+const initialState = {
+    cartReducer: { cartItems: cartItemsFromStorage },
+};
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 ReactDOM.render(
     <Provider store={store}>
         <App />

@@ -1,28 +1,27 @@
-import { Container, Col, Row, Carousel } from "react-bootstrap";
-import React, { useEffect } from "react";
+import { Container, Col, Row, Carousel, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Field, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as starOutline } from "@fortawesome/free-regular-svg-icons";
 import { Parser } from "html-to-react";
-import { useParams } from "react-router-dom";
 import { getProduct } from "../../actions/productAction";
 import "./productDetail.scss";
-function ProductDetail() {
-    let initialValues = {
-        counter: "1",
-    };
+
+
+function ProductDetail({ match, history }) {
+    const [qty, setQty] = useState(1);
     const { productReducer: product } = useSelector((state) => state);
     const dispatch = useDispatch();
-    const { id } = useParams();
     useEffect(() => {
-        if (id) {
-            dispatch(getProduct(id));
+        if (match.params.id) {
+            dispatch(getProduct(match.params.id));
         }
-    }, [dispatch, id]);
+    }, [dispatch, match.params.id]);
     console.log(product);
-    const addProductToCart = () => {};
+    const addProductToCart = () => {
+        history.push(`/cart/${match.params.id}?qty=${qty}`);
+    };
 
     return (
         <div className="product-grid">
@@ -57,32 +56,18 @@ function ProductDetail() {
                                 <div className="product-quantity ">
                                     <label htmlFor="quantity">Quantity</label>
                                     <br />
-                                    <Formik initialValues={initialValues} enableReinitialize={true}>
-                                        {(formik) => {
-                                            return (
-                                                <Form>
-                                                    <Field
-                                                        className="number"
-                                                        id="quantity"
-                                                        type="number"
-                                                        min="1"
-                                                        step="1"
-                                                        onClick={(e) => {
-                                                            formik.setFieldValue("counter", `${e.target.value}`);
-                                                        }}
-                                                        onKeyUp={(e) => {
-                                                            formik.setFieldValue("counter", `${e.target.value}`);
-                                                        }}
-                                                        name="counter"
-                                                    ></Field>
-                                                </Form>
-                                            );
-                                        }}
-                                    </Formik>
+                                    {product.data.data.countInStock > 0 && (
+                                        <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
+                                            {[...Array(product.data.data.countInStock).keys()].map((x) => (
+                                                <option key={x + 1} value={x + 1}>
+                                                    {x + 1}
+                                                </option>
+                                            ))}
+                                        </Form.Control>
+                                    )}
                                 </div>
                                 <br />
                                 <div className="product-actions">
-                                    <button className="btn btn-primary me-3">Buy Now</button>
                                     <button className="btn btn-primary" onClick={addProductToCart}>
                                         Add to Cart
                                     </button>
