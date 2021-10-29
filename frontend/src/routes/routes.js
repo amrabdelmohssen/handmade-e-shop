@@ -5,7 +5,7 @@ export function Routes() {
     return (
         <div>
             <Route path="/product/:id" exact component={productDetail} />
-            <Route path="/cart/:id?" exact component={Cart} />
+            <Route path="/cart/:id?" exact component={Cart}/>
         </div>
     );
 }
