@@ -1,20 +1,22 @@
 import './social.css'
+import {Link} from "react-router-dom";
+
 export function Socail (){
     return(
         <>
         <article className='social-rticle'>
-            <a>
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a>
-                <i class="fab fa-facebook px-3"></i>
-            </a>
-            <a>
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a>
-                <i class="fab fa-youtube px-3"></i>
-            </a>
+            <Link to={""}>
+                <i className="fab fa-twitter"></i>
+            </Link>
+            <Link to={""}>
+                <i className="fab fa-facebook px-3"></i>
+            </Link>
+            <Link to={""}>
+                <i className="fab fa-instagram"></i>
+            </Link>
+            <Link to={""}>
+                <i className="fab fa-youtube px-3"></i>
+            </Link>
             </article>
 
 

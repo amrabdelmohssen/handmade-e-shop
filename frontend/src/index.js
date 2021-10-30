@@ -13,8 +13,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 const middleware = [thunk];
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : [];
+
 const initialState = {
     cartReducer: { cartItems: cartItemsFromStorage },
+    userLoginReducer: { userInfo: userInfoFromStorage },
 };
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 ReactDOM.render(

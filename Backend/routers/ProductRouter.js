@@ -9,6 +9,8 @@ ProductRouter.route("/").get(productController.getProducts).post(productControll
 
 ProductRouter.route("/:id").get(productController.getOneProduct).put(productController.updateProduct);
 
+ProductRouter.route("/category/:id").get(productController.getProductsByCategory);
+
 ProductRouter.route("/:id").delete(productController.deleteProduct);
 
 ProductRouter.get(`/get/count`, productController.getNumberOfProducts);
