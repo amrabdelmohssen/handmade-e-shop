@@ -1,0 +1,52 @@
+$mainColor :#FDEBD2;
+
+.nav-item{
+
+   
+    .nav-links{
+        font-weight: bold;
+        background: linear-gradient(to left, white 50%, $mainColor 50%) right;
+        background-size: 200%;
+        color: black;
+
+    
+        &:hover{
+            background-position: left;
+            transition: all 0.5s ;
+                   
+    
+            
+        }
+    
+
+    }
+    
+ 
+}
+
+.navBar-search-button{
+    background-color: white;
+    border: 1px solid $mainColor;
+    border-radius: 8px;
+
+   
+    &:hover{
+        background-color: $mainColor;
+    }
+    
+
+}
+.form-control{
+    border: $mainColor solid 1px !important;
+    &:focus{
+        outline: $mainColor solid 5px !important;
+        border: $mainColor solid 1px !important;
+        box-shadow: none !important;
+    }
+    
+
+}
+
+
+
+

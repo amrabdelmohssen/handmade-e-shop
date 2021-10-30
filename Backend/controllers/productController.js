@@ -3,12 +3,21 @@ const Category = require("../models/Category");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./handlerFactory.js");
 const AppError = require("../utils/appError");
+const APIFeatures = require('../utils/APIFeatures.js');
 
 exports.getProducts = factory.getAll(Product);
 exports.getOneProduct = factory.getOne(Product);
 exports.updateProduct = factory.UpdateOne(Product);
 exports.deleteProduct = factory.deleteOne(Product);
 
+exports.getProductsByCategory = catchAsync(async (req, res, next) => {
+    let products = new APIFeatures(Product.find(), req.query).filter().sort().limitfields().paginate();
+    products = await products.query;
+
+    // let products = await Product.find({ category: req.params.id });
+    if (!products) return next(new AppError("There's No Products For this Category", 500));
+    res.status(200).json({ status: "success", data: { data: products } });
+});
 exports.addProduct = catchAsync(async (req, res, next) => {
     let { name, description, richDescription, image, brand, price, category, countInStock, rating, numReviews, isFeatured } = req.body;
     console.log(req.body);
@@ -43,7 +52,7 @@ exports.getNumberOfProducts = catchAsync(async (req, res, next) => {
     res.status(200).json({ status: "success", data: { data: productCount } });
 });
 
-exports.getFeaturedProducts = catchAsync(async (req, res,next) => {
+exports.getFeaturedProducts = catchAsync(async (req, res, next) => {
     let products;
     if (req.params.count) {
         products = await Product.find({
@@ -56,5 +65,4 @@ exports.getFeaturedProducts = catchAsync(async (req, res,next) => {
     }
     if (!products) return next(new AppError("There's No Featured Products yet", 500));
     res.status(200).json({ status: "success", data: { data: products } });
-
 });

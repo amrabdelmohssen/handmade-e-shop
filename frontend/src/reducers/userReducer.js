@@ -1,6 +1,14 @@
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_LOGOUT } from "../actions/types";
+import {
+    USER_LOGIN_REQUEST,
+    USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAIL,
+    USER_LOGIN_LOGOUT,
+    USER_REGISTER_FAIL,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS,
+} from "../actions/types";
 
-function userLoginReducer(state = {}, action) {
+export function userLoginReducer(state = {}, action) {
     switch (action.type) {
         case USER_LOGIN_REQUEST:
             return { loading: true };
@@ -15,4 +23,15 @@ function userLoginReducer(state = {}, action) {
     }
 }
 
-export default userLoginReducer;
+export function userRegisterReducer(state = {}, action) {
+    switch (action.type) {
+        case USER_REGISTER_REQUEST:
+            return { loading: true };
+        case USER_REGISTER_SUCCESS:
+            return { loading: false, userInfo: action.payload };
+        case USER_REGISTER_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
