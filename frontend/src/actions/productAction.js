@@ -14,9 +14,9 @@ export const getProduct = (i) => async(dispatch) => {
     }
 };
 
-export const getProducts = (i) => async(dispatch) => {
+export const getProducts = () => async(dispatch) => {
     try {
-        const res = await ProductService.getAll(i);
+        const res = await ProductService.getAll();
         dispatch({
             type: GET_PRODUCTS,
             payload: res.data,
