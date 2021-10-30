@@ -9,7 +9,7 @@ import {
 } from "./types";
 import UserService from "../services/userService";
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password) => async(dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST,
@@ -28,7 +28,8 @@ export const login = (email, password) => async (dispatch) => {
             payload: res,
         });
 
-        localStorage.setItem("userInfo", JSON.stringify(res));
+        localStorage.setItem("userInfo", JSON.stringify(res)); //res is res.data
+        //add cookie
     } catch (err) {
         dispatch({
             type: USER_LOGIN_FAIL,
@@ -37,12 +38,13 @@ export const login = (email, password) => async (dispatch) => {
     }
 };
 
-export const logout = () => (dispatch) => {
-    localStorage.removeItem("userInfo");
+export const logout = () => (dispatch) => { //delete cookie
+    localStorage.removeItem("userInfo"); //remove line 
+    //TODO add line delete cookie
     dispatch({ type: USER_LOGIN_LOGOUT });
 };
 
-export const register = (name, email, password, passwordConfirm) => async (dispatch) => {
+export const register = (name, email, password, passwordConfirm) => async(dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST,
@@ -67,6 +69,7 @@ export const register = (name, email, password, passwordConfirm) => async (dispa
         });
 
         localStorage.setItem("userInfo", JSON.stringify(res));
+        // TODO add cookie
     } catch (err) {
         dispatch({
             type: USER_REGISTER_FAIL,
