@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Search } from "../search/search";
 import { useDispatch, useSelector } from "react-redux";
 import {logout} from "../../actions/userAction"
-import "./navbar.css";
+import "./navbar.scss";
 export function Navbar() {
     const userLogin = useSelector((state) => state.userLoginReducer);
     const { userInfo } = userLogin;
