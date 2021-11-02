@@ -1,4 +1,8 @@
-import { GET_PRODUCT, GET_PRODUCTS } from "./types";
+import {
+    GET_PRODUCT,
+    GET_PRODUCTS,
+    GET_PRODUCTS_BY_CATEGORY_ID,
+} from "./types";
 
 import ProductService from "../services/productService";
 
@@ -19,6 +23,18 @@ export const getProducts = () => async(dispatch) => {
         const res = await ProductService.getAll();
         dispatch({
             type: GET_PRODUCTS,
+            payload: res.data,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getProductsByCategoryId = (id) => async(dispatch) => {
+    try {
+        const res = await ProductService.getAllByCategoryId(id);
+        dispatch({
+            type: GET_PRODUCTS_BY_CATEGORY_ID,
             payload: res.data,
         });
     } catch (err) {

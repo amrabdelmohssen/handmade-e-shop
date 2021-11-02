@@ -13,6 +13,9 @@ function App() {
             <Routes />
             <Footer/>
         </Router>
+        // <>
+        // <ListProducts/>
+        // </>
     );
 }
 
