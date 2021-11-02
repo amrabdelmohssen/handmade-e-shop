@@ -10,6 +10,13 @@ body {
     font-family: "Manrope", sans-serif;
 }
 
+#name-display {
+    // display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .mydiv {
     margin-top: 50px;
     margin-bottom: 50px;
