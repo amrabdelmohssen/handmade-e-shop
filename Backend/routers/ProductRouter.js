@@ -7,9 +7,12 @@ let productSchema = mongoose.model("Product");
 
 ProductRouter.route("/").get(productController.getProducts).post(productController.addProduct);
 
+ProductRouter.route("/search").get(productController.searchProduct);
+
 ProductRouter.route("/:id").get(productController.getOneProduct).put(productController.updateProduct);
 
 ProductRouter.route("/category/:id").get(productController.getProductsByCategory);
+
 
 ProductRouter.route("/:id").delete(productController.deleteProduct);
 

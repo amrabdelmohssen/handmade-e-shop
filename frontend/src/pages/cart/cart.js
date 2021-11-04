@@ -6,6 +6,7 @@ import { Container, Row, Col, ListGroup, Image, Form, Button, Card } from "react
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { addToCart, removeFromCart } from "../../actions/cartAction";
+import { ProductSearch } from "../productSearch/productSearch";
 import "./cart.scss";
 
 function Cart({ match, location, history }) {
@@ -32,6 +33,9 @@ function Cart({ match, location, history }) {
         history.push("/login?redirect=shipping");
     };
     return (
+      <>
+<ProductSearch/>
+  
         <Container>
             <Row>
                 <Col md={8}>
@@ -95,7 +99,9 @@ function Cart({ match, location, history }) {
                 </Col>
             </Row>
         </Container>
+      </>  
     );
+
 }
 
 export default Cart;

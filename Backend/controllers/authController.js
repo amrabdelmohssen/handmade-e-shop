@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/User.js");
 const AppError = require("../utils/appError.js");
 const catchAsync = require("../utils/catchAsync.js");
-const { token } = require("morgan");
 
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.SECRET, {
@@ -15,7 +14,7 @@ const signToken = (id) => {
 const createSendToken = (user, statusCode, req, res) => {
     const token = signToken(user._id);
     res.cookie("jwt", token, {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRESIN * 60 * 60 * 1000),
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRESIN * 24 * 60 * 60 * 1000),
         httpOnly: true,
         secure: req.secure || req.headers["x-forwarded-proto"] === "https",
     });
@@ -84,7 +83,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
     //2)verificate token
     const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
-    
+
     //3)check if user still exist (may be deleted)
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) return next(new AppError("the token does no loner exist.", 401));
@@ -128,7 +127,6 @@ exports.isLoggedIn = async (req, res, next) => {
 
 exports.restrictTo = (role) => {
     return (req, res, next) => {
-        //roles is an array
         if (req.user.isAdmin !== role) {
             return next(new AppError(`You don't have a permission to perform this action`, 403));
         }
@@ -153,7 +151,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     try {
         const resetURL = `${req.protocol}://${req.get("host")}/api/v1/user/resetPassword/${resetToken}`;
 
-        // await new Email(user, resetURL).sendPasswordReset();
+        await new Email(user, resetURL).sendPasswordReset();
 
         res.status(200).json({
             status: "success",
@@ -187,7 +185,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     await user.save();
 
     //3)update changedPasswordAt property for the user
-
     //4)log the user in,send JWT to clients
     createSendToken(user, 200, req, res);
 });

@@ -1,6 +1,6 @@
 import { InfoFooter } from "./informationFooter/infoFooter";
 import { CopyRightAndSoial } from "./soialAndCopyRight/copyRightandSocial";
-import'./footer.css'
+import'./footer.scss'
 
 export function Footer(){
     return(

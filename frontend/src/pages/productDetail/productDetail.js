@@ -7,6 +7,7 @@ import { faStar as starOutline } from "@fortawesome/free-regular-svg-icons";
 import { Parser } from "html-to-react";
 import { getProduct } from "../../actions/productAction";
 import "./productDetail.scss";
+import { ProductSearch } from "../productSearch/productSearch";
 
 
 function ProductDetail({ match, history }) {
@@ -24,6 +25,8 @@ function ProductDetail({ match, history }) {
     };
 
     return (
+        <>
+        <ProductSearch/>
         <div className="product-grid">
             <Container>
                 {product.length !== 0 && (
@@ -83,6 +86,7 @@ function ProductDetail({ match, history }) {
                 )}
             </Container>
         </div>
+      </>  
     );
 }
 
