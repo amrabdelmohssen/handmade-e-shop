@@ -1,7 +1,10 @@
+
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import './search.css'
 import { ProductSearch } from '../../pages/productSearch/productSearch'
+
+import './search.scss'
+
 export function Search(){
 
     const[productName,setProductName] = useState("")

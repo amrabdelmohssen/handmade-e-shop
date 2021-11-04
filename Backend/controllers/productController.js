@@ -3,7 +3,7 @@ const Category = require("../models/Category");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./handlerFactory.js");
 const AppError = require("../utils/appError");
-const APIFeatures = require('../utils/APIFeatures.js');
+const APIFeatures = require("../utils/APIFeatures.js");
 
 exports.getProducts = factory.getAll(Product);
 exports.getOneProduct = factory.getOne(Product);
@@ -14,7 +14,6 @@ exports.getProductsByCategory = catchAsync(async (req, res, next) => {
     let products = new APIFeatures(Product.find(), req.query).filter().sort().limitfields().paginate();
     products = await products.query;
 
-    // let products = await Product.find({ category: req.params.id });
     if (!products) return next(new AppError("There's No Products For this Category", 500));
     res.status(200).json({ status: "success", data: { data: products } });
 });
@@ -42,6 +41,18 @@ exports.addProduct = catchAsync(async (req, res, next) => {
         status: "success",
         data: {
             data: product,
+        },
+    });
+});
+
+exports.searchProduct = catchAsync(async (req, res, next) => {
+    const products = await Product.find({ name: { $regex: req.query.name } });
+    if (!products) return next(new AppError("No Products Found", 500));
+    return res.status(201).json({
+        status: "success",
+        results: products.length,
+        data: {
+            data: products,
         },
     });
 });

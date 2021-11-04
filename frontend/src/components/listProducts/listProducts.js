@@ -1,9 +1,9 @@
 import "../card/card.scss";
 import { Card } from "../card/card";
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../../actions/productAction";
+import { getProducts,getProductsByCategoryId } from "../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
-const ListProducts = () => {
+const ListProducts = ({ match }) => {
   const [dataState, setDataState] = useState([]);
   const [sortType, setSortType] = useState("sort");
   const [filterType, setFilterType] = useState("filterBrand");
@@ -11,9 +11,13 @@ const ListProducts = () => {
   const products = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts());
+    if(match.params.id){
+      dispatch(getProductsByCategoryId(match.params.id))
+    }
+    // dispatch(getProducts());
+    console.log(typeof match.params.id," ",match.params.id);
     // setDataState(products.productReducer.data.data)
-  }, [dispatch]);
+  }, [dispatch,match.params.id]);
   // console.log(products.productReducer.length !== 0);
   // console.log(typeof products.productReducer !== "undefined");
   // console.log(products.productReducer);//w
@@ -73,7 +77,7 @@ const ListProducts = () => {
 
   //   filterArray(filterType);
   // }, [filterType]);
-  
+
   return (
     <>
       {products.productReducer.length !== 0 &&

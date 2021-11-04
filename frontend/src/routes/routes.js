@@ -4,6 +4,8 @@ import Cart from "../pages/cart/cart";
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
 import { Home } from "../pages/home/home";
+import ListProducts from "../components/listProducts/listProducts";
+
 import { ProductSearch } from "../pages/productSearch/productSearch";
 export function Routes() {
     return (
@@ -17,4 +19,6 @@ export function Routes() {
             <Route path="/" exact component={Home} />
         </div>
     );
+
+
 }

@@ -1,9 +1,19 @@
-import { GET_PRODUCTS, POST_PRODUCTS, UPDATE_PRODUCTS, DELETE_PRODUCTS, GET_PRODUCT } from "../actions/types";
+import {
+    GET_PRODUCTS,
+    POST_PRODUCTS,
+    UPDATE_PRODUCTS,
+    DELETE_PRODUCTS,
+    GET_PRODUCT,
+    GET_PRODUCTS_BY_CATEGORY_ID,
+} from "../actions/types";
 
 function productReducer(products = [], action) {
     const { type, payload } = action;
     switch (type) {
         case GET_PRODUCTS:
+            return payload;
+
+        case GET_PRODUCTS_BY_CATEGORY_ID:
             return payload;
 
         case POST_PRODUCTS:
