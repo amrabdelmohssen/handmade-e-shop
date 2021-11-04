@@ -10,7 +10,6 @@ export function Routes() {
         <div>
             <Route path="/product/:id" exact component={productDetail} />
             <Route path="/productSearch" exact component={ProductSearch} />
-
             <Route path="/cart/:id?" exact component={Cart} />
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />

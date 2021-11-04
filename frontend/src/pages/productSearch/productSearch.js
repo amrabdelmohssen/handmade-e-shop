@@ -5,7 +5,7 @@ import { searchAction } from "../../actions/searchAction";
 import "./poroductSearch.scss";
 import ProductRate from "../../components/rating/rating";
 
-export  function ProductSearch({ ProdName }) {
+export  function ProductSearch() {
   const { searchReducer: searchProducts } = useSelector((state) => state);
 
 
