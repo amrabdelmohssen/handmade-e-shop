@@ -7,40 +7,41 @@ import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
 const Shipping = ({ history }) => {
     const cart = useSelector((state) => state.cartReducer);
     const { shippingAddress } = cart;
-    const [street, setStreet] = useState(shippingAddress.street);
-    const [apartment, setApartment] = useState(shippingAddress.Appartment);
+    const [shippingAddressOne, setShippingAddressOne] = useState(shippingAddress.shippingAddressOne);
+    const [shippingAddressTwo, setShippingAddressTwo] = useState(shippingAddress.shippingAddressTwo);
     const [city, setCity] = useState(shippingAddress.city);
     const [country, setCountry] = useState(shippingAddress.country);
+    const [phone, setPhone] = useState(shippingAddress.phone);
 
     const dispatch = useDispatch();
 
     const submitForm = (e) => {
         e.preventDefault();
-        dispatch(saveShippingAddress({ street, apartment, city, country }));
+        dispatch(saveShippingAddress({ shippingAddressOne, shippingAddressTwo, city, country, phone }));
         history.push("/payment");
     };
     return (
         <FormContainer>
-            <CheckoutSteps step1 step2/>
+            <CheckoutSteps step1 step2 />
             <h1>Shipping</h1>
             <Form onSubmit={submitForm}>
-                <Form.Group controlId="street">
-                    <Form.Label>Street</Form.Label>
+                <Form.Group controlId="shippingAddressOne">
+                    <Form.Label>Shipping Address 1</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Enter Street"
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
+                        placeholder="Enter Shipping Address"
+                        value={shippingAddressOne}
+                        onChange={(e) => setShippingAddressOne(e.target.value)}
                     ></Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId="apartment">
-                    <Form.Label>Apartment</Form.Label>
+                <Form.Group controlId="shippingAddressTwo">
+                    <Form.Label>Shipping Address 2</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Enter Apartment"
-                        value={apartment}
-                        onChange={(e) => setApartment(e.target.value)}
+                        placeholder="Enter Shipping Address"
+                        value={shippingAddressTwo}
+                        onChange={(e) => setShippingAddressTwo(e.target.value)}
                     ></Form.Control>
                 </Form.Group>
 
@@ -61,6 +62,16 @@ const Shipping = ({ history }) => {
                         placeholder="Enter Country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
+                    ></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="phone">
+                    <Form.Label>Phone</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter Phone"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                     ></Form.Control>
                 </Form.Group>
 

@@ -10,6 +10,7 @@ import UpdatePassword from "../pages/updatePassword/updatePassword";
 import Shipping from "../pages/shipping/shipping";
 import Payment from "../pages/payment/payment";
 import PlaceOrder from "../pages/placeOrder/placeOrder";
+import DisplayOrder from "../pages/displayOrder/displayOrder";
 import { ProductSearch } from "../pages/productSearch/productSearch";
 
 export function Routes() {
@@ -26,8 +27,8 @@ export function Routes() {
             <Route path="/shipping" exact component={Shipping} />
             <Route path="/payment" exact component={Payment} />
             <Route path="/placeorder" exact component={PlaceOrder} />
+            <Route path="/order/:id" exact component={DisplayOrder} />
             <Route path="/" exact component={Home} />
         </div>
     );
-
 }

@@ -1,34 +1,50 @@
-import React, { useState } from "react";
-import { Container, Button, Row, Col, ListGroup, Image, Card, ListGroupItem } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
-import { saveShippingAddress } from "../../actions/cartAction";
+import { createOrder } from "../../actions/orderAction";
 import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
-const PlaceOrder = () => {
+const PlaceOrder = ({ history }) => {
     const cart = useSelector((state) => state.cartReducer);
-
+    const user = useSelector((state) => state.userLoginReducer.userInfo.data.user.id);
+    const dispatch = useDispatch();
     const addDecimals = (num) => {
         return (Math.round(num * 100) / 100).toFixed(2);
     };
     cart.itemsPrice = addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0));
     cart.shippingPrice = addDecimals(cart.itemsPrice > 300 ? 0 : 100);
-    cart.totalPrice = (
-        Number(cart.itemsPrice) +
-        Number(cart.shippingPrice) 
-      ).toFixed(2)
+    cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice)).toFixed(2);
+    let items = [];
+    cart.cartItems.map((item) => items.push(Object.assign({}, { product: item.id, quantity: item.qty })));
+
+    const orderCreate = useSelector((state) => state.orderCreateReducer);
+    const { order, success, error } = orderCreate;
+
+    useEffect(() => {
+        if (success) {
+            history.push(`/order/${order.id}`);
+        }
+        //eslint-disable-next-line
+    }, [history, success]);
     const placeOrderHandler = () => {
-        // dispatch(
-        //   createOrder({
-        //     orderItems: cart.cartItems,
-        //     shippingAddress: cart.shippingAddress,
-        //     paymentMethod: cart.paymentMethod,
-        //     itemsPrice: cart.itemsPrice,
-        //     shippingPrice: cart.shippingPrice,
-        //     taxPrice: cart.taxPrice,
-        //     totalPrice: cart.totalPrice,
-        //   })
-        // )
+        dispatch(
+            createOrder({
+                orderItems: items,
+                shippingAddressOne: cart.shippingAddress.shippingAddressOne,
+                shippingAddressTwo: cart.shippingAddress.shippingAddressTwo,
+                city: cart.shippingAddress.city,
+                country: cart.shippingAddress.country,
+                phone: cart.shippingAddress.phone,
+                user,
+                status: "0",
+                totalPrice: cart.totalPrice,
+                shippingPrice: cart.shippingPrice,
+                itemsPrice: cart.itemsPrice,
+                paymentMethod: cart.PaymentMethod,
+                isPaid: false,
+            })
+        );
     };
     return (
         <Container>
@@ -101,7 +117,7 @@ const PlaceOrder = () => {
                                     <Col>${cart.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
-                            {/* <ListGroup.Item>{error && <Message variant="danger">{error}</Message>}</ListGroup.Item> */}
+                            <ListGroup.Item>{error && <Message variant="danger">{error}</Message>}</ListGroup.Item>
                             <ListGroup.Item>
                                 <Button
                                     type="button"

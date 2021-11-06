@@ -7,7 +7,7 @@ const ordersRouter = require("./routers/orders");
 const productRouter = require("./routers/ProductRouter");
 const userRouter = require("./routers/userRouter");
 const categoryRouter = require("./routers/categoryRouter");
-const globalErrorHandler = require('./controllers/errorController.js');
+const globalErrorHandler = require("./controllers/errorController.js");
 
 const app = express();
 require("dotenv/config");
@@ -36,11 +36,12 @@ mongoose
     });
 
 // routes
+app.get(`${api}/config/paypal`, (req, res) => res.status(200).send(process.env.PAYPAL_CLIENT_ID));
 app.use(`${api}/products`, productRouter);
 app.use(`${api}/categories`, categoryRouter);
 app.use(`${api}/orders`, ordersRouter);
 app.use(`${api}/users`, userRouter);
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 app.listen(3000, () => {
     console.log("Server is running http://localhost:3000");
 });

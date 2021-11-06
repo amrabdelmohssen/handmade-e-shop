@@ -2,12 +2,13 @@ import { combineReducers } from "redux";
 import productReducer from "./productReducer";
 import cartReducer from "./cartReducer";
 import searchReducer from "./searchReducer";
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from "./orderReducer";
 import {
     userLoginReducer,
     userRegisterReducer,
     userDetailsReducer,
     userUpdateProfileReducer,
-    userUpdatePasswordReducer
+    userUpdatePasswordReducer,
 } from "./userReducer";
 
 export default combineReducers({
@@ -18,5 +19,8 @@ export default combineReducers({
     userRegisterReducer,
     userDetailsReducer,
     userUpdateProfileReducer,
-    userUpdatePasswordReducer
+    userUpdatePasswordReducer,
+    orderCreateReducer,
+    orderDetailsReducer,
+    orderPayReducer,
 });

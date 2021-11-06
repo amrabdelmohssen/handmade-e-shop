@@ -18,13 +18,13 @@ export function ProductSearch({ProdName}){
 
        useEffect(()=>{
            dispatch(searchAction(ProdName))
-           console.log(searchProducts,'test')
-           console.log('prodName',ProdName)
+        //    console.log(searchProducts,'test')
+        //    console.log('prodName',ProdName)
        },[ProdName]);
 
     
 
-        console.log(searchProducts,'test')
+        // console.log(searchProducts,'test')
 
 
 return(
