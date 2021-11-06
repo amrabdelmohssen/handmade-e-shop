@@ -10,7 +10,6 @@ function App() {
         <Router>
             <Navbar/>
             <br/>
-            <Categories/>
             <Routes />
             <Footer/>
         </Router>

@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 import { Search } from "../search/search";
 import { useDispatch, useSelector } from "react-redux";
-import {logout} from "../../actions/userAction"
+import { logout } from "../../actions/userAction";
 import "./navbar.scss";
 export function Navbar() {
     const userLogin = useSelector((state) => state.userLoginReducer);
     const { userInfo } = userLogin;
-    const dispatch  = useDispatch();
-    console.log(userInfo);
+    const dispatch = useDispatch();
     const logoutHandle = () => {
-        dispatch(logout())
+        dispatch(logout());
     };
     return (
         <>
@@ -29,7 +28,10 @@ export function Navbar() {
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="justify-content-end collapse navbar-collapse " id="navbarSupportedContent">
+                <div
+                    className="justify-content-end collapse navbar-collapse "
+                    id="navbarSupportedContent"
+                >
                     <div className="text-right navbar-nav mr-auto ">
                         <li className="nav-item ">
                             <Link to={"/"} className="nav-links nav-link px-3">
@@ -37,21 +39,31 @@ export function Navbar() {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/products"} className="nav-links nav-link px-3">
+                            <Link
+                                to={"/products"}
+                                className="nav-links nav-link px-3"
+                            >
                                 PRODUCTS
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/about"} className="nav-links nav-link px-3">
+                            <Link
+                                to={"/about"}
+                                className="nav-links nav-link px-3"
+                            >
                                 ABOUT
                             </Link>
                         </li>
                         <li className="nav-item me-5">
-                            <Link to={"/contact"} className="nav-links nav-link px-3">
+                            <Link
+                                to={"/contact"}
+                                className="nav-links nav-link px-3"
+                            >
                                 CONTACT
                             </Link>
                         </li>
-                        {typeof userInfo !== "undefined" && !Array.isArray(userInfo) ? (
+                        {typeof userInfo !== "undefined" &&
+                        !Array.isArray(userInfo) ? (
                             <li className="nav-item dropdown">
                                 <Link
                                     className="nav-links nav-link dropdown-toggle px-1"
@@ -64,25 +76,42 @@ export function Navbar() {
                                     {userInfo.data.user.name}
                                     <i className="fas fa-user-alt ps-2"></i>
                                 </Link>
-                                <ul className="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                                <ul
+                                    className="dropdown-menu text-center"
+                                    aria-labelledby="navbarDropdown"
+                                >
                                     <li>
-                                        <Link to={"/changePassword"} className="nav-links nav-link">
+                                        <Link
+                                            to={"/changePassword"}
+                                            className="nav-links nav-link"
+                                        >
                                             Change Password
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={"/updateProfile"} className="nav-links nav-link">
-                                            Update Profile
+                                        <Link
+                                            to={"/profile"}
+                                            className="nav-links nav-link"
+                                        >
+                                            Profile
                                         </Link>
                                     </li>
-                                    <li className="nav-item" onClick={logoutHandle}>
-                                        <div className="nav-links nav-link">Logout</div>
+                                    <li
+                                        className="nav-item"
+                                        onClick={logoutHandle}
+                                    >
+                                        <div className="nav-links nav-link">
+                                            Logout
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
                         ) : (
-                            <li>
-                                <Link to={"/login"} className="nav-links nav-link px-3">
+                            <li className="nav-item">
+                                <Link
+                                    to={"/login"}
+                                    className="nav-links nav-link px-3"
+                                >
                                     Sign in
                                 </Link>
                             </li>

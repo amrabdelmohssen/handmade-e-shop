@@ -17,7 +17,6 @@ function Cart({ match, location, history }) {
 
     const cart = useSelector((state) => state.cartReducer);
     const { cartItems } = cart;
-    console.log(cartItems);
     useEffect(() => {
         if (productId) {
             dispatch(addToCart(productId, qty));
@@ -41,7 +40,7 @@ function Cart({ match, location, history }) {
                             Your Cart Is Empty <Link to="/">Go Back</Link>
                         </h2>
                     ) : (
-                        <ListGroup>
+                        <ListGroup variant='flush'>
                             {cartItems.map((item) => (
                                 <ListGroup.Item key={item.id}>
                                     <Row>
