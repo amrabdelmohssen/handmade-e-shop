@@ -10,11 +10,14 @@ import UpdatePassword from "../pages/updatePassword/updatePassword";
 import Shipping from "../pages/shipping/shipping";
 import Payment from "../pages/payment/payment";
 import PlaceOrder from "../pages/placeOrder/placeOrder";
+import { ProductSearch } from "../pages/productSearch/productSearch";
+
 export function Routes() {
     return (
         <div>
             <Route path="/products/:id" exact component={ListProducts} />
             <Route path="/product/:id" exact component={productDetail} />
+            <Route path="/productSearch/:name" exact component={ProductSearch} />
             <Route path="/cart/:id?" exact component={Cart} />
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
@@ -26,4 +29,5 @@ export function Routes() {
             <Route path="/" exact component={Home} />
         </div>
     );
+
 }
