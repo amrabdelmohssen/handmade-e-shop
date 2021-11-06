@@ -14,20 +14,23 @@ const Categories = () => {
       .then((res) => {
         setCategorCards(res.data);
       })
-      .catch((err) => {
+      .catch((err) => { 
         console.log(err);
       });
   }, [categorCards]);
 
   return (
-    <div className="continer-category">
-      {categorCards.slice(0,4).map((card, index) => {
-        return (
-          <div key={index}>
-            <CategorieCard image={card.image} category={card.category} />
-          </div>
-        );
-      })}
+    <div className="big-continer">
+      <h3 className="head-text">Categories</h3>
+      <div className="continer-category">
+        {categorCards.slice(0, 4).map((card, index) => {
+          return (
+            <div key={index}>
+              <CategorieCard image={card.image} category={card.category} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
