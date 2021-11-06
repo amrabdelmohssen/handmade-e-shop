@@ -5,6 +5,19 @@ import { Navbar } from "./navbar/navbar";
 import { Footer } from "./footer/footer";
 import ListProducts from "./listProducts/listProducts";
 function App() {
+<<<<<<< HEAD
+    return (
+        <Router>
+            <Navbar/>
+            <br/>
+            <Routes />
+            <Footer/>
+        </Router>
+        // <>
+        // <ListProducts/>
+        // </>
+    );
+=======
   return (
     <Router>
       <Navbar />
@@ -16,6 +29,7 @@ function App() {
     // <ListProducts/>
     // </>
   );
+>>>>>>> 627bcbd172c993e9c7e9fc11e7967ec7e4d62f22
 }
 
 export default App;

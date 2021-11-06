@@ -1,5 +1,5 @@
 import ProductService from "../services/productService";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "./types";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from "./types";
 
 export const addToCart = (i, qty) => async (dispatch, getState) => {
     try {
@@ -32,4 +32,21 @@ export const removeFromCart = (id) => async (dispatch, getState) => {
     } catch (err) {
         console.log(err);
     }
+};
+
+export const saveShippingAddress = (data) => async (dispatch) => {
+    dispatch({
+        type: CART_SAVE_SHIPPING_ADDRESS,
+        payload: data,
+    });
+    localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
+
+
+export const savePaymentMethod = (data) => async (dispatch) => {
+    dispatch({
+        type: CART_SAVE_PAYMENT_METHOD,
+        payload: data,
+    });
+    localStorage.setItem("paymentMethod", JSON.stringify(data));
 };

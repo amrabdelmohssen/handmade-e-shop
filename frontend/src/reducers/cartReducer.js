@@ -1,6 +1,11 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../actions/types";
+import {
+    CART_ADD_ITEM,
+    CART_REMOVE_ITEM,
+    CART_SAVE_SHIPPING_ADDRESS,
+    CART_SAVE_PAYMENT_METHOD,
+} from "../actions/types";
 
-function cartReducer(state = { cartItems: [] }, action) {
+function cartReducer(state = { cartItems: [], shippingAddress: {} }, action) {
     const { type, payload } = action;
     switch (type) {
         case CART_ADD_ITEM:
@@ -21,6 +26,17 @@ function cartReducer(state = { cartItems: [] }, action) {
             return {
                 ...state,
                 cartItems: state.cartItems.filter((x) => x.id !== payload),
+            };
+        case CART_SAVE_SHIPPING_ADDRESS:
+            return {
+                ...state,
+                shippingAddress: action.payload,
+            };
+
+        case CART_SAVE_PAYMENT_METHOD:
+            return {
+                ...state,
+                PaymentMethod: action.payload,
             };
         default:
             return state;
