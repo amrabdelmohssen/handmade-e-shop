@@ -5,7 +5,7 @@ import CategoryProduct from '../../components/mainHomeBody/CategoryProduct/Categ
 export function Home(){
     return(
         <>
-         <Categories/>
+         {/* <Categories/> */}
          <Slider/>
          <CategoryProduct/>
         </>

@@ -7,14 +7,11 @@ import ListProducts from "./listProducts/listProducts";
 function App() {
     return (
         <Router>
-            <Navbar/>
-            <br/>
+            <Navbar />
+            <br />
             <Routes />
-            <Footer/>
+            <Footer />
         </Router>
-        // <>
-        // <ListProducts/>
-        // </>
     );
 }
 
