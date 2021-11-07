@@ -20,7 +20,7 @@ export function Card({name, description, image, price}) {
                 </div>
                 <div className="bbb_deals_content">
                   <div className="text-center">
-                    <div className="bbb_deals_item_name text-dark ">
+                    <div className="bbb_deals_item_name text-dark  " id="name-display">
                       {name}
                     </div>
 

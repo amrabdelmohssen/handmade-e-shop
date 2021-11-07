@@ -9,7 +9,7 @@ function App() {
             <Navbar/>
             <br/>
             <Routes />
-            <Footer/>
+            <Footer />
         </Router>
     );
 }

@@ -10,4 +10,12 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
+
+.head-text {
+  margin: 0 0 1.3rem;
+}
+
+.big-continer {
+  text-align: center;
+}
 /*# sourceMappingURL=Categories.css.map */
