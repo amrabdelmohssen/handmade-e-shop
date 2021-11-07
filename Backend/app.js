@@ -21,6 +21,7 @@ app.options("*", cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
+//access static files
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 
 mongoose
