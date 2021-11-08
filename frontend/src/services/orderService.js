@@ -12,10 +12,15 @@ const payOrder = (id, paymentResult, config) => {
     return http.put(`/orders/${id}/pay`, paymentResult, config);
 };
 
+const getMyOrders = (id, config) => {
+    return http.get(`/orders/get/userorders/${id}`, config);
+};
+
 const OrderService = {
     createOrder,
     getOrder,
-    payOrder
+    payOrder,
+    getMyOrders
 };
 
 export default OrderService;
