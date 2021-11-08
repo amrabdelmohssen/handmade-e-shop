@@ -8,8 +8,11 @@ import {
     ORDER_PAY_REQUEST,
     ORDER_PAY_SUCCESS,
     ORDER_PAY_FAIL,
+    ORDER_LIST_MY_REQUEST,
+    ORDER_LIST_MY_SUCCESS,
+    ORDER_LIST_MY_FAIL,
 } from "../actions/types";
-import { logout } from './userAction'
+import { logout } from "./userAction";
 import OrderService from "../services/orderService";
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -103,6 +106,43 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
         }
         dispatch({
             type: ORDER_PAY_FAIL,
+            payload: message,
+        });
+    }
+};
+
+
+
+export const listMyOrders = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: ORDER_LIST_MY_REQUEST,
+        });
+
+        const {
+            userLoginReducer: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        let { data } = await OrderService.getMyOrders(userInfo.data.user.id , config);
+        data = data.data.data
+        dispatch({
+            type: ORDER_LIST_MY_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        const message = err.response && err.response.data.message ? err.response.data.message : err.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: ORDER_LIST_MY_FAIL,
             payload: message,
         });
     }
