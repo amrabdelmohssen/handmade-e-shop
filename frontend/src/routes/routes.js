@@ -8,7 +8,7 @@ import ListProducts from "../components/listProducts/listProducts";
 export function Routes() {
   return (
     <div>
-      <Route path="/products/:id" exact component={ListProducts} />
+      <Route path="/products/:id?" exact component={ListProducts} />
       <Route path="/product/:id" exact component={productDetail} />
       <Route path="/cart/:id?" exact component={Cart} />
       <Route path="/login" exact component={Login} />

@@ -10,15 +10,15 @@ exports.getOneProduct = factory.getOne(Product);
 exports.updateProduct = factory.UpdateOne(Product);
 exports.deleteProduct = factory.deleteOne(Product);
 
-exports.getProductsByCategory = catchAsync(async (req, res, next) => {
-    let products = new APIFeatures(Product.find(), req.query).filter().sort().limitfields().paginate();
+exports.getProductsByCategory = catchAsync(async(req, res, next) => {
+    let products = new APIFeatures(Product.find({ category: req.params.id }), req.query).filter().sort().limitfields().paginate();
     products = await products.query;
 
     // let products = await Product.find({ category: req.params.id });
     if (!products) return next(new AppError("There's No Products For this Category", 500));
     res.status(200).json({ status: "success", data: { data: products } });
 });
-exports.addProduct = catchAsync(async (req, res, next) => {
+exports.addProduct = catchAsync(async(req, res, next) => {
     let { name, description, richDescription, image, brand, price, category, countInStock, rating, numReviews, isFeatured } = req.body;
     console.log(req.body);
     category = await Category.findById(category);
@@ -46,13 +46,13 @@ exports.addProduct = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getNumberOfProducts = catchAsync(async (req, res, next) => {
+exports.getNumberOfProducts = catchAsync(async(req, res, next) => {
     const productCount = await Product.countDocuments();
     if (!productCount) return next(new AppError("There's No Products yet", 500));
     res.status(200).json({ status: "success", data: { data: productCount } });
 });
 
-exports.getFeaturedProducts = catchAsync(async (req, res, next) => {
+exports.getFeaturedProducts = catchAsync(async(req, res, next) => {
     let products;
     if (req.params.count) {
         products = await Product.find({
