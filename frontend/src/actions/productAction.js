@@ -30,9 +30,9 @@ export const getProducts = () => async(dispatch) => {
     }
 };
 
-export const getProductsByCategoryId = (id) => async(dispatch) => {
+export const getProductsByCategoryId = (id, queryString) => async(dispatch) => {
     try {
-        const res = await ProductService.getAllByCategoryId(id);
+        const res = await ProductService.getAllByCategoryId(id, queryString);
         dispatch({
             type: GET_PRODUCTS_BY_CATEGORY_ID,
             payload: res.data,
