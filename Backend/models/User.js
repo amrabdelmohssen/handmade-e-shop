@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const crypto = require('crypto');
+const crypto = require("crypto");
 const validator = require("validator");
 
 const userSchema = mongoose.Schema({
@@ -62,7 +62,6 @@ const userSchema = mongoose.Schema({
         default: "",
     },
 });
-
 userSchema.pre("save", async function (next) {
     //if password was modified
     if (!this.isModified("password")) return next();
@@ -102,7 +101,7 @@ userSchema.methods.createPasswordResetToken = function () {
 
     return restToken;
 };
-
+ 
 userSchema.virtual("id").get(function () {
     return this._id.toHexString();
 });

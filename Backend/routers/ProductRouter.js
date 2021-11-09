@@ -5,7 +5,11 @@ let productController = require("../controllers/productController");
 require("../models/Product");
 let productSchema = mongoose.model("Product");
 
-ProductRouter.route("/").get(productController.getProducts).post(productController.addProduct);
+ProductRouter.route("/")
+    .get(productController.getProducts)
+    .post(productController.uploadProductImages, productController.addProduct);
+
+ProductRouter.route("/search").get(productController.searchProduct);
 
 ProductRouter.route("/:id").get(productController.getOneProduct).put(productController.updateProduct);
 

@@ -18,7 +18,6 @@ function ProductDetail({ match, history }) {
             dispatch(getProduct(match.params.id));
         }
     }, [dispatch, match.params.id]);
-    console.log(product);
     const addProductToCart = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`);
     };
