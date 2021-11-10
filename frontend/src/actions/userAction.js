@@ -15,7 +15,9 @@ import {
     USER_UPDATE_PASSWORD_SUCCESS,
     USER_UPDATE_PASSWORD_FAIL,
     USER_UPDATE_PASSWORD_REQUEST,
-    GET_USERS
+    GET_USERS,
+    DElETE_USER,
+    UPDATE_USER
 } from "./types";
 import UserService from "../services/userService";
 
@@ -204,7 +206,7 @@ export const updateUserPassword = (user) => async (dispatch, getState) => {
     }
 };
 
-const getUsersAction = ()=> async(dispatch,getState)=>{
+export const getUsersAction = ()=> async(dispatch,getState)=>{
     try{
        
         const {
@@ -219,7 +221,6 @@ const getUsersAction = ()=> async(dispatch,getState)=>{
         };
 
         const res = await UserService.getAllUasersApi(config)
-        console.log(res);
 
         dispatch({
             type: GET_USERS,
@@ -230,3 +231,59 @@ const getUsersAction = ()=> async(dispatch,getState)=>{
     }
     
 }
+
+
+export const deletUserAction = (id)=>async(dispatch,getState)=>{
+
+try{
+    const {
+        userLoginReducer: { userInfo },
+    } = getState();
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
+
+     await UserService.deleteUserApi(id,config);
+    console.log(id)
+    dispatch({
+        type: DElETE_USER,
+        payload: {id},
+    })
+
+    }catch(err){
+        console.log(err)
+    }
+
+}
+
+export const updateUserAction = (id, data)=>async(dispatch, getState)=>{
+
+try{
+    const {
+        userLoginReducer: { userInfo },
+    } = getState();
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
+    const res = await UserService.updateUserApi(id,data,config)
+    console.log(res,"ddddfffffff")
+    dispatch({
+        type: UPDATE_USER,
+        payload: res.data
+    })
+
+    return Promise.resolve(res.data)
+    
+
+  }catch(err){
+        return Promise.reject(err)
+    }
+};

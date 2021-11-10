@@ -12,6 +12,8 @@ import Shipping from "../pages/shipping/shipping";
 import Payment from "../pages/payment/payment";
 import PlaceOrder from "../pages/placeOrder/placeOrder";
 import DisplayOrder from "../pages/displayOrder/displayOrder";
+import { GetAllUsersPage } from "../pages/usersdashboard/getAllUsers/getAllUsers";
+import { UpdateUser } from "../pages/usersdashboard/updateUser/updateUser";
 
 export function Routes() {
     return (
@@ -30,6 +32,8 @@ export function Routes() {
             <Route path="/placeorder" exact component={PlaceOrder} />
             <Route path="/order/:id" exact component={DisplayOrder} />
             <Route path="/" exact component={Home} />
+            <Route path = "/getusers" exact component={GetAllUsersPage}/> 
+            <Route path = "/edituser/:id" exact component = {UpdateUser} />
 
         </div>
     );
