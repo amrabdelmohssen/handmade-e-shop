@@ -16,6 +16,9 @@ import {
     USER_UPDATE_PASSWORD_SUCCESS,
     USER_UPDATE_PASSWORD_FAIL,
     USER_UPDATE_PASSWORD_REQUEST,
+    GET_USERS,
+    DElETE_USER,
+    UPDATE_USER
 } from "../actions/types";
 
 export function userLoginReducer(state = {}, action) {
@@ -85,4 +88,38 @@ export function userUpdatePasswordReducer(state = {}, action) {
         default:
             return state;
     }
+}
+
+export const usersReducer = (users = [], action)=>{
+    const {type , payload} = action
+
+    switch (type) {
+        case GET_USERS:
+            return payload
+        
+        case DElETE_USER:
+            return users.filter(({id})=> id !== payload.id) 
+        
+        case UPDATE_USER:
+
+            // return users.map((user) => {
+            //     payload.id = parseInt(payload.id);
+            //     return user.id !== payload.id ? user : Object.assign({}, payload);
+            // });
+            return users.map((user)=>{
+                payload.id = parseInt(payload.id)
+                if(user.id === payload.id){
+                    return {
+                        ...user,
+                        ...payload,
+                    };
+                }else{
+                    return user
+                }
+            });
+
+        default:
+            return users
+    }
+
 }

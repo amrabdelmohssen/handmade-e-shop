@@ -52,3 +52,7 @@ export const ORDER_LIST_MY_FAIL = "ORDER_LIST_MY_FAIL";
 export const ORDER_LIST_MY_RESET = "ORDER_LIST_MY_RESET";
 
 export const SEARCH_IN_PRODUCT = "SEARCH_IN_PRODUCT";
+
+export const GET_USERS = "GET_USERS";
+export const DElETE_USER = "DELETE_USER";
+export const UPDATE_USER = "UPDATE_USER";
