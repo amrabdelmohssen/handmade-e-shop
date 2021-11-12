@@ -68,7 +68,7 @@ export  function ProductSearch() {
                       <small className="px-1">EGP</small>
                       <h5>{e.price}</h5>
                     </div>
-                    <ProductRate />
+                    {/* <ProductRate /> */}
                       
                       <Link className="button-details cart-button pt-1" to={`/product/${e.id}`}>
                         Details
