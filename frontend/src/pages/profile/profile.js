@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Container, Form, Button, Row, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { getUserDetails, updateUserProfile } from "../../actions/userAction";
+import { listMyOrders } from "../../actions/orderAction";
+import { LinkContainer } from "react-router-bootstrap";
 const Profile = ({ history, location }) => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -18,17 +20,19 @@ const Profile = ({ history, location }) => {
     const userLogin = useSelector((state) => state.userLoginReducer);
     const { userInfo } = userLogin;
 
-    const userUpadateProfile = useSelector(
-        (state) => state.userUpdateProfileReducer
-    );
+    const userUpadateProfile = useSelector((state) => state.userUpdateProfileReducer);
     const { success } = userUpadateProfile;
-    
+
+    const orderMyList = useSelector((state) => state.orderListMyReducer);
+    const { loading: loadingOrders, error: errorOrders, orders } = orderMyList;
+
     useEffect(() => {
         if (userInfo.length === 0) {
             history.push("/login");
         } else {
             if (!user.name) {
                 dispatch(getUserDetails());
+                dispatch(listMyOrders());
             } else {
                 setName(user.name);
                 setEmail(user.email);
@@ -106,17 +110,57 @@ const Profile = ({ history, location }) => {
                                 onChange={(e) => setCity(e.target.value)}
                             ></Form.Control>
                         </Form.Group>
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            className="mt-3"
-                        >
+                        <Button type="submit" variant="primary" className="mt-3">
                             Update
                         </Button>
                     </Form>
                 </Col>
                 <Col md={9}>
                     <h2>My orders</h2>
+                    {loadingOrders ? (
+                        <Loader />
+                    ) : errorOrders ? (
+                        <Message variant="danger">{errorOrders}</Message>
+                    ) : (
+                        <Table striped borderd hover responsive className="table-sm">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Date</td>
+                                    <td>Total</td>
+                                    <td>Paid</td>
+                                    <td>Status</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {orders.map((order) => (
+                                    <tr key={order.id}>
+                                        <td>{order.id}</td>
+                                        <td>{order.createdAt.substring(0, 10)}</td>
+                                        <td>{order.totalPrice}</td>
+                                        <td>{order.isPaid ? "Paid" : "Not Paid"}</td>
+                                        <td>
+                                            {order.status === "0"
+                                                ? "Pending"
+                                                : order.status === "1"
+                                                ? "Proccessd"
+                                                : order.status === "2"
+                                                ? "Shipped"
+                                                : order.status === "3"
+                                                ? "Deliverd"
+                                                : "Failed"}
+                                        </td>
+                                        <td>
+                                            <LinkContainer to={`/order/${order.id}`}>
+                                                <Button className="btn-sm" variant="dark">Details</Button>
+                                            </LinkContainer>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    )}
                 </Col>
             </Row>
         </Container>

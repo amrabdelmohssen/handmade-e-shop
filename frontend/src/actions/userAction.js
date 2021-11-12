@@ -17,7 +17,9 @@ import {
     USER_UPDATE_PASSWORD_REQUEST,
     GET_USERS,
     DElETE_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    USER_DETAILS_RESET,
+    ORDER_LIST_MY_RESET
 } from "./types";
 import UserService from "../services/userService";
 
@@ -58,6 +60,8 @@ export const logout = () => (dispatch) => {
     localStorage.removeItem("userInfo"); //remove line
     //TODO add line delete cookie
     dispatch({ type: USER_LOGIN_LOGOUT, payload: [] });
+    dispatch({ type: USER_DETAILS_RESET});
+    dispatch({ type: ORDER_LIST_MY_RESET});
 };
 
 export const register =

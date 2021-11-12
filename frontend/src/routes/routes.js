@@ -20,7 +20,6 @@ export function Routes() {
         <div>
             <Route path="/products/:id" exact component={ListProducts} />
             <Route path="/product/:id" exact component={productDetail} />
-            <Route path="/productSearch" exact component={ProductSearch} />
             <Route path="/productSearch/:name" exact component={ProductSearch} />
             <Route path="/cart/:id?" exact component={Cart} />
             <Route path="/login" exact component={Login} />

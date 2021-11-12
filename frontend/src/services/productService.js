@@ -6,8 +6,9 @@ const getOne = (id) => {
 const getAll = () => {
     return http.get("/products"); //?lgt
 };
-const getAllByCategoryId = (id) => {
-    return http.get(`/products/category/${id}`); //?lgt
+const getAllByCategoryId = (id, queryString) => {
+    return http.get(`/products/category/${id}${queryString}`); //?sort=price
+    console.log(`id : ${id} queryString : ${queryString}`);
 };
 const ProductService = {
     getOne,
