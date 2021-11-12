@@ -12,6 +12,8 @@ import Payment from "../pages/payment/payment";
 import PlaceOrder from "../pages/placeOrder/placeOrder";
 import DisplayOrder from "../pages/displayOrder/displayOrder";
 import { ProductSearch } from "../pages/productSearch/productSearch";
+import  singleOrder, { Order } from "../components/order/singleOrder";
+import listOrders from "../components/order/listOrders";
 
 export function Routes() {
   return (
@@ -28,6 +30,8 @@ export function Routes() {
       <Route path="/payment" exact component={Payment} />
       <Route path="/placeorder" exact component={PlaceOrder} />
       <Route path="/order/:id" exact component={DisplayOrder} />
+      <Route  path='/list' exact component= {listOrders} />
+      <Route  path='/singleOrder/:id' exact component={singleOrder} />
       <Route path="/" exact component={Home} />
     </div>
   );
