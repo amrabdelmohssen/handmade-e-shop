@@ -9,6 +9,7 @@ import {
     userDetailsReducer,
     userUpdateProfileReducer,
     userUpdatePasswordReducer,
+    usersReducer
 } from "./userReducer";
 
 
@@ -21,9 +22,18 @@ export default combineReducers({
     userDetailsReducer,
     userUpdateProfileReducer,
     userUpdatePasswordReducer,
+<<<<<<< HEAD
     // orderCreateReducer,
     // orderDetailsReducer,
     // orderPayReducer,
     // orderListMyReducer,
     rootReducer,
+=======
+    orderCreateReducer,
+    orderDetailsReducer,
+    orderPayReducer,
+    usersReducer,
+    orderListMyReducer
+
+>>>>>>> 652180e3e9d286e2fdaf7abd377052db1ae78c86
 });

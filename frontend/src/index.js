@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+
 const middleware = [thunk];
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
@@ -24,10 +25,13 @@ const initialState = {
 };
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 ReactDOM.render(
+    <>
     <Provider store={store}>
         <App />
-    </Provider>,
+    </Provider>
+    </>,
     document.getElementById("root")
+    
 );
 
 // If you want to start measuring performance in your app, pass a function

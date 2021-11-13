@@ -15,6 +15,9 @@ import {
     USER_UPDATE_PASSWORD_SUCCESS,
     USER_UPDATE_PASSWORD_FAIL,
     USER_UPDATE_PASSWORD_REQUEST,
+    GET_USERS,
+    DElETE_USER,
+    UPDATE_USER,
     USER_DETAILS_RESET,
     ORDER_LIST_MY_RESET
 } from "./types";
@@ -204,5 +207,87 @@ export const updateUserPassword = (user) => async (dispatch, getState) => {
                     ? err.response.data.message
                     : err.message,
         });
+    }
+};
+
+export const getUsersAction = ()=> async(dispatch,getState)=>{
+    try{
+       
+        const {
+            userLoginReducer: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const res = await UserService.getAllUasersApi(config)
+
+        dispatch({
+            type: GET_USERS,
+            payload : res.data
+        })
+    }catch(err){
+        console.log(err)
+    }
+    
+}
+
+
+export const deletUserAction = (id)=>async(dispatch,getState)=>{
+
+try{
+    const {
+        userLoginReducer: { userInfo },
+    } = getState();
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
+
+     await UserService.deleteUserApi(id,config);
+    console.log(id)
+    dispatch({
+        type: DElETE_USER,
+        payload: {id},
+    })
+
+    }catch(err){
+        console.log(err)
+    }
+
+}
+
+export const updateUserAction = (id, data)=>async(dispatch, getState)=>{
+
+try{
+    const {
+        userLoginReducer: { userInfo },
+    } = getState();
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
+    const res = await UserService.updateUserApi(id,data,config)
+    console.log(res,"ddddfffffff")
+    dispatch({
+        type: UPDATE_USER,
+        payload: res.data
+    })
+
+    return Promise.resolve(res.data)
+    
+
+  }catch(err){
+        return Promise.reject(err)
     }
 };
