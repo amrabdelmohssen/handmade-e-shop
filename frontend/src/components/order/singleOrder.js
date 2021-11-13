@@ -37,6 +37,7 @@ useEffect(() => {
 useEffect(() => {
   if(update) dispatch(updateOrder(id,status))
    setUpdate(false)
+   dispatch(getSingleOrder(id))
  }, [update])
   return (
     <>
@@ -91,7 +92,7 @@ useEffect(() => {
                 </div>
                 <div className="col m-4 ">
                   <p style={{ fontSize: "22px" }}>shippingAddress2</p>
-                  <p>{single.rootReducer.singleOrderData.shippingAddressTwo}</p>
+                  <p>{single.rootReducer.singleOrderData.shippingAddress2}</p>
                 </div>
                 <div className="col m-4">
                   <p style={{ fontSize: "22px" }}>Order Status</p>

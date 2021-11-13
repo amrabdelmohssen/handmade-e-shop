@@ -48,7 +48,8 @@ export const updateOrder = (id,status) => async (dispatch) => {
     const res = await axios.put(
       `http://localhost:3000/api/v1/orders/${id}`,{status:status}
     );
-    console.log(res.data);
+    console.log(res.data ,"hhhhhhh");
+    // console.log(res.data ,"hhhhhhh")
     dispatch({
       type: DATA_UPDATED,
       payload: res.data,

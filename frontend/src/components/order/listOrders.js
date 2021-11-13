@@ -1,9 +1,9 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import "./order.css"
+import "./order.css";
 
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
@@ -32,8 +32,6 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
     console.log(orders.rootReducer.Data.data.data);
   }
 
-
-
   const header = (
     <div className="table-header">
       <h5 className="p-mx-0 p-my-1">Manage orders</h5>
@@ -60,7 +58,24 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
       </React.Fragment>
     );
   };
-
+ const stat =(rowData,item)=>{
+   if (rowData[item.field]==="0") {return "pending"
+     
+   }
+   else if(rowData[item.field]==="1" ){
+     return"proccessd"
+   }
+   else if(rowData[item.field]==="2" ){
+    return"shipped"
+  }
+  else if(rowData[item.field]==="3" ){
+    return"Deliverd"
+  }
+  else if(rowData[item.field]==="4" ){
+    return"failed"
+  }
+  
+ }
 
   const confirm = (rowData) => {
     confirmDialog({
@@ -92,7 +107,6 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
 
   return (
     <div className="container">
-    
       {orders.rootReducer.Data !== 0 && orders.rootReducer.Data && (
         <div className="">
           <Toast ref={toast} />
@@ -103,7 +117,7 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Users"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} orders"
             globalFilter={globalFilter}
             header={header}
             showGridlines
@@ -113,28 +127,24 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
             <Column field="totalPrice" header="total price" sortable></Column>
             <Column field="dateOrdered" header="data ordered" sortable></Column>
 
-            <Column field="status" header="ordr status" sortable></Column>
+            <Column field="status" header="ordr status" body={stat} sortable></Column>
 
-            <Column field="id" header="Delete" body={actionBodyTemplateDelete} exportable={false}></Column>
-            <Column field="id" header = "go to order details" body={actionBodyTemplateEdite} exportable={false}></Column>
-             </DataTable>
-             </div>
+            <Column
+              field="id"
+              header="Delete"
+              body={actionBodyTemplateDelete}
+              exportable={false}
+            ></Column>
+            <Column
+              field="id"
+              header="go to order details"
+              body={actionBodyTemplateEdite}
+              exportable={false}
+            ></Column>
+          </DataTable>
+        </div>
 
-            
-         
-
-      
-        //                   {data.status == 0
-        //                     ? "Pending"
-        //                     : data.status == 1
-        //                     ? "Proccessd"
-        //                     : data.status == 2
-        //                     ? "Shipped"
-        //                     : data.status == 3
-        //                     ? "Deliverd"
-        //                     : "Failed"}
-        //                 </td>
-        //              
+        
       )}
     </div>
   );
