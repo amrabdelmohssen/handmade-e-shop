@@ -6,6 +6,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 //  import 'primeflex/primeflex.css';
+import CategoryProduct from './mainHomeBody/CategoryProduct/CategoryProduct'
 
 function App() {
     return (
@@ -13,7 +14,7 @@ function App() {
             <Navbar/>
             <br/>
             <Routes />
-            
+            <CategoryProduct/>
            
             <Footer />
             {/* <singleOrder/> */}

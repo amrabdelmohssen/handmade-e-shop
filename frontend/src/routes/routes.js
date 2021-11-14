@@ -12,32 +12,6 @@ import Shipping from "../pages/shipping/shipping";
 import Payment from "../pages/payment/payment";
 import PlaceOrder from "../pages/placeOrder/placeOrder";
 import DisplayOrder from "../pages/displayOrder/displayOrder";
-<<<<<<< HEAD
-import { ProductSearch } from "../pages/productSearch/productSearch";
-import  singleOrder, { Order } from "../components/order/singleOrder";
-import listOrders from "../components/order/listOrders";
-
-export function Routes() {
-  return (
-    <div>
-      <Route path="/products/:id" exact component={ListProducts} />
-      <Route path="/product/:id" exact component={productDetail} />
-      <Route path="/productSearch/:name" exact component={ProductSearch} />
-      <Route path="/cart/:id?" exact component={Cart} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
-      <Route path="/profile" exact component={Profile} />
-      <Route path="/changePassword" exact component={UpdatePassword} />
-      <Route path="/shipping" exact component={Shipping} />
-      <Route path="/payment" exact component={Payment} />
-      <Route path="/placeorder" exact component={PlaceOrder} />
-      <Route path="/order/:id" exact component={DisplayOrder} />
-      <Route  path='/list' exact component= {listOrders} />
-      <Route  path='/singleOrder/:id' exact component={singleOrder} />
-      <Route path="/" exact component={Home} />
-    </div>
-  );
-=======
 import { GetAllUsersPage } from "../pages/usersdashboard/getAllUsers/getAllUsers";
 import { UpdateUser } from "../pages/usersdashboard/updateUser/updateUser";
 
@@ -62,5 +36,4 @@ export function Routes() {
 
         </div>
     );
->>>>>>> 652180e3e9d286e2fdaf7abd377052db1ae78c86
 }
