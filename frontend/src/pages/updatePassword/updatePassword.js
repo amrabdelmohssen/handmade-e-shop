@@ -1,88 +1,154 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { InputText } from "primereact/inputtext";
+import { Form, Field } from "react-final-form";
+import { classNames } from "primereact/utils";
+import { Password } from "primereact/password";
+import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { updateUserPassword } from "../../actions/userAction";
 import FormContainer from "../../components/form/formContainer";
 
-const UpdatePassword = ({ history, location }) => {
-    const [passwordCurrent, setCurrentPassword] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
-
+const UpdatePassword = ({ history }) => {
     const dispatch = useDispatch();
-
-    // const userDetails = useSelector((state) => state.userDetailsReducer);
-    // const { loading, error, user } = userDetails;
 
     const userLogin = useSelector((state) => state.userLoginReducer);
     const { userInfo } = userLogin;
 
-    const userUpadatePassword = useSelector(
-        (state) => state.userUpdatePasswordReducer
-    );
+    const userUpadatePassword = useSelector((state) => state.userUpdatePasswordReducer);
     const { success, error, loading } = userUpadatePassword;
 
+    const validate = (data) => {
+        let errors = {};
+
+        if (!data.passwordCurrent) {
+            errors.passwordCurrent = "Current password is required.";
+        }
+
+        if (!data.password) {
+            errors.password = "Password is required.";
+        }
+
+        if (!data.passwordConfirm) {
+            errors.passwordConfirm = "Confirm Password is required.";
+        }
+
+        if (data.passwordConfirm !== data.password) {
+            errors.passwordConfirm = "Password and Confirm password dosn't match";
+        }
+        return errors;
+    };
+
+    const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
+    const getFormErrorMessage = (meta) => {
+        return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+    };
     useEffect(() => {
         if (userInfo.length === 0) {
             history.push("/login");
         }
     }, [history, userInfo]);
 
-    const submitForm = (e) => {
-        e.preventDefault();
+    const submitForm = (data) => {
         dispatch(
             updateUserPassword({
-                password,
-                passwordConfirm,
-                passwordCurrent,
+                password: data.password,
+                passwordConfirm: data.passwordConfirm,
+                passwordCurrent: data.passwordCurrent,
             })
         );
     };
     return (
-        <FormContainer>
-            <h1>Change Password</h1>
-            {error && <Message variant="danger">{error}</Message>}
-            {success && (
-                <Message variant="success">
-                    Password Updated Successfully
-                </Message>
-            )}
-            {loading && <Loader />}
-            <Form onSubmit={submitForm}>
-                <Form.Group controlId="passwordCurrent">
-                    <Form.Label>Current Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter Current Password"
-                        value={passwordCurrent}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
-                <Form.Group controlId="password">
-                    <Form.Label>New Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter New Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
-                <Form.Group controlId="confirmPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={passwordConfirm}
-                        onChange={(e) => setPasswordConfirm(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
-                <Button type="submit" variant="primary" className="mt-3">
-                    Update
-                </Button>
-            </Form>
-        </FormContainer>
+        <div className="form-demo">
+            <div className="p-d-flex p-jc-center">
+                <div className="card">
+                    <h5 className="p-text-center">Change Password</h5>
+                    {error && <Message variant="danger">{error}</Message>}
+                    {success && <Message variant="success">Password Updated Successfully</Message>}
+                    {loading && <Loader />}
+                    <Form
+                        onSubmit={submitForm}
+                        initialValues={{ passwordCurrent: "", password: "", passwordConfirm: "" }}
+                        validate={validate}
+                        render={({ handleSubmit }) => (
+                            <form onSubmit={handleSubmit} className="p-fluid">
+                                <Field
+                                    name="passwordCurrent"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label">
+                                                <Password
+                                                    id="passwordCurrent"
+                                                    {...input}
+                                                    toggleMask
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="passwordCurrent"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    Current Password*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
+
+                                <Field
+                                    name="password"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label">
+                                                <Password
+                                                    id="password"
+                                                    {...input}
+                                                    toggleMask
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="password"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    password*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
+
+                                <Field
+                                    name="passwordConfirm"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label">
+                                                <Password
+                                                    id="passwordConfirm"
+                                                    {...input}
+                                                    toggleMask
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="passwordConfirm"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    Confirm Password*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
+
+                                <Button type="submit" label="Submit" className="p-mt-2" />
+                            </form>
+                        )}
+                    />
+                </div>
+            </div>
+        </div>
     );
 };
 
