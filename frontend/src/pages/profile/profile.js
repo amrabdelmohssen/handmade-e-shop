@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
+import { InputText } from "primereact/inputtext";
+import { Form, Field } from "react-final-form";
+import { classNames } from "primereact/utils";
+import { Password } from "primereact/password";
+import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
+import "./profile.scss";
 import { getUserDetails, updateUserProfile } from "../../actions/userAction";
 import { listMyOrders } from "../../actions/orderAction";
 import { LinkContainer } from "react-router-bootstrap";
@@ -26,6 +32,24 @@ const Profile = ({ history, location }) => {
     const orderMyList = useSelector((state) => state.orderListMyReducer);
     const { loading: loadingOrders, error: errorOrders, orders } = orderMyList;
 
+    const validate = (data) => {
+        let errors = {};
+        if (!data.name) {
+            errors.name = "Name is required.";
+        }
+
+        if (!data.email) {
+            errors.email = "Email is required.";
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+            errors.email = "Invalid email address. E.g. example@email.com";
+        }
+
+        return errors;
+    };
+    const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
+    const getFormErrorMessage = (meta) => {
+        return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+    };
     useEffect(() => {
         if (userInfo.length === 0) {
             history.push("/login");
@@ -43,16 +67,15 @@ const Profile = ({ history, location }) => {
         }
     }, [dispatch, history, userInfo, user]);
 
-    const submitForm = (e) => {
-        e.preventDefault();
+    const submitForm = (data) => {
         dispatch(
             updateUserProfile({
                 _id: user.id,
-                name,
-                email,
-                street,
-                apartment,
-                city,
+                name:data.name,
+                email:data.addres,
+                street:data.street,
+                apartment:data.apartment,
+                city:data.city,
             })
         );
     };
@@ -64,56 +87,159 @@ const Profile = ({ history, location }) => {
                     {error && <Message variant="danger">{error}</Message>}
                     {success && <Message variant="success">Profile Updated</Message>}
                     {loading && <Loader />}
-                    <Form onSubmit={submitForm}>
-                        <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="email">
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="street">
-                            <Form.Label>Street</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Street Name"
-                                value={street}
-                                onChange={(e) => setStreet(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="apartment">
-                            <Form.Label>Apartment</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Apartment No."
-                                value={apartment}
-                                onChange={(e) => setApartment(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="city">
-                            <Form.Label>City</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter city"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Button type="submit" variant="primary" className="mt-3">
-                            Update
-                        </Button>
-                    </Form>
+                    <div className="form-profile">
+                        <div className="card" style={{ border: 0 }}>
+                            {error && <Message variant="danger">{error}</Message>}
+                            {loading && <Loader />}
+                            <Form
+                                onSubmit={submitForm}
+                                initialValues={{
+                                    name: user.name,
+                                    email: user.email,
+                                    street: user.street,
+                                    apartment: user.apartment,
+                                    city: user.city,
+                                }}
+                                validate={validate}
+                                render={({ handleSubmit }) => (
+                                    <form onSubmit={handleSubmit} className="p-fluid mt-2">
+                                        <Field
+                                            name="name"
+                                            render={({ input, meta }) => (
+                                                <div className="p-field">
+                                                    <span className="p-float-label">
+                                                        <InputText
+                                                            id="name"
+                                                            {...input}
+                                                            autoFocus
+                                                            className={classNames({
+                                                                "p-invalid": isFormFieldValid(meta),
+                                                            })}
+                                                        />
+                                                        <label
+                                                            htmlFor="name"
+                                                            className={classNames({
+                                                                "p-error": isFormFieldValid(meta),
+                                                            })}
+                                                        >
+                                                            Name*
+                                                        </label>
+                                                    </span>
+                                                    {getFormErrorMessage(meta)}
+                                                </div>
+                                            )}
+                                        />
+                                        <Field
+                                            name="email"
+                                            render={({ input, meta }) => (
+                                                <div className="p-field">
+                                                    <span className="p-float-label p-input-icon-right">
+                                                        <i className="pi pi-envelope" />
+                                                        <InputText
+                                                            id="email"
+                                                            {...input}
+                                                            className={classNames({
+                                                                "p-invalid": isFormFieldValid(meta),
+                                                            })}
+                                                        />
+                                                        <label
+                                                            htmlFor="email"
+                                                            className={classNames({
+                                                                "p-error": isFormFieldValid(meta),
+                                                            })}
+                                                        >
+                                                            Email*
+                                                        </label>
+                                                    </span>
+                                                    {getFormErrorMessage(meta)}
+                                                </div>
+                                            )}
+                                        />
+                                        <Field
+                                            name="street"
+                                            render={({ input, meta }) => (
+                                                <div className="p-field">
+                                                    <span className="p-float-label p-input-icon-right">
+                                                        <i className="pi pi-home" />
+                                                        <InputText
+                                                            id="street"
+                                                            {...input}
+                                                            className={classNames({
+                                                                "p-invalid": isFormFieldValid(meta),
+                                                            })}
+                                                        />
+                                                        <label
+                                                            htmlFor="street"
+                                                            className={classNames({
+                                                                "p-error": isFormFieldValid(meta),
+                                                            })}
+                                                        >
+                                                            street
+                                                        </label>
+                                                    </span>
+                                                    {getFormErrorMessage(meta)}
+                                                </div>
+                                            )}
+                                        />
+                                        <Field
+                                            name="apartment"
+                                            render={({ input, meta }) => (
+                                                <div className="p-field">
+                                                    <span className="p-float-label p-input-icon-right">
+                                                        <i className="pi pi-home" />
+                                                        <InputText
+                                                            id="apartment"
+                                                            {...input}
+                                                            className={classNames({
+                                                                "p-invalid": isFormFieldValid(meta),
+                                                            })}
+                                                        />
+                                                        <label
+                                                            htmlFor="apartment"
+                                                            className={classNames({
+                                                                "p-error": isFormFieldValid(meta),
+                                                            })}
+                                                        >
+                                                            Apartment
+                                                        </label>
+                                                    </span>
+                                                    {getFormErrorMessage(meta)}
+                                                </div>
+                                            )}
+                                        />
+
+                                        <Field
+                                            name="city"
+                                            render={({ input, meta }) => (
+                                                <div className="p-field">
+                                                    <span className="p-float-label p-input-icon-right">
+                                                        <i className="pi pi pi-home" />
+                                                        <InputText
+                                                            id="city"
+                                                            {...input}
+                                                            className={classNames({
+                                                                "p-invalid": isFormFieldValid(meta),
+                                                            })}
+                                                        />
+                                                        <label
+                                                            htmlFor="city"
+                                                            className={classNames({
+                                                                "p-error": isFormFieldValid(meta),
+                                                            })}
+                                                        >
+                                                            City
+                                                        </label>
+                                                    </span>
+                                                    {getFormErrorMessage(meta)}
+                                                </div>
+                                            )}
+                                        />
+                                        <Button type="submit" label="Submit" className="p-mt-2" />
+                                    </form>
+                                )}
+                            />
+                        </div>
+                    </div>
                 </Col>
                 <Col md={9}>
                     <h2>My orders</h2>
@@ -153,7 +279,9 @@ const Profile = ({ history, location }) => {
                                         </td>
                                         <td>
                                             <LinkContainer to={`/order/${order.id}`}>
-                                                <Button className="btn-sm" variant="dark">Details</Button>
+                                                <Button className="btn-sm" variant="dark">
+                                                    Details
+                                                </Button>
                                             </LinkContainer>
                                         </td>
                                     </tr>

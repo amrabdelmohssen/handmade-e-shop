@@ -75,8 +75,8 @@ export function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={"/updateProfile"} className="nav-links nav-link">
-                      Update Profile
+                    <Link to={"/profile"} className="nav-links nav-link">
+                      Profile
                     </Link>
                   </li>
                   <li className="nav-item" onClick={logoutHandle}>
