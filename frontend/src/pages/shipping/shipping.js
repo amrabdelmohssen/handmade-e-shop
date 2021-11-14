@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { InputText } from "primereact/inputtext";
+import { Form, Field } from "react-final-form";
+import { classNames } from "primereact/utils";
+import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../../components/form/formContainer";
 import { saveShippingAddress } from "../../actions/cartAction";
 import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
 const Shipping = ({ history }) => {
@@ -14,72 +16,182 @@ const Shipping = ({ history }) => {
     const [phone, setPhone] = useState(shippingAddress.phone);
 
     const dispatch = useDispatch();
+    const validate = (data) => {
+        let errors = {};
 
-    const submitForm = (e) => {
-        e.preventDefault();
-        dispatch(saveShippingAddress({ shippingAddressOne, shippingAddressTwo, city, country, phone }));
+        if(!data.shippingAddressOne){
+            errors.shippingAddressOne ="Shipping address one required"
+        }
+
+        if(!data.country){
+            errors.country ="country is required"
+        }
+
+        if(!data.phone){
+            errors.phone ="phone is required"
+        }
+
+        if(!data.city){
+            errors.city ="city is required"
+        }
+      
+        return errors;
+    };
+    const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
+    const getFormErrorMessage = (meta) => {
+        return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+    };
+    const submitForm = (data) => {
+        console.log(data)
+        dispatch(
+            saveShippingAddress({
+                shippingAddressOne: data.shippingAddressOne,
+                shippingAddressTwo: data.shippingAddressTwo,
+                city: data.city,
+                country: data.country,
+                phone: data.phone,
+            })
+        );
         history.push("/payment");
     };
     return (
-        <FormContainer>
+        <div className="form-demo">
             <CheckoutSteps step1 step2 />
-            <h1>Shipping</h1>
-            <Form onSubmit={submitForm}>
-                <Form.Group controlId="shippingAddressOne">
-                    <Form.Label>Shipping Address 1</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter Shipping Address"
-                        value={shippingAddressOne}
-                        onChange={(e) => setShippingAddressOne(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
+            <div className="p-d-flex p-jc-center">
+                <div className="card">
+                    <h5 className="p-text-center">Shipping</h5>
+                    <Form
+                        onSubmit={submitForm}
+                        initialValues={{
+                            shippingAddressOne,
+                            shippingAddressTwo,
+                            city,
+                            country,
+                            phone,
+                        }}
+                        validate={validate}
+                        render={({ handleSubmit }) => (
+                            <form onSubmit={handleSubmit} className="p-fluid">
+                                <Field
+                                    name="shippingAddressOne"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label p-input-icon-right">
+                                                <i className="pi pi-home" />
+                                                <InputText
+                                                    id="shippingAddressOne"
+                                                    {...input}
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="shippingAddressOne"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    shipping Address One*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
+                                <Field
+                                    name="shippingAddressTwo"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label p-input-icon-right">
+                                                <i className="pi pi-home" />
+                                                <InputText
+                                                    id="shippingAddressTwo"
+                                                    {...input}
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="shippingAddressTwo"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    shipping Address Two
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
 
-                <Form.Group controlId="shippingAddressTwo">
-                    <Form.Label>Shipping Address 2</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter Shipping Address"
-                        value={shippingAddressTwo}
-                        onChange={(e) => setShippingAddressTwo(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
+                                <Field
+                                    name="city"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label p-input-icon-right">
+                                                <i className="pi pi-home" />
+                                                <InputText
+                                                    id="city"
+                                                    {...input}
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="city"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    City*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
 
-                <Form.Group controlId="city">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter City"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
+                                <Field
+                                    name="country"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label p-input-icon-right">
+                                                <i className="pi pi-home" />
+                                                <InputText
+                                                    id="country"
+                                                    {...input}
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="country"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    Country*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
 
-                <Form.Group controlId="country">
-                    <Form.Label>Country</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter Country"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId="phone">
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter Phone"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                    ></Form.Control>
-                </Form.Group>
-
-                <Button className="mt-3" type="submit" variant="primary">
-                    Continue
-                </Button>
-            </Form>
-        </FormContainer>
+                                <Field
+                                    name="phone"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <span className="p-float-label p-input-icon-right">
+                                                <i className="pi pi-phone" />
+                                                <InputText
+                                                    id="phone"
+                                                    {...input}
+                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                />
+                                                <label
+                                                    htmlFor="phone"
+                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                >
+                                                    Phone*
+                                                </label>
+                                            </span>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
+                                <Button type="submit" label="Continue" className="p-mt-2" />
+                            </form>
+                        )}
+                    />
+                </div>
+            </div>
+        </div>
     );
 };
 

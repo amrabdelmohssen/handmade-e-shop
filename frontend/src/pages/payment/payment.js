@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../../components/form/formContainer";
+import { Button } from "primereact/button";
+
+import { RadioButton } from "primereact/radiobutton";
+import { classNames } from "primereact/utils";
+
 import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
 import { savePaymentMethod } from "../../actions/cartAction";
 const Payment = ({ history }) => {
@@ -12,48 +16,84 @@ const Payment = ({ history }) => {
         history.push("/shipping");
     }
     const [PaymentMethod, setPaymentMethod] = useState("PayPal");
+    const validate = (data) => {
+        let errors = {};
 
+        if (!data.PaymentMethod) {
+            errors.shippingAddressOne = "PaymentMethod is required";
+        }
+
+        return errors;
+    };
     const dispatch = useDispatch();
 
-    const submitForm = (e) => {
-        e.preventDefault();
-        dispatch(savePaymentMethod(PaymentMethod));
+    const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
+    const getFormErrorMessage = (meta) => {
+        return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+    };
+    const submitForm = (data) => {
+        dispatch(savePaymentMethod(data.PaymentMethod));
         history.push("/placeorder");
     };
     return (
-        <FormContainer>
+        <div className="form-demo">
             <CheckoutSteps step1 step2 step3 />
-            <h1>Payment Method</h1>
-            <Form onSubmit={submitForm}>
-                <Form.Group>
-                    <Form.Label as="legend">Select Method</Form.Label>
-                    <Col>
-                        <Form.Check
-                            type="radio"
-                            label="PayPal or Credit Card"
-                            id="PayPal"
-                            name="paymentMethod"
-                            value="PayPal"
-                            checked
-                            onChange={(e) => setPaymentMethod(e.target.value)}
-                        ></Form.Check>
+            <div className="p-d-flex p-jc-center">
+                <div className="card">
+                    <h5 className="p-text-center">Payment Method</h5>
+                    <Form
+                        onSubmit={submitForm}
+                        initialValues={{
+                            PaymentMethod,
+                        }}
+                        validate={validate}
+                        render={({ handleSubmit }) => (
+                            <form onSubmit={handleSubmit} className="p-fluid">
+                                <Field
+                                    name="PaymentMethod"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <div className="p-field-radiobutton">
+                                                <RadioButton
+                                                    inputId="PayPal"
+                                                    name="PayPal"
+                                                    value="PayPal"
+                                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                                    checked={PaymentMethod === "PayPal"}
+                                                />
+                                                <label htmlFor="PaymentMethod">PayPal or Credit Card</label>
+                                            </div>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
 
-                        <Form.Check
-                            type="radio"
-                            label="Stripe"
-                            id="Stripe"
-                            name="paymentMethod"
-                            value="Stripe"
-                            onChange={(e) => setPaymentMethod(e.target.value)}
-                        ></Form.Check>
-                    </Col>
-                </Form.Group>
+                                <Field
+                                    name="PaymentMethod"
+                                    render={({ input, meta }) => (
+                                        <div className="p-field">
+                                            <div className="p-field-radiobutton">
+                                                <RadioButton
+                                                    inputId="Stripe"
+                                                    name="Stripe"
+                                                    value="Stripe"
+                                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                                    checked={PaymentMethod === "Stripe"}
+                                                />
+                                                <label htmlFor="PaymentMethod">Stripe</label>
+                                            </div>
+                                            {getFormErrorMessage(meta)}
+                                        </div>
+                                    )}
+                                />
 
-                <Button className="mt-3" type="submit" variant="primary">
-                    Continue
-                </Button>
-            </Form>
-        </FormContainer>
+                                <Button type="submit" label="Continue" className="p-mt-2" />
+                            </form>
+                        )}
+                    />
+                </div>
+            </div>
+        </div>
     );
 };
 
