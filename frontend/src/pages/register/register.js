@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { register } from "../../actions/userAction";
+import './register.scss'
 const Register = ({ history, location }) => {
 
     const dispatch = useDispatch();
@@ -58,10 +59,10 @@ const Register = ({ history, location }) => {
         dispatch(register(data.name, data.email, data.password, data.passwordConfirm));
     };
     return (
-        <div className="form-demo">
+        <div className="form-demo p-5 body-bg">
             <div className="p-d-flex p-jc-center">
-                <div className="card">
-                    <h5 className="p-text-center">Register</h5>
+                <div className="card p-5 login-form-ddd">
+                    <h2 className="p-text-center">Register</h2>
                     {error && <Message variant="danger">{error}</Message>}
                     {loading && <Loader />}
                     <Form
