@@ -3,7 +3,7 @@ import {Socail} from './social/social'
 export function CopyRightAndSoial(){
     return(
         <>
-       <section className="py-3 d-flex justify-content-around"> 
+       <section className=" d-flex justify-content-around"> 
             <CopyRight/>
             <Socail/>
         </section>

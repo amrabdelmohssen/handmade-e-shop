@@ -34,6 +34,7 @@ export function Card({name, description, image, price}) {
             </div>
           </div>
         </Col>
+         
     </>
   );
 }

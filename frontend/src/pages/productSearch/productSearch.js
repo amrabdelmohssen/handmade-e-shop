@@ -34,17 +34,16 @@ export  function ProductSearch() {
 
   return (
       <>
-   <div className="search">
+   <div className=" pt-3 search-body-background">
 
-                <form  className="d-flex justify-content-center px-5 mx-5 col-sm-9 col-md-6 col-lg-6 " action={'/productSearch'}>
+                <form  className="d-flex justify-content-center container  " action={'/productSearch'}>
                      <input className="form-control me-2" type="search" onChange={(e)=>val(e)}  placeholder="Search" aria-label="Search" ></input>
                      <button className="navBar-search-button" type="submit">Search
                      </button>
                 </form>
                 
             </div>
-
-
+       
 
 
 
@@ -53,14 +52,13 @@ export  function ProductSearch() {
       typeof searchProducts.data !== "undefined" ? (
       
         window.location.pathname === "/productSearch" ? (
-          <div className="card-container my-5 py-5">
+          <div className="card-container  py-5 search-body-background">
             <div className=" container div-card">
               {searchProducts.data.data.map((e, i) => {
-                debugger;
                 return (
                   <div
                     key={i}
-                    className="col-lg-3 col-sm-8 col-md-5 card-div-parent text-center  px-1 m-3"
+                    className="col-lg-3 col-sm-8 col-md-5 card-div-parent text-center  px-1 my-5 mx-3"
                   >
                     <img className="cart-image" src={e.image} />
                     <p className="pt-1">{e.name}</p>
@@ -70,7 +68,7 @@ export  function ProductSearch() {
                     </div>
                     {/* <ProductRate /> */}
                       
-                      <Link className="button-details cart-button pt-1" to={`/product/${e.id}`}>
+                      <Link className="button-details cart-button py-1" to={`/product/${e.id}`}>
                         Details
                       </Link>{" "}
                     {/* </button> */}
@@ -82,7 +80,7 @@ export  function ProductSearch() {
         ) : productName.length !== 0? (
           searchProducts.data.data.map((e, i) => {
             return (
-              <div className="col-sm-9 col-md-6 col-lg-6">
+              <div className="container">
                 <Link className="search-name-link " to={`/product/${e.id}`}>
                   <div key={i} className="search-name">
                     <h6>{e.name}</h6>
@@ -92,10 +90,10 @@ export  function ProductSearch() {
             );
           })
         ) : (
-          <h1></h1>
+          <span></span>
         )
       ) : (
-        <h3></h3>
+        <span></span>
       )}
 
      

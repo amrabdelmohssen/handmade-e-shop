@@ -11,7 +11,7 @@ export function Navbar() {
   };
   return (
     <>
-      <nav className="navBar navbar navbar-expand-lg navbar-light  px-5 mx-5 d-flex justify-content-between ">
+      <nav className="navBar navbar-background navbar navbar-expand-lg navbar-light  px-5 d-flex justify-content-between ">
         <a href="/users" className="navbar-brand">
           HANDMADE{" "}
         </a>

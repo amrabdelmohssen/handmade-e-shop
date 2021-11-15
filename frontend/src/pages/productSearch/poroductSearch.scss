@@ -1,24 +1,28 @@
- $mainColor :#FDEBD2;
+$mainColor : lightskyblue;
 ;
 
 .search-name{
    color: black;
-
    border-bottom: 2px solid $mainColor;
+
     &:hover{
        background-color: $mainColor;
+       color: white;
+       border-radius: 4px;
     }
-    margin-left: 95px ;
-    margin-right: 75px ;
+    // margin-right: 75px ;
     padding: 10px;
     padding-top: 15px;
     cursor: pointer;
+   
     
 }
 
 .search-name-link{
     text-decoration: none;
 }
+
+
 
 
 // --------------------------- product card------------------
@@ -39,19 +43,23 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    margin: 50px 0px;
 
     
 }
 
 .card-div-parent{
+    padding: 10px;
+    padding-bottom: 0px;
     margin: auto;
-    
+ box-shadow: 0px 20px 30px  rgba(0,0,0,.12);
+
     cursor: pointer;
     &:hover{
         border: 1px solid  transparent;
     border-radius: 10px;
     // box-shadow: 0px 20px 30px  rgba(0,0,0,.12);
-        box-shadow: 0px 20px 30px rgba(0, 0,0,.12);
+        box-shadow: 0px 0px 30px rgba(0, 0,0,.12);
         transform: scale(1.05);
 
     }
@@ -63,21 +71,21 @@
 }
 .cart-image{
     margin: auto;
-    max-width: 100%;
     border: 1px solid transparent;
     border-radius: 8px;
-    max-height: 200px;
+    height: 180px;
+    width: 180px;
     
 }
 
 .cart-button{
     width: 100%;
-    border: 1px solid $mainColor;
+    // border: 1px solid gray;
     background-color: transparent;
-    margin-bottom: 5px;
-    box-shadow: 0px 0px 5px $mainColor;
+    box-shadow: 0px 0px 5px gray;
+    background-color: #0D6EFD;
+
     &:hover{
-        background-color: $mainColor;
     }
 
     
@@ -87,6 +95,11 @@
     text-decoration: none;
     color: black;
     font-weight: bold;
+    &:hover{
+        color: white;
+    }
 }
-
+.search-body-background{
+    background-color: #eee;
+}
 
