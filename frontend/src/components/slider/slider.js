@@ -6,7 +6,9 @@ import "./slider.scss";
 export function Slider() {
     return (
         <>
-            <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+        <br/>
+        <br/>
+            <div id="carouselExampleControls" className="container carousel slide " data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <img src={sliderImgOne} className="d-block w-100 slider-img" alt="Slider"></img>

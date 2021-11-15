@@ -39,10 +39,17 @@ export const GetAllUsersPage = ({ history }) => {
   };
 
   useEffect(() => {
-    if (userInfo.length === 0 || userInfo.isAdmin === false) {
+    if (userInfo.length !== 0) {
+      if(userInfo.data.user.isAdmin === false){
+        
+        history.push("/");
+      }else{
+        dispatch(getUsersAction());
+      }
+    } 
+    else {
       history.push("/login");
-    } else {
-      dispatch(getUsersAction());
+
     }
   }, [dispatch, userInfo]);
 

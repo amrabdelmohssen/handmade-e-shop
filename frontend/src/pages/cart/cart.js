@@ -34,7 +34,7 @@ function Cart({ match, location, history }) {
     return (
       <>
 <ProductSearch/>
-  
+  <div className="py-5 my-5">
         <Container>
             <Row>
                 <Col md={8}>
@@ -46,7 +46,7 @@ function Cart({ match, location, history }) {
                     ) : (
                         <ListGroup variant='flush'>
                             {cartItems.map((item) => (
-                                <ListGroup.Item key={item.id}>
+                                <ListGroup.Item key={item.id} variant=' my-3'>
                                     <Row>
                                         <Col md={2}>
                                             <Image src={item.image} alt={item.name} fluid rounded></Image>
@@ -81,8 +81,8 @@ function Cart({ match, location, history }) {
                         </ListGroup>
                     )}
                 </Col>
-                <Col md={4}>
-                    <Card>
+                <Col md={4}  >
+                    <Card >
                         <ListGroup variant="flush">
                             <ListGroup.Item>
                                 <h2 className="subtotal">Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h2>$
@@ -96,8 +96,10 @@ function Cart({ match, location, history }) {
                         </ListGroup>
                     </Card>
                 </Col>
+          
             </Row>
         </Container>
+    </div>   
       </>  
     );
 

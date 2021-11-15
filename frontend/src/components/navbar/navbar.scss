@@ -1,18 +1,23 @@
-$mainColor :#FDEBD2;
+$mainColor :lightskyblue;
 
+.navbar-background{
+    background-color: #D7E6F5;
+}
 .nav-item{
 
-   
     .nav-links{
         font-weight: bold;
-        background: linear-gradient(to left, white 50%, $mainColor 50%) right;
+        background: linear-gradient(to left, #D7E6F5 50%, $mainColor 50%) right;
         background-size: 200%;
         color: black;
+       
 
     
         &:hover{
+            color: white !important;
             background-position: left;
             transition: all 0.5s ;
+            border-radius: 8px;
                    
     
             
@@ -38,10 +43,13 @@ $mainColor :#FDEBD2;
 }
 .form-control{
     border: $mainColor solid 1px !important;
+    // background-color: #eee !important;
+    
     &:focus{
-        outline: $mainColor solid 5px !important;
-        border: $mainColor solid 1px !important;
-        box-shadow: none !important;
+        // outline: $mainColor solid 5px !important;
+        // border: $mainColor solid 1px !important;
+        // box-shadow: none !important;
+
     }
     
 

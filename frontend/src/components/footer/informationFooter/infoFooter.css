@@ -1,9 +1,1 @@
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.infoSection {
-  padding: 60px 0px;
-}
-/*# sourceMappingURL=infoFooter.css.map */
+*{box-sizing:border-box}.infoSection{padding-top:15px}

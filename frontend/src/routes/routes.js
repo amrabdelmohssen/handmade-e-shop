@@ -33,6 +33,8 @@ export function Routes() {
             <Route path="/" exact component={Home} />
             <Route path = "/getusers" exact component={GetAllUsersPage}/> 
             <Route path = "/edituser/:id" exact component = {UpdateUser} />
+            <Route path="/productSearch" exact component={ProductSearch} />
+
 
         </div>
     );

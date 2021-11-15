@@ -92,11 +92,17 @@ import './updateUsers.scss'
         },
     };
 
+
+
     useEffect(()=>{
-        if (userInfo.length === 0 || userInfo.isAdmin === false) {
-      props.history.push("/login");
-    } else {          
-        getUser(props.match.params.id,config)
+        if (userInfo.length !== 0) {
+            if(userInfo.data.user.isAdmin === false){
+
+                props.history.push("/");
+            }else{getUser(props.match.params.id,config)}
+    }else {          
+        props.history.push("/login");
+
     }
     },[userInfo,props.match.params.id])
 
