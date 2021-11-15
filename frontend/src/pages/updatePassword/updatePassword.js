@@ -9,7 +9,7 @@ import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { updateUserPassword } from "../../actions/userAction";
 import FormContainer from "../../components/form/formContainer";
-
+import './updatePassword.scss'
 const UpdatePassword = ({ history }) => {
     const dispatch = useDispatch();
 
@@ -60,9 +60,9 @@ const UpdatePassword = ({ history }) => {
         );
     };
     return (
-        <div className="form-demo">
+        <div className="form-demo my-5  ">
             <div className="p-d-flex p-jc-center">
-                <div className="card">
+                <div className="card p-5 updated-pass-form">
                     <h5 className="p-text-center">Change Password</h5>
                     {error && <Message variant="danger">{error}</Message>}
                     {success && <Message variant="success">Password Updated Successfully</Message>}

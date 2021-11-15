@@ -80,14 +80,16 @@ const Profile = ({ history, location }) => {
         );
     };
     return (
+        <div className="py-5">
         <Container>
             <Row>
-                <Col md={3}>
+                <Col md={5}>
                     <h2>User Profile</h2>
+                    <br/>
                     {error && <Message variant="danger">{error}</Message>}
                     {success && <Message variant="success">Profile Updated</Message>}
                     {loading && <Loader />}
-                    <div className="form-profile">
+                    <div className="form-profile profile-form">
                         <div className="card" style={{ border: 0 }}>
                             {error && <Message variant="danger">{error}</Message>}
                             {loading && <Loader />}
@@ -241,8 +243,11 @@ const Profile = ({ history, location }) => {
                         </div>
                     </div>
                 </Col>
-                <Col md={9}>
+               
+                <Col  md={7} >
+                
                     <h2>My orders</h2>
+                    <br/>
                     {loadingOrders ? (
                         <Loader />
                     ) : errorOrders ? (
@@ -292,6 +297,7 @@ const Profile = ({ history, location }) => {
                 </Col>
             </Row>
         </Container>
+        </div>
     );
 };
 

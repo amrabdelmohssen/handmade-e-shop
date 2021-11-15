@@ -47,10 +47,10 @@ const Login = ({ history, location }) => {
         dispatch(login(data.email, data.password));
     };
     return (
-        <div className="form-demo">
+        <div className="form-demo p-5 body-bg ">
             <div className="p-d-flex p-jc-center">
-                <div className="card">
-                    <h5 className="p-text-center">Login</h5>
+                <div className="card p-5 login-form-ddd">
+                    <h2 className="p-text-center">Login</h2>
             {error && <Message variant="danger">{error}</Message>}
             {loading && <Loader />}
                     <Form
