@@ -13,7 +13,9 @@ const Order = (props) => {
     if (id) {
       dispatch(getSingleOrder(id));
     }
-  }, [id]);
+  }, [id,status]);
+  console.log(single.rootReducer.singleOrderData,"mmmmmmmmmmmmm");
+
 
   if (typeof single.rootReducer.singleOrderData !== "undefined") {
     console.log(single.rootReducer.singleOrderData,"mmmmmmmmmmmmm");
@@ -37,7 +39,7 @@ useEffect(() => {
 useEffect(() => {
   if(update) dispatch(updateOrder(id,status))
    setUpdate(false)
-   dispatch(getSingleOrder(id))
+  //  dispatch(getSingleOrder(id))
  }, [update])
   return (
     <>
@@ -98,7 +100,7 @@ useEffect(() => {
                   <p style={{ fontSize: "22px" }}>Order Status</p>
  
 
-                  <select
+                  <select 
                     onChange={(e) =>{
                         setStatus(e.target.value);
                         setUpdate(true)
@@ -113,17 +115,20 @@ useEffect(() => {
                   </select>
                 </div>
               </div>
+              <div className="row">
+              
               <div className="row mt-5">
                 <div className="col m-4 order-1">
                   <p style={{ fontSize: "22px" }}>shippingAddress1</p>
                   <p>{single.rootReducer.singleOrderData.shippingAddress1}</p>
                 </div>
                 </div>
-                <div className="row mt-5">
-                <div className="col m-4 order-1">
+                <div className="row">
+                <div className="col m-4 ">
                   <p style={{ fontSize: "22px" }}>country</p>
                   <p>{single.rootReducer.singleOrderData.country}</p>
-                </div>
+                  </div>
+                
                 </div>
 
               <div className="row mt-5">
@@ -138,6 +143,7 @@ useEffect(() => {
                   <p>
                     {single.rootReducer.singleOrderData.totalPrice}
                   </p>
+                  </div>
                 </div>
               </div>
             </div>

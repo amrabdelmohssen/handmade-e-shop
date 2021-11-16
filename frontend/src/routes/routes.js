@@ -15,6 +15,9 @@ import DisplayOrder from "../pages/displayOrder/displayOrder";
 import { GetAllUsersPage } from "../pages/usersdashboard/getAllUsers/getAllUsers";
 import { UpdateUser } from "../pages/usersdashboard/updateUser/updateUser";
 import AdminListProducts from "../components/adminListProducts/adminListProducts";
+import listOrders from "../components/order/listOrders";
+import singleOrder from "../components/order/singleOrder";
+
 
 export function Routes() {
     return (
@@ -36,6 +39,10 @@ export function Routes() {
             <Route path = "/edituser/:id" exact component = {UpdateUser} />
             <Route path="/productSearch" exact component={ProductSearch} />
             <Route path="/getproducts" exact component={AdminListProducts} />
+            <Route path="/list" exact component={listOrders} />
+            <Route path="/single/:id" exact component={singleOrder} />
+
+
 
 
         </div>

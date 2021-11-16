@@ -13,24 +13,58 @@ import { confirmDialog } from "primereact/confirmdialog";
 import { connect, useSelector, useDispatch } from "react-redux"; //
 import { deleteOrder, loadedData } from "../../actions/orderAdminAction";
 
-const ListOrders = ({ loadedData, deleteOrder, Data }) => {
+const ListOrders = ({ history }) => {
+  const userLogin = useSelector((state) => state.userLoginReducer);
+  const { userInfo } = userLogin;
+  const [localOrder, setlocalOrder] = useState(null);
+
   const [globalFilter, setGlobalFilter] = useState(null);
   const toast = useRef(null);
-  const orders = useSelector((state) => state);
+  const orders = useSelector((state) => state.rootReducer);
+  console.log(orders);
   const dispatch = useDispatch(); //
+  // const { orderdelReducer:orders2 } = useSelector((state) => state);
 
-  useEffect(() => {
-    loadedData();
-  }, []); //
-
+  // useEffect(() => {
+  //   loadedData();
+  // }, []);
   const handleDelete = (id) => {
     console.log(id, "id");
-    deleteOrder(id);
+    // deleteOrder(id);
+    // dispatch(deleteOrder(id));
+     dispatch(deleteOrder(id))  
+      toast.current.show({
+      severity: "success",
+      summary: "Successful",
+      detail: "User Deleted",
+      life: 3000,
+    });
+    // dispatch(loadedData());
+    // history.push("/list");
+   
+    
   };
+  console.log(localOrder); 
+  useEffect(() => {
+    if (userInfo.length !== 0) {
+      if(userInfo.data.user.isAdmin === false){
+        
+        history.push("/");
+      }else{
+        setlocalOrder( dispatch(loadedData()))
+        dispatch(loadedData());
+      }
+    } 
+    else {
+      history.push("/login");
+    }
+  }, [dispatch, userInfo,history]);
 
-  if (orders.rootReducer.Data !== 0 && orders.rootReducer.Data) {
-    console.log(orders.rootReducer.Data.data.data);
-  }
+ 
+
+  // if (orders.rootReducer.Data !== 0 && orders.rootReducer.Data) {
+  //   console.log(orders.rootReducer.Data.data.data);
+  // }
 
   const header = (
     <div className="table-header">
@@ -95,10 +129,10 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
         <React.Fragment>
           <Link
             className="userEditeLink "
-            to={`singleOrder/${rowData[item.field]}`}
+            to={`single/${rowData[item.field]}`}
             s
           >
-            <i class="pi pi-pencil p-button-rounded p-button-success p-mr-2"></i>
+            <i className="pi pi-pencil p-button-rounded p-button-success p-mr-2"></i>
           </Link>
         </React.Fragment>
       </>
@@ -107,11 +141,11 @@ const ListOrders = ({ loadedData, deleteOrder, Data }) => {
 
   return (
     <div className="container">
-      {orders.rootReducer.Data !== 0 && orders.rootReducer.Data && (
+      {orders.Data !== 0 && orders.Data && (
         <div className="">
           <Toast ref={toast} />
           <DataTable
-            value={orders.rootReducer.Data.data.data}
+            value={orders.Data.data.data}
             responsiveLayout="scroll"
             paginator
             rows={10}
