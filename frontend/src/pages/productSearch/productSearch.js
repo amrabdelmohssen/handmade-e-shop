@@ -58,7 +58,7 @@ export  function ProductSearch() {
                 return (
                   <div
                     key={i}
-                    className="col-lg-3 col-sm-8 col-md-5 card-div-parent text-center  px-1 my-5 mx-3"
+                    className="col-lg-3 col-sm-8 col-md-5 card-div-parent text-center bg-light rounded-3 px-1 my-5 mx-3"
                   >
                     <img className="cart-image" src={e.image} />
                     <p className="pt-1">{e.name}</p>

@@ -55,11 +55,11 @@ const Shipping = ({ history }) => {
         history.push("/payment");
     };
     return (
-        <div className="form-demo">
+        <div className="form-demo p-5 body-bg ">
             <CheckoutSteps step1 step2 />
-            <div className="p-d-flex p-jc-center">
-                <div className="card">
-                    <h5 className="p-text-center">Shipping</h5>
+            <div className="p-d-flex p-jc-center  ">
+                <div className="card login-form-ddd p-5">
+                    <h2 className="p-text-center">Shipping</h2>
                     <Form
                         onSubmit={submitForm}
                         initialValues={{

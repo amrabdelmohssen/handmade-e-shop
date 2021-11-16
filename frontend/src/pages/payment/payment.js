@@ -36,11 +36,11 @@ const Payment = ({ history }) => {
         history.push("/placeorder");
     };
     return (
-        <div className="form-demo">
+        <div className="form-demo p-5 body-bg ">
             <CheckoutSteps step1 step2 step3 />
             <div className="p-d-flex p-jc-center">
-                <div className="card">
-                    <h5 className="p-text-center">Payment Method</h5>
+                <div className="card p-5 login-form-ddd">
+                    <h2 className="p-text-center">Payment Method</h2>
                     <Form
                         onSubmit={submitForm}
                         initialValues={{

@@ -1,6 +1,7 @@
 import { Container, Col, Row } from "react-bootstrap";
 import React from "react";
 import "./card.scss";
+import { Link } from "react-router-dom";
 export function Card({name, description, image, price}) {
   // const products = [
   //   {
@@ -11,29 +12,28 @@ export function Card({name, description, image, price}) {
   // ];
   return (
     <>
-        <Col md={4}>
-          <div className="bbb_deals">
-            <div className="bbb_deals_slider_container ">
-              <div className=" bbb_deals_item">
-                <div className="bbb_deals_image">
-                  <img src="https://i.imgur.com/9UYzfny.png" alt="" />
-                </div>
-                <div className="bbb_deals_content">
-                  <div className="text-center">
-                    <div className="bbb_deals_item_name text-dark  " id="name-display">
+        
+          <div className="col-lg-3 col-sm-8 col-md-5 card-div-parent text-center bg-light px-1 my-5 mx-4">
+                  <img  className="cart-image" src="https://i.imgur.com/9UYzfny.png" alt="" />
+               
+                    <p className="pt-1" id="name-display">
                       {name}
-                    </div>
+                    </p>
 
-                    <div className="bbb_deals_item_price ml-auto text-danger">
-                      {price}
+                    <div className="d-flex justify-content-center">
+                    <small className="px-1">EGP</small>
+
+                      <h5>{price}</h5>
                     </div>
-                    <button className=" btn-danger">update</button>
-                  </div>
-                </div>
-              </div>
+                    <Link className="button-details cart-button py-1" to="">
+                        Details
+                      </Link>{" "}
+                
+               
             </div>
-          </div>
-        </Col>
+    
+     
+       
          
     </>
   );

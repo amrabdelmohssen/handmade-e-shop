@@ -58,6 +58,7 @@ const DisplayOrder = ({ history, match }) => {
         dispatch(payOrder(orderId, paymentResult));
     };
     return (
+        <div className = "my-5 - py-5">
         <Container>
             {loading ? (
                 <Loader />
@@ -187,6 +188,7 @@ const DisplayOrder = ({ history, match }) => {
                 </>
             )}
         </Container>
+        </div> 
     );
 };
 
