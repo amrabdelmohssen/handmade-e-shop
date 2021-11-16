@@ -3,7 +3,8 @@ import { Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     return (
-        <Nav className="justify-content-center mb-4">
+        <div className = "d-flex justify-content-center">
+        <Nav className=" justify-content-center shadow-lg py-1 px-5 mb-4 bg-body rounded">
             <Nav.Item>
                 {step1 ? (
                     <LinkContainer to="/login">
@@ -44,6 +45,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
                 )}
             </Nav.Item>
         </Nav>
+        </div> 
     );
 };
 

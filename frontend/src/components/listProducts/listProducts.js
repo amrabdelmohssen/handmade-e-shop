@@ -1,6 +1,9 @@
 import "../card/card.scss";
 import { Card } from "../card/card";
 import React, { useState, useEffect } from "react";
+import { Sidebar } from 'primereact/sidebar';
+import { Button } from 'primereact/button';
+
 
 import {
   // getProducts,
@@ -12,6 +15,8 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as starOutline } from "@fortawesome/free-regular-svg-icons";
 // import { useLocation } from  "react-router-dom";
 const ListProducts = ({ match, location, history }) => {
+  const [visibleLeft, setVisibleLeft] = useState(false);
+
   // const [dataState, setDataState] = useState([]);
   // const [sortType, setSortType] = useState("sort");
   // const [filterType, setFilterType] = useState("filterBrand");
@@ -60,13 +65,35 @@ const ListProducts = ({ match, location, history }) => {
   // console.log("location search for query", location.search);
   // console.log("location search for query", history);
   // history.push(`products/5f15d467f3a046427a1c26e1/?sort=`);
+
+
+  const customIcons = (
+    <React.Fragment>
+        <button className="p-sidebar-icon p-link p-mr-1">
+            <span className="pi pi-print" />
+        </button>
+        <button className="p-sidebar-icon p-link p-mr-1">
+            <span className="pi pi-arrow-right" />
+        </button>
+    </React.Fragment>
+);
   return (
     <>
+    
       {products.productReducer.length !== 0 &&
         typeof products.productReducer !== "undefined" && (
-          <div className="container-fluid mt-5 pt-5">
-            <div className="row">
-              <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+          <div className="search-body-background">
+          <div className ="container">
+          <div className ="col-4 ">
+          <Button  onClick={() => setVisibleLeft(true)} className="p-mr-2" > Sort 	&amp; Filter</Button>
+          </div>
+          <div className=" mt-5 pt-5 card-container  py-5 search-body-background">
+          
+            <div className="row ">
+               
+
+              <Sidebar visible={visibleLeft} onHide={() => setVisibleLeft(false)}>
+
                 <div className="container large-left-sider">
                   <div className="row pl-3">
                     <div className="col-12 pt-3">
@@ -179,12 +206,13 @@ const ListProducts = ({ match, location, history }) => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                className="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 pl-0"
-                style={{ borderLeft: "1px solid grey" }}
-              >
-                <div className="row">
+
+                </Sidebar>
+                
+
+            
+             
+                <div className="row container d-flex justify-content-center rounded-3">
                   {products.productReducer.data.data.map((product, index) => (
                     <Card
                       key={index}
@@ -197,6 +225,8 @@ const ListProducts = ({ match, location, history }) => {
               </div>
             </div>
           </div>
+          </div>
+          
         )}
     </>
   );

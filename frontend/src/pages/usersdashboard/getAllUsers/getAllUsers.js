@@ -123,7 +123,7 @@ export const GetAllUsersPage = ({ history }) => {
   );
   return (
     <>
-      <div className="datatable-crud-demo">
+      <div className="datatable-crud-demo my-5 py-5">
         <div className=" container ">
           {typeof users.data !== "undefined" && (
             <div className="">
