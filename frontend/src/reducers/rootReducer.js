@@ -40,4 +40,20 @@ function rootReducer (state = initState, action)  {
       return { ...state };
   }
 };
+
+export const orderdelReducer = (orders2= [], action)=>{
+  const {type , payload} = action
+
+  switch (type) {
+    
+      
+      case DELETE_ORDER:
+          return orders2.filter(({id})=> id !== payload.id) 
+      
+      
+      default:
+          return orders2
+  }
+
+}
 export default rootReducer;
