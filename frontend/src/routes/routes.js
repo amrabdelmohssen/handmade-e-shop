@@ -14,6 +14,7 @@ import PlaceOrder from "../pages/placeOrder/placeOrder";
 import DisplayOrder from "../pages/displayOrder/displayOrder";
 import { GetAllUsersPage } from "../pages/usersdashboard/getAllUsers/getAllUsers";
 import { UpdateUser } from "../pages/usersdashboard/updateUser/updateUser";
+import AdminListProducts from "../components/adminListProducts/adminListProducts";
 
 export function Routes() {
     return (
@@ -34,6 +35,7 @@ export function Routes() {
             <Route path = "/getusers" exact component={GetAllUsersPage}/> 
             <Route path = "/edituser/:id" exact component = {UpdateUser} />
             <Route path="/productSearch" exact component={ProductSearch} />
+            <Route path="/getproducts" exact component={AdminListProducts} />
 
 
         </div>
