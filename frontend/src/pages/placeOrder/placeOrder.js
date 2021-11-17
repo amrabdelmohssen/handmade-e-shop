@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import { createOrder } from "../../actions/orderAction";
 import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const PlaceOrder = ({ history }) => {
     const cart = useSelector((state) => state.cartReducer);
     const user = useSelector((state) => state.userLoginReducer.userInfo.data.user.id);
@@ -47,6 +49,8 @@ const PlaceOrder = ({ history }) => {
         );
     };
     return (
+        <>
+        <Navbar />
         <Container>
             <CheckoutSteps step1 step2 step3 step4 />
             <Row>
@@ -133,6 +137,8 @@ const PlaceOrder = ({ history }) => {
                 </Col>
             </Row>
         </Container>
+        <Footer />
+        </>
     );
 };
 

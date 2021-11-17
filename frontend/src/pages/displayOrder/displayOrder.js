@@ -8,6 +8,9 @@ import Loader from "../../components/loader/loader";
 import http from "../../utils/http";
 import { PayPalButton } from "react-paypal-button-v2";
 import { ORDER_PAY_RESET } from "../../actions/types";
+import  {Footer} from '../../components/footer/footer'
+import  {Navbar} from '../../components/navbar/navbar'
+
 const DisplayOrder = ({ history, match }) => {
     const orderId = match.params.id;
     const [sdkReady, setSDKReady] = useState(false);
@@ -58,6 +61,8 @@ const DisplayOrder = ({ history, match }) => {
         dispatch(payOrder(orderId, paymentResult));
     };
     return (
+        <>
+        <Navbar />
         <div className = "my-5 - py-5">
         <Container>
             {loading ? (
@@ -189,6 +194,8 @@ const DisplayOrder = ({ history, match }) => {
             )}
         </Container>
         </div> 
+        <Footer />
+        </>
     );
 };
 

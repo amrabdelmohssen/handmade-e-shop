@@ -17,6 +17,9 @@ import { UpdateUser } from "../pages/usersdashboard/updateUser/updateUser";
 import AdminListProducts from "../components/adminListProducts/adminListProducts";
 import listOrders from "../components/order/listOrders";
 import singleOrder from "../components/order/singleOrder";
+import Mainbody from '../adminComponents/Mainbody/Mainbody';
+import CategoryAdmin from '../adminComponents/categroryAdmin/categoryAdmin'
+import CategoryUpdate from '../adminComponents/categroryAdmin/categoryUpdate'
 
 
 export function Routes() {
@@ -41,6 +44,10 @@ export function Routes() {
             <Route path="/getproducts" exact component={AdminListProducts} />
             <Route path="/list" exact component={listOrders} />
             <Route path="/single/:id" exact component={singleOrder} />
+            <Route path = "/admin" exact component = {Mainbody} />
+            <Route path = "/getcategoryadmin" exact component = {CategoryAdmin} />
+            <Route path = "/categoryupdate" exact component = {CategoryUpdate} />
+           
 
 
 
