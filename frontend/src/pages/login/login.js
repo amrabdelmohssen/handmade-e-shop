@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { login } from "../../actions/userAction";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const Login = ({ history, location }) => {
     const dispatch = useDispatch();
 
@@ -47,6 +49,8 @@ const Login = ({ history, location }) => {
         dispatch(login(data.email, data.password));
     };
     return (
+        <>
+        <Navbar />
         <div className="form-demo p-5 body-bg ">
             <div className="p-d-flex p-jc-center">
                 <div className="card p-5 login-form-ddd">
@@ -114,6 +118,8 @@ const Login = ({ history, location }) => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

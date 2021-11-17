@@ -10,6 +10,8 @@ import Loader from "../../components/loader/loader";
 import { updateUserPassword } from "../../actions/userAction";
 import FormContainer from "../../components/form/formContainer";
 import './updatePassword.scss'
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const UpdatePassword = ({ history }) => {
     const dispatch = useDispatch();
 
@@ -60,6 +62,8 @@ const UpdatePassword = ({ history }) => {
         );
     };
     return (
+        <>
+        <Navbar />
         <div className="form-demo my-5  ">
             <div className="p-d-flex p-jc-center">
                 <div className="card p-5 updated-pass-form">
@@ -149,6 +153,8 @@ const UpdatePassword = ({ history }) => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

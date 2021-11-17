@@ -13,12 +13,12 @@ import CategoryProduct from './mainHomeBody/CategoryProduct/CategoryProduct'
 function App() {
     return (
         <Router>
-            <Navbar/>
+           
            
             <Routes />
             {/* <CategoryProduct/> */}
            
-            <Footer />
+            
             {/* <singleOrder/> */}
         </Router>
     );

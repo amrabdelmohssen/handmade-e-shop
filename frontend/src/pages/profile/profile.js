@@ -12,6 +12,8 @@ import "./profile.scss";
 import { getUserDetails, updateUserProfile } from "../../actions/userAction";
 import { listMyOrders } from "../../actions/orderAction";
 import { LinkContainer } from "react-router-bootstrap";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const Profile = ({ history, location }) => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -80,6 +82,8 @@ const Profile = ({ history, location }) => {
         );
     };
     return (
+        <>
+         <Navbar />
         <div className="py-5">
         <Container>
             <Row>
@@ -298,6 +302,8 @@ const Profile = ({ history, location }) => {
             </Row>
         </Container>
         </div>
+        <Footer />
+        </>
     );
 };
 

@@ -3,6 +3,8 @@ import { Card } from "../card/card";
 import React, { useState, useEffect } from "react";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
+import { Footer } from "../footer/footer";
+import { Navbar } from "../navbar/navbar";
 
 
 import {
@@ -79,7 +81,7 @@ const ListProducts = ({ match, location, history }) => {
 );
   return (
     <>
-    
+    <Navbar />
       {products.productReducer.length !== 0 &&
         typeof products.productReducer !== "undefined" && (
           <div className="search-body-background">
@@ -228,6 +230,7 @@ const ListProducts = ({ match, location, history }) => {
           </div>
           
         )}
+        <Footer />
     </>
   );
 };

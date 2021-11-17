@@ -63,3 +63,8 @@ export const SEARCH_IN_PRODUCT = "SEARCH_IN_PRODUCT";
 export const GET_USERS = "GET_USERS";
 export const DElETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
+
+
+export const GET_CATEGORY = 'GET_CATEGORY' ;
+export const DElETE_CATE = 'DElETE_CATE' ;
+export const CREATE_CATEGORY = 'CREATE_CATEGORY'

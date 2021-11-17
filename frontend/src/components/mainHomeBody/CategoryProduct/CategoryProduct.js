@@ -40,7 +40,7 @@ const CategoryProduct = () => {
     <div>
       {category.map((cate, index) => {
         return (
-          <div style={{'backgroundColor': cate.color}} className="bigest-continer" key={index}>
+          <div  className="bigest-continer" key={index}>
               <Link className="links" to={`/products/${cate._id}`}>
                 <h1>{cate.name}</h1>
               </Link>
