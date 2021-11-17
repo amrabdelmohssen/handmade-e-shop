@@ -8,6 +8,10 @@ import { Provider } from "react-redux";
 import reducer from "./reducers/combineReducers";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
 import { composeWithDevTools } from "redux-devtools-extension";
 
 

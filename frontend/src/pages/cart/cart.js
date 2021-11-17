@@ -8,6 +8,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { addToCart, removeFromCart } from "../../actions/cartAction";
 import { ProductSearch } from "../productSearch/productSearch";
 import "./cart.scss";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 
 function Cart({ match, location, history }) {
     const productId = match.params.id;
@@ -33,6 +35,7 @@ function Cart({ match, location, history }) {
     };
     return (
       <>
+      <Navbar />
 <ProductSearch/>
   <div className="py-5 my-5">
         <Container>
@@ -100,6 +103,7 @@ function Cart({ match, location, history }) {
             </Row>
         </Container>
     </div>   
+    <Footer />
       </>  
     );
 

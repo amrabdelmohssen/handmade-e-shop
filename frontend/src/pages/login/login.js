@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { login } from "../../actions/userAction";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const Login = ({ history, location }) => {
     const dispatch = useDispatch();
 
@@ -37,7 +39,13 @@ const Login = ({ history, location }) => {
     };
     useEffect(() => {
         if (typeof userInfo !== "undefined" && !Array.isArray(userInfo)) {
-            history.push(redirect);
+            console.log(userInfo.data.user.isAdmin)
+            if (userInfo.data.user.isAdmin) {
+                history.push("/admin");
+            }
+            else{
+                history.push(redirect);
+            }
         }
     }, [history, userInfo, redirect, error]);
 
@@ -47,73 +55,77 @@ const Login = ({ history, location }) => {
         dispatch(login(data.email, data.password));
     };
     return (
-        <div className="form-demo p-5 body-bg ">
-            <div className="p-d-flex p-jc-center">
-                <div className="card p-5 login-form-ddd">
-                    <h2 className="p-text-center">Login</h2>
-            {error && <Message variant="danger">{error}</Message>}
-            {loading && <Loader />}
-                    <Form
-                        onSubmit={submitForm}
-                        initialValues={{ email: "", password: "" }}
-                        validate={validate}
-                        render={({ handleSubmit }) => (
-                            <form onSubmit={handleSubmit} className="p-fluid">
-                                <Field
-                                    name="email"
-                                    render={({ input, meta }) => (
-                                        <div className="p-field">
-                                            <span className="p-float-label p-input-icon-right">
-                                                <i className="pi pi-envelope" />
-                                                <InputText
-                                                    id="email"
-                                                    {...input}
-                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
-                                                />
-                                                <label
-                                                    htmlFor="email"
-                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
-                                                >
-                                                    Email*
-                                                </label>
-                                            </span>
-                                            {getFormErrorMessage(meta)}
-                                        </div>
-                                    )}
-                                />
-                                <Field
-                                    name="password"
-                                    render={({ input, meta }) => (
-                                        <div className="p-field">
-                                            <span className="p-float-label">
-                                                <Password
-                                                    id="password"
-                                                    {...input}
-                                                    toggleMask
-                                                    className={classNames({ "p-invalid": isFormFieldValid(meta) })}
-                                                />
-                                                <label
-                                                    htmlFor="password"
-                                                    className={classNames({ "p-error": isFormFieldValid(meta) })}
-                                                >
-                                                    Password*
-                                                </label>
-                                            </span>
-                                            {getFormErrorMessage(meta)}
-                                        </div>
-                                    )}
-                                />
-                                <Button type="submit" label="Submit" className="p-mt-2" />
-                            </form>
-                        )}
-                    />
-                    <div className="pt-3">
-                        New Customer ?{" "}
-                        <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>Register</Link>
+        <>
+            <Navbar />
+            <div className="form-demo p-5 body-bg ">
+                <div className="p-d-flex p-jc-center">
+                    <div className="card p-5 login-form-ddd">
+                        <h2 className="p-text-center">Login</h2>
+                        {error && <Message variant="danger">{error}</Message>}
+                        {loading && <Loader />}
+                        <Form
+                            onSubmit={submitForm}
+                            initialValues={{ email: "", password: "" }}
+                            validate={validate}
+                            render={({ handleSubmit }) => (
+                                <form onSubmit={handleSubmit} className="p-fluid">
+                                    <Field
+                                        name="email"
+                                        render={({ input, meta }) => (
+                                            <div className="p-field">
+                                                <span className="p-float-label p-input-icon-right">
+                                                    <i className="pi pi-envelope" />
+                                                    <InputText
+                                                        id="email"
+                                                        {...input}
+                                                        className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                    />
+                                                    <label
+                                                        htmlFor="email"
+                                                        className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                    >
+                                                        Email*
+                                                    </label>
+                                                </span>
+                                                {getFormErrorMessage(meta)}
+                                            </div>
+                                        )}
+                                    />
+                                    <Field
+                                        name="password"
+                                        render={({ input, meta }) => (
+                                            <div className="p-field">
+                                                <span className="p-float-label">
+                                                    <Password
+                                                        id="password"
+                                                        {...input}
+                                                        toggleMask
+                                                        className={classNames({ "p-invalid": isFormFieldValid(meta) })}
+                                                    />
+                                                    <label
+                                                        htmlFor="password"
+                                                        className={classNames({ "p-error": isFormFieldValid(meta) })}
+                                                    >
+                                                        Password*
+                                                    </label>
+                                                </span>
+                                                {getFormErrorMessage(meta)}
+                                            </div>
+                                        )}
+                                    />
+                                    <Button type="submit" label="Submit" className="p-mt-2" />
+                                </form>
+                            )}
+                        />
+                        <div className="pt-3">
+                            New Customer ?{" "}
+                            <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>Register</Link>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

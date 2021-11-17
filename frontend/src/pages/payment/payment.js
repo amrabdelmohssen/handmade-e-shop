@@ -8,6 +8,8 @@ import { classNames } from "primereact/utils";
 
 import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
 import { savePaymentMethod } from "../../actions/cartAction";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const Payment = ({ history }) => {
     const cart = useSelector((state) => state.cartReducer);
     const { shippingAddress } = cart;
@@ -36,6 +38,8 @@ const Payment = ({ history }) => {
         history.push("/placeorder");
     };
     return (
+        <>
+        <Navbar />
         <div className="form-demo p-5 body-bg ">
             <CheckoutSteps step1 step2 step3 />
             <div className="p-d-flex p-jc-center">
@@ -94,6 +98,8 @@ const Payment = ({ history }) => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

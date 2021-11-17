@@ -49,6 +49,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.getUsersCount=(async (req,res,next)=>{
+	const userCount = await User.countDocuments();
+    if (!userCount) res.status(500).json({ success: false });
+    res.send({ userCount }); 
+});
 exports.getUser = factory.getOne(User);
 exports.getAllUsers = factory.getAll(User);
 

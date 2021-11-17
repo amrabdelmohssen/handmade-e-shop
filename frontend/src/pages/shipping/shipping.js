@@ -6,6 +6,8 @@ import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../actions/cartAction";
 import CheckoutSteps from "../../components/checkoutSteps/checkoutSteps";
+import { Navbar } from "../../components/navbar/navbar";
+import { Footer } from "../../components/footer/footer";
 const Shipping = ({ history }) => {
     const cart = useSelector((state) => state.cartReducer);
     const { shippingAddress } = cart;
@@ -55,6 +57,8 @@ const Shipping = ({ history }) => {
         history.push("/payment");
     };
     return (
+        <>
+        <Navbar />
         <div className="form-demo p-5 body-bg ">
             <CheckoutSteps step1 step2 />
             <div className="p-d-flex p-jc-center  ">
@@ -192,6 +196,8 @@ const Shipping = ({ history }) => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

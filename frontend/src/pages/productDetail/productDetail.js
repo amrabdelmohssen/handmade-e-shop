@@ -8,6 +8,8 @@ import { Parser } from "html-to-react";
 import { getProduct } from "../../actions/productAction";
 import "./productDetail.scss";
 import { ProductSearch } from "../productSearch/productSearch";
+import { Footer } from "../../components/footer/footer";
+import { Navbar } from "../../components/navbar/navbar";
 
 
 function ProductDetail({ match, history }) {
@@ -24,6 +26,8 @@ function ProductDetail({ match, history }) {
     };
 
     return (
+        <>
+        <Navbar />
         <div className = "prod-details-body-background">
 
         <ProductSearch/>
@@ -90,6 +94,8 @@ function ProductDetail({ match, history }) {
             </Container>
         </div>
       </div>  
+      <Footer />
+      </>
     );
 }
 

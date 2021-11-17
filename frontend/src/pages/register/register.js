@@ -10,6 +10,8 @@ import Message from "../../components/message/message";
 import Loader from "../../components/loader/loader";
 import { register } from "../../actions/userAction";
 import './register.scss'
+import { Footer } from "../../components/footer/footer";
+import { Navbar } from "../../components/navbar/navbar";
 const Register = ({ history, location }) => {
 
     const dispatch = useDispatch();
@@ -59,6 +61,8 @@ const Register = ({ history, location }) => {
         dispatch(register(data.name, data.email, data.password, data.passwordConfirm));
     };
     return (
+        <>
+        <Navbar />
         <div className="form-demo p-5 body-bg">
             <div className="p-d-flex p-jc-center">
                 <div className="card p-5 login-form-ddd">
@@ -170,6 +174,8 @@ const Register = ({ history, location }) => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

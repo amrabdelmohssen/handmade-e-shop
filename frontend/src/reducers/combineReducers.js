@@ -19,6 +19,7 @@ import {
   userUpdatePasswordReducer,
   usersReducer,
 } from "./userReducer";
+import {categoryReducer} from './categoryReducer'
 
 export default combineReducers({
   productReducer,
@@ -36,4 +37,5 @@ export default combineReducers({
   rootReducer,
   usersReducer,
   orderdelReducer,
+  categoryReducer,
 });
