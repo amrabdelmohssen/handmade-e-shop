@@ -12,7 +12,7 @@ import "./profile.scss";
 import { getUserDetails, updateUserProfile } from "../../actions/userAction";
 import { listMyOrders } from "../../actions/orderAction";
 import { LinkContainer } from "react-router-bootstrap";
-const Profile = ({ history, location }) => {
+const Profile = ({ history }) => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [street, setStreet] = useState("");

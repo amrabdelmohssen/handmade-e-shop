@@ -1,161 +1,155 @@
-import React, { useEffect, useState } from "react";
-import { getSingleOrder,updateOrder } from "../../actions/orderAdminAction";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useRef } from "react";
+import { getSingleOrder, updateOrder } from "../../actions/orderAdminAction";
+import { useDispatch, useSelector } from "react-redux";
+import { Card } from "primereact/card";
+import { Fieldset } from "primereact/fieldset";
+import { Dropdown } from "primereact/dropdown";
+import { Toast } from "primereact/toast";
 
-const Order = (props) => {
-  console.log(props);
-  const { id } = props.match.params;
-  const single = useSelector((state) => state);
-  const dispatch = useDispatch(); //
-  const [status, setStatus] = useState("");
-  const [update, setUpdate] = useState(false);
-  useEffect(() => {
-    if (id) {
-      dispatch(getSingleOrder(id));
-    }
-  }, [id,status]);
-  console.log(single.rootReducer.singleOrderData,"mmmmmmmmmmmmm");
+const Order = ({ match }) => {
+    const { id } = match.params;
+    const toast = useRef(null);
+    const single = useSelector((state) => state.rootReducer);
+    const dispatch = useDispatch();
+    const [status, setStatus] = useState("");
+    // const [update, setUpdate] = useState(false);
+    console.log(single);
+    const ORDER_STATUS = {
+        0: {
+            label: "Pending",
+            color: "primary",
+        },
+        1: {
+            label: "Processed",
+            color: "warning",
+        },
+        2: {
+            label: "Shipped",
+            color: "warning",
+        },
+        3: {
+            label: "Deliverd",
+            color: "success",
+        },
+        4: {
+            label: "Failed",
+            color: "danger",
+        },
+    };
+    const orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
+        return {
+            id: key,
+            name: ORDER_STATUS[key].label,
+        };
+    });
 
+    useEffect(() => {
+        if (id) {
+            dispatch(getSingleOrder(id));
+        }
+    }, [id]);
 
-  if (typeof single.rootReducer.singleOrderData !== "undefined") {
-    console.log(single.rootReducer.singleOrderData,"mmmmmmmmmmmmm");
-    // console.log(single.rootReducer.singleOrderData);
-    // console.log(single.rootReducer.singleOrderData);
-    // console.log(single.rootReducer.singleOrderData);
-    // console.log(single.rootReducer.singleOrderData);
-    // console.log(single.rootReducer.singleOrderData);
-    // console.log(single.rootReducer.singleOrderData);
-    // console.log(single.rootReducer.singleOrderData);
-  }
+    const updateStatus = (status) => {
+        dispatch(updateOrder(id, status));
+        toast.current.show({
+            severity: "success",
+            summary: "Status Updated",
+            detail: "Status Updated Successfully",
+            life: 3000,
+        });
+    };
 
-  // console.log(single.rootReducer.singleOrderData,'single')
-
-useEffect(() => {
- if(single.rootReducer.singleOrderData)setStatus(single.rootReducer.singleOrderData.status)
-}, [single.rootReducer.singleOrderData])
- 
-
-
-useEffect(() => {
-  if(update) dispatch(updateOrder(id,status))
-   setUpdate(false)
-  //  dispatch(getSingleOrder(id))
- }, [update])
-  return (
-    <>
-      {typeof single.rootReducer.singleOrderData!== "undefined" && (
-        <div className="container">
-          <div className="card">
-            <div className="card-body m-4 p-4">
-              <figure>
-                <blockquote className="blockquote">
-                  <p>View Order</p>
-                </blockquote>
-                <figcaption className="blockquote-footer">
-                  You can edit in order status here
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-          <p
-            className="blockquote-footer"
-            style={{
-              border: "1px solid #8080804d",
-              margin: "0 35px",
-              padding: "10px",
-              fontSize: " 20px",
-              width: "180px",
-              backgroundColor: "#808080e0",
-              color: "black",
-              position: "relative",
-            }}
-          >
-            Order Details
-          </p>
-          <div
-            className="card "
-            style={{ marginTop: "-30px", position: "unset" }}
-          >
-            <div className="card-body" style={{ marginTop: "100px" }}>
-              <div className="row">
-                <div className="col m-4 ">
-                  <p style={{ fontSize: "22px" }}>Order Id</p>
-                  <p>{single.rootReducer.singleOrderData.id}</p>
+    return (
+        <div>
+            {Object.keys(single.singleOrderData).length !== 0 && (
+                <div>
+                    <Toast ref={toast} />
+                    <Card title="View Order">
+                        <Fieldset legend="Order Details" toggleable className="mb-4">
+                            <div className="p-grid">
+                                <div className="col-4">
+                                    <h5>Order Id</h5>
+                                    <p>{single.singleOrderData.id}</p>
+                                </div>
+                                <div className="col-4">
+                                    <h5>Order Date</h5>
+                                    <p>{new Date(single.singleOrderData.createdAt).toUTCString()}</p>
+                                </div>
+                                <div className="col-4">
+                                    <h5>Order Status</h5>
+                                    <Dropdown
+                                        value={single.singleOrderData.status}
+                                        options={orderStatuses}
+                                        onChange={(e) => {
+                                            setStatus(e.target.value);
+                                            updateStatus(e.target.value);
+                                        }}
+                                        optionValue="id"
+                                        optionLabel="name"
+                                    ></Dropdown>
+                                </div>
+                                <div className="col-4">
+                                    <h5>Order Total Price</h5>
+                                    <p>{single.singleOrderData.totalPrice}</p>
+                                </div>
+                            </div>
+                        </Fieldset>
+                        <Fieldset legend="Order Items" toggleable className="mb-4">
+                            <div className="p-grid">
+                                <div className="col-2 text-center font-bold">Name</div>
+                                <div className="col-2 text-center font-bold">Brand</div>
+                                <div className="col-2 text-center font-bold">Category</div>
+                                <div className="col-2 text-center font-bold">Price</div>
+                                <div className="col-2 text-center font-bold">Quantity</div>
+                                <div className="col-2 text-center font-bold">Subtotal</div>
+                            </div>
+                            <hr style={{ border: "1px solid #000" }} />
+                            {single.singleOrderData.orderItems.map((order) => (
+                                <div key={order.id} className="p-grid mb-3">
+                                    <div className="col-2 text-center">{order.product.name}</div>
+                                    <div className="col-2 text-center">{order.product.brand}</div>
+                                    <div className="col-2 text-center">{order.product.category.name}</div>
+                                    <div className="col-2 text-center">{order.product.price}</div>
+                                    <div className="col-2 text-center">{order.quantity}</div>
+                                    <div className="col-2 text-center">{order.product.price * order.quantity}</div>
+                                </div>
+                            ))}
+                            <hr style={{ border: "1px solid #000" }} />
+                            <div className="p-grid" style={{ color: "green" }}>
+                                <div className="p-col-2 p-offset-8 text-center font-bold">Total Price</div>
+                                <div className="p-col-2 text-center">{single.singleOrderData.totalPrice}</div>
+                            </div>
+                        </Fieldset>
+                        <Fieldset legend="Order Address" toggleable className="mb-4">
+                            <div className="p-grid">
+                                <div className="col-4">
+                                    <h5>Order Address</h5>
+                                    <p>
+                                        {single.singleOrderData.shippingAddressOne}
+                                        <br />
+                                        {single.singleOrderData.shippingAddressTwo}
+                                        <br />
+                                        {single.singleOrderData.zip} {single.singleOrderData.city}
+                                        <br />
+                                        {single.singleOrderData.country}
+                                        <br />
+                                    </p>
+                                </div>
+                                <div className="col-4">
+                                    <h5>Customer Name</h5>
+                                    <p>{single.singleOrderData.user.name}</p>
+                                </div>
+                                <div className="col-4">
+                                    <h5>Contact Info</h5>
+                                    <p>{single.singleOrderData.phone}</p>
+                                </div>
+                            </div>
+                        </Fieldset>
+                    </Card>
                 </div>
-                <div className="col m-4 ">
-                  <p style={{ fontSize: "22px" }}>Order Date</p>
-                  <p>
-                    {single.rootReducer.singleOrderData.dateOrdered}
-                  </p>
-                </div>
-                <div className="col m-4 ">
-                  <p style={{ fontSize: "22px" }}>city</p>
-                  <p>{single.rootReducer.singleOrderData.city}</p>
-                </div>
-                <div className="col m-4 ">
-                  <p style={{ fontSize: "22px" }}>shippingAddress2</p>
-                  <p>{single.rootReducer.singleOrderData.shippingAddress2}</p>
-                </div>
-                <div className="col m-4">
-                  <p style={{ fontSize: "22px" }}>Order Status</p>
- 
-
-                  <select 
-                    onChange={(e) =>{
-                        setStatus(e.target.value);
-                        setUpdate(true)
-                    } }
-                    value={status}
-                  >
-                    <option value="0">Pending</option>
-                    <option value="1">Proccessd</option>
-                    <option value="2">Shipped</option>
-                    <option value="3">Deliverd</option>
-                    <option value="4">Failed</option>
-                  </select>
-                </div>
-              </div>
-              <div className="row">
-              
-              <div className="row mt-5">
-                <div className="col m-4 order-1">
-                  <p style={{ fontSize: "22px" }}>shippingAddress1</p>
-                  <p>{single.rootReducer.singleOrderData.shippingAddress1}</p>
-                </div>
-                </div>
-                <div className="row">
-                <div className="col m-4 ">
-                  <p style={{ fontSize: "22px" }}>country</p>
-                  <p>{single.rootReducer.singleOrderData.country}</p>
-                  </div>
-                
-                </div>
-
-              <div className="row mt-5">
-                <div className="col m-2 ">
-                  <p style={{ fontSize: "22px" }}>phone</p>
-                  <p>{single.rootReducer.singleOrderData.phone}</p>
-                </div>
-              </div>
-              <div className="row mt-5">
-                <div className="col m-4 order-1">
-                  <p style={{ fontSize: "22px" }}>Order Total Price</p>
-                  <p>
-                    {single.rootReducer.singleOrderData.totalPrice}
-                  </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            )}
         </div>
-      )}
-    </>
-  );
+    );
 };
 
-const mapStateToProps = (state) => ({
-  singleOrderData: state.singleOrderData,
-});
-
-export default connect(mapStateToProps, { getSingleOrder })(Order);
+export default Order;
