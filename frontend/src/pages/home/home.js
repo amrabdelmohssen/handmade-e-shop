@@ -12,7 +12,7 @@ export function Home(){
             <Navbar />
                 <ProductSearch/>
                 <Slider/>
-                <Categories/>
+                {/* <Categories/> */}
                 <CategoryProduct/>
                 <Footer />
             </div>
