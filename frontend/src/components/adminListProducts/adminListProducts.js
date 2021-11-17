@@ -25,7 +25,9 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import "./table.css";
 
-const AdminListProducts = () => {
+const AdminListProducts = ({history}) => {
+  const userLogin = useSelector((state) => state.userLoginReducer);
+  const { userInfo } = userLogin;
   let emptyProduct = {
     _id:null,
     image:null,
@@ -70,10 +72,24 @@ const AdminListProducts = () => {
   const [imgState, setImgState] = useState(null);
   // const productService = new ProductService();
 
+  // useEffect(() => {
+  //   // productService.getProducts().then(data => setProducts(data));
+  //   dispatch(getProducts());
+  // }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    // productService.getProducts().then(data => setProducts(data));
-    dispatch(getProducts());
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (userInfo.length !== 0) {
+      if(userInfo.data.user.isAdmin === false){
+        
+        history.push("/");
+      }else{
+        dispatch(getProducts());
+      }
+    } 
+    else {
+      history.push("/login");
+    }
+  }, [dispatch, userInfo]);
 
   useEffect(() => {
     if (allProducts.productReducer.length !== 0) {
@@ -120,6 +136,8 @@ const AdminListProducts = () => {
         console.log(_product);
         console.log(_product.id);
         console.log(product.id);
+        console.log(_product);
+        console.log(product);
         dispatch(updateProducts(product.id, _product));
         toast.current.show({
           severity: "success",
@@ -132,10 +150,35 @@ const AdminListProducts = () => {
         _product._id=_product.id
         // _product.image = "product-placeholder.svg";
         _product.image = imgState;
+        // let name=_product.name
+        // let description=_product.description
+        // let richDescription=_product.richDescription
+        // let brand=_product.brand
+        // let price=_product.price
+        // let category=_product.category
+        // let countInStock=_product.countInStock
+        // let rating=_product.rating
+        // let numReviews=_product.numReviews
+        // let isFeatured=_product.isFeatured
+        // let newProduct={};
+        // newProduct.name=name
+        // newProduct.description=description
+        // newProduct.richDescription=richDescription
+        // newProduct.brand=brand
+        // newProduct.price=price
+        // newProduct.category=category
+        // newProduct.countInStock=countInStock
+        // newProduct.rating=rating
+        // newProduct.numReviews=numReviews
+        // newProduct.isFeatured=isFeatured
+        // console.log(newProduct)
         console.log(imgState);
         _products.push(_product);
         console.log(_product);
-        dispatch(AddProduct(_product));
+        console.log(_product.name,"name");
+        _product.isFeatured=false;
+        console.log(_product.name, _product.description,_product.richDescription,_product.brand,_product.price,_product.category,_product.countInStock,_product.rating,_product.numReviews,_product.isFeatured);
+        dispatch(AddProduct(_product.name, _product.description,_product.richDescription,_product.brand,_product.price,_product.category,_product.countInStock,_product.rating,_product.numReviews,_product.isFeatured));
         toast.current.show({
           severity: "success",
           summary: "Successful",

@@ -45,9 +45,19 @@ export const getProductsByCategoryId = (id, queryString) => async(dispatch) => {
     }
 };
 
-export const updateProducts = (id, product) => async(dispatch) => {
+export const updateProducts = (id, product) => async(dispatch, getState) => {
     try {
-        const res = await ProductService.updateOne(id, product);
+        const {
+            userLoginReducer: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const res = await ProductService.updateOne(id, product, config);
         dispatch({
             type: UPDATE_PRODUCTS,
             payload: res.data,
@@ -57,21 +67,76 @@ export const updateProducts = (id, product) => async(dispatch) => {
     }
 };
 
-export const AddProduct = (product) => async(dispatch) => {
+export const AddProduct = (name,
+    description,
+    richDescription,
+    brand,
+    price,
+    category,
+    countInStock,
+    rating,
+    numReviews,
+    isFeatured) => async(dispatch, getState) => {
     try {
-        const res = await ProductService.AddOne(JSON.stringify(product));
+        const {
+            userLoginReducer: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const res = await ProductService.AddOne({
+            name,
+            description,
+            richDescription,
+            brand,
+            price,
+            category,
+            countInStock,
+            rating,
+            numReviews,
+            isFeatured
+        }, config);
+        // const res = await ProductService.AddOne(JSON.stringify({
+        //     name,
+        //     description,
+        //     richDescription,
+        //     brand,
+        //     price,
+        //     category,
+        //     countInStock,
+        //     rating,
+        //     numReviews,
+        //     isFeatured
+        // }, config));
         dispatch({
             type: POST_PRODUCTS,
             payload: res.data,
         });
+        // return Promise.resolve(res.data);
+
     } catch (err) {
         console.log(err);
+        // return Promise.reject(err);
     }
 };
 
-export const deleteProducts = (id) => async(dispatch) => {
+export const deleteProducts = (id) => async(dispatch, getState) => {
     try {
-        const res = await ProductService.deleteOne(id);
+        const {
+            userLoginReducer: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const res = await ProductService.deleteOne(id, config);
         dispatch({
             type: DELETE_PRODUCTS,
             payload: res.data,
