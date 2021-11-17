@@ -19,7 +19,7 @@ ProductRouter.route("/search").get(productController.searchProduct);
 
 ProductRouter.route("/:id")
     .get(productController.getOneProduct)
-    .put(authController.protect, authController.restrictTo(true), productController.updateProduct);
+    .put(authController.protect, authController.restrictTo(true),productController.uploadProductImages, productController.updateProduct);
 
 ProductRouter.route("/category/:id").get(productController.getProductsByCategory);
 

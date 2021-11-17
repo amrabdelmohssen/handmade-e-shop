@@ -59,6 +59,53 @@ exports.getProductsByCategory = catchAsync(async(req, res, next) => {
         return next(new AppError("There's No Products For this Category", 500));
     res.status(200).json({ status: "success", data: { data: products } });
 });
+
+exports.updateProduct = catchAsync(async(req, res, next) => {
+    let {
+        name,
+        description,
+        richDescription,
+        price,
+        category,
+        countInStock,
+    } = req.body;
+    category = await Category.findById(category);
+    if (!category) return next(new AppError("Invalid Category", 400));
+	
+	console.log(req.files)
+	
+    const imageName = req.files.image[0].filename;
+    const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
+	let imagesNames = [];
+	if(req.files.images){
+		req.files.images.map((image) =>
+        imagesNames.push(`${basePath}${image.filename}`)
+    );
+	}
+    
+    let product = await Product.findByIdAndUpdate(req.params.id,{
+        name,
+        description,
+        richDescription,
+        image: `${basePath}${imageName}`,
+        images: imagesNames,
+        price,
+        category: req.body.category,
+        countInStock,
+    }, {
+            new: true,
+            runValidators: true,
+        });
+
+    return res.status(201).json({
+        status: "success",
+        data: {
+            data: product,
+        },
+    });
+});
+
+
 exports.addProduct = catchAsync(async(req, res, next) => {
     let {
         name,
@@ -74,19 +121,22 @@ exports.addProduct = catchAsync(async(req, res, next) => {
     } = req.body;
     category = await Category.findById(category);
     if (!category) return next(new AppError("Invalid Category", 400));
-
+	console.log(req.files)
     const imageName = req.files.image[0].filename;
     const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
     let imagesNames = [];
-    req.files.images.map((image) =>
+	if(req.files.images){
+			req.files.images.map((image) =>
         imagesNames.push(`${basePath}${image.filename}`)
     );
+	}
+    
     let product = await Product.create({
         name,
         description,
         richDescription,
         image: `${basePath}${imageName}`,
-        images: imagesNames,
+        //images: imagesNames,
         brand,
         price,
         category: req.body.category,

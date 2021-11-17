@@ -17,7 +17,7 @@ const NavBar = () => {
         <Sidebar style={{"color": "#fff"}} className="sidebar-continer" visible={visible} onHide={() => setVisible(false)} >
           <Link className="link-styling" to={"/getusers"}>Usres</Link>
           <Link to={"/list"}>Orders</Link>
-          <Link href="#">Products</Link>
+          <Link to={"/getproducts"}>Products</Link>
           <Link to={"/getcategoryadmin"}>Category</Link>
         </Sidebar>
         <Container>

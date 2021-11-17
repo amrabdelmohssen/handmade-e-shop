@@ -13,35 +13,8 @@ const getAllByCategoryId = (id, queryString) => {
 const updateOne = (id, product, config) => {
     return http.put(`/products/${id}`, product, config);
 };
-const AddOne = ({
-        name,
-        description,
-        richDescription,
-        brand,
-        price,
-        category,
-        countInStock,
-        rating,
-        numReviews,
-        isFeatured,
-    },
-    config
-) => {
-    return http.post(
-        "/products", {
-            name,
-            description,
-            richDescription,
-            brand,
-            price,
-            category,
-            countInStock,
-            rating,
-            numReviews,
-            isFeatured,
-        },
-        config
-    );
+const AddOne = (product, config) => {
+    return http.post("/products", product, config);
 };
 const deleteOne = (id, config) => {
     return http.delete(`/products/${id}`, config);
