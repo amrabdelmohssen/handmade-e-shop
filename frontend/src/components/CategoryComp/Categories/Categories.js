@@ -17,7 +17,7 @@ const Categories = () => {
       .catch((err) => { 
         console.log(err);
       });
-  }, [categorCards]);
+  }, []);
 
   return (
     <div className="big-continer">

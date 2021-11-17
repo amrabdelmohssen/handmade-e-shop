@@ -20,7 +20,7 @@ const CategoryProduct = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [category]);
+  }, []);
 
   useEffect(() => {
     axios({
@@ -34,7 +34,7 @@ const CategoryProduct = () => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  },[]);
 
   return (
     <div>
