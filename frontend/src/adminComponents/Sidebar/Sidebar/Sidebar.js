@@ -1,15 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
-import { BrowserRouter as Router } from "react-router-dom";
-
-
-
 import "@fortawesome/free-solid-svg-icons";
-import "./Sidebar.css";
-import SidebarCard from "../SidebarCard/SidebarCard";
+import "./Sidebar.scss";
 
-//import "./Sidebar.css";
 
 const Sidebar = (props) => {
   const openSlideMenu = () => {
@@ -40,14 +32,7 @@ const Sidebar = (props) => {
 
       <div id="side-menu" className="side-nav">
         <a href="#" className="btn-close" onClick={closeSlideMenu}></a>
-        {/* {link} */}
 
-        <Router>
-          <a href="#">Uses</a>
-          <a href="#">Orders</a>
-          <a href="#">Products</a>
-          <Link to={"/tablecate"}>Category</Link>
-        </Router>
       </div>
     </>
   );

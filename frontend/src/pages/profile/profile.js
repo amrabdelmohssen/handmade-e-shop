@@ -3,7 +3,6 @@ import { Container, Row, Col, Table } from "react-bootstrap";
 import { InputText } from "primereact/inputtext";
 import { Form, Field } from "react-final-form";
 import { classNames } from "primereact/utils";
-import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/message/message";
@@ -14,7 +13,7 @@ import { listMyOrders } from "../../actions/orderAction";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar } from "../../components/navbar/navbar";
 import { Footer } from "../../components/footer/footer";
-const Profile = ({ history, location }) => {
+const Profile = ({ history }) => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [street, setStreet] = useState("");

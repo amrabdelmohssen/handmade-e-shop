@@ -1,24 +1,22 @@
-import { Card } from "react-bootstrap";
-import "./SidebarCard.css";
+import { Card } from "primereact/card";
+import "./SidebarCard.scss";
 
-
-const SidebarCard = (props ) => {
-  return (
-    <>
- 
-      <div className="card-wrapper" style={{ width: "18rem"  ,backgroundColor: props.Cardcolor}}>
-        <Card.Body>
-          <h1 className="card-number">{props.cardCount}</h1>
-          <h5 className="card-title">{props.name}</h5>
-          <ul>
-            <li>Active Users : 8454</li>
-            <li>Online Users : 315</li>
-          </ul>
-          <Card.Link href="#">{props.link}details</Card.Link>
-        </Card.Body>
-      </div>
-    </>
-  );
+const SidebarCard = (props) => {
+    return (
+        <>
+            <div className="p-col-3">
+                <Card className={props.css}>
+                    <div className="d-item">
+                        <div>
+                            <i className={`pi ${props.icon}`}/><br />
+                            <span className="name">{props.name}</span>
+                        </div>
+                        <span className="number">{props.stats}</span>
+                    </div>
+                </Card>
+            </div>
+        </>
+    );
 };
 
 export default SidebarCard;

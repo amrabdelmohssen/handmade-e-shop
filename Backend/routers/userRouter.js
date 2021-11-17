@@ -31,4 +31,6 @@ router
   .patch(userController.updateUser)
   .delete(userController.deleteUser);
 
+router.get('/get/count',userController.getUsersCount)
+
 module.exports = router;
