@@ -18,6 +18,11 @@ const createCateApi = (data,config) => {
 
     return http.put(`/categories/${id}`,data,config)
 }
+const getOneCateApi = (id,data,config)=>{
+
+    return http.get(`/categories/${id}`,data,config)
+}
+  
   
 
 const CategoryService = {
@@ -25,6 +30,7 @@ const CategoryService = {
     deleteCateApi,
     createCateApi,
     updateCateApi,
+    getOneCateApi,
 
 }
 
