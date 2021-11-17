@@ -10,14 +10,41 @@ const getAllByCategoryId = (id, queryString) => {
     return http.get(`/products/category/${id}${queryString}`); //?sort=price
     console.log(`id : ${id} queryString : ${queryString}`);
 };
-const updateOne = (id, product) => {
-    return http.put(`/products/${id}`, product);
+const updateOne = (id, product, config) => {
+    return http.put(`/products/${id}`, product, config);
 };
-const AddOne = (product) => {
-    return http.post("/products", product);
+const AddOne = ({
+        name,
+        description,
+        richDescription,
+        brand,
+        price,
+        category,
+        countInStock,
+        rating,
+        numReviews,
+        isFeatured,
+    },
+    config
+) => {
+    return http.post(
+        "/products", {
+            name,
+            description,
+            richDescription,
+            brand,
+            price,
+            category,
+            countInStock,
+            rating,
+            numReviews,
+            isFeatured,
+        },
+        config
+    );
 };
-const deleteOne = (id) => {
-    return http.delete(`/products/${id}`);
+const deleteOne = (id, config) => {
+    return http.delete(`/products/${id}`, config);
 };
 const ProductService = {
     getOne,
@@ -25,7 +52,7 @@ const ProductService = {
     getAllByCategoryId,
     updateOne,
     AddOne,
-    deleteOne
+    deleteOne,
 };
 
 export default ProductService;
