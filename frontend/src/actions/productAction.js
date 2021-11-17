@@ -4,12 +4,12 @@ import {
     GET_PRODUCTS_BY_CATEGORY_ID,
     POST_PRODUCTS,
     UPDATE_PRODUCTS,
-    DELETE_PRODUCTS
+    DELETE_PRODUCTS,
 } from "./types";
 
 import ProductService from "../services/productService";
 
-export const getProduct = (i) => async(dispatch) => {
+export const getProduct = (i) => async (dispatch) => {
     try {
         const res = await ProductService.getOne(i);
         dispatch({
@@ -21,7 +21,7 @@ export const getProduct = (i) => async(dispatch) => {
     }
 };
 
-export const getProducts = () => async(dispatch) => {
+export const getProducts = () => async (dispatch) => {
     try {
         const res = await ProductService.getAll();
         dispatch({
@@ -33,7 +33,7 @@ export const getProducts = () => async(dispatch) => {
     }
 };
 
-export const getProductsByCategoryId = (id, queryString) => async(dispatch) => {
+export const getProductsByCategoryId = (id, queryString) => async (dispatch) => {
     try {
         const res = await ProductService.getAllByCategoryId(id, queryString);
         dispatch({
@@ -45,18 +45,17 @@ export const getProductsByCategoryId = (id, queryString) => async(dispatch) => {
     }
 };
 
-export const updateProducts = (id, product) => async(dispatch, getState) => {
+export const updateProducts = (id, product) => async (dispatch, getState) => {
     try {
         const {
             userLoginReducer: { userInfo },
         } = getState();
-
         const config = {
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `Bearer ${userInfo.token}`,
             },
         };
+        console.log(product);
         const res = await ProductService.updateOne(id, product, config);
         dispatch({
             type: UPDATE_PRODUCTS,
@@ -67,16 +66,7 @@ export const updateProducts = (id, product) => async(dispatch, getState) => {
     }
 };
 
-export const AddProduct = (name,
-    description,
-    richDescription,
-    brand,
-    price,
-    category,
-    countInStock,
-    rating,
-    numReviews,
-    isFeatured) => async(dispatch, getState) => {
+export const AddProduct = (product) => async (dispatch, getState) => {
     try {
         const {
             userLoginReducer: { userInfo },
@@ -84,47 +74,20 @@ export const AddProduct = (name,
 
         const config = {
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `Bearer ${userInfo.token}`,
             },
         };
-        const res = await ProductService.AddOne({
-            name,
-            description,
-            richDescription,
-            brand,
-            price,
-            category,
-            countInStock,
-            rating,
-            numReviews,
-            isFeatured
-        }, config);
-        // const res = await ProductService.AddOne(JSON.stringify({
-        //     name,
-        //     description,
-        //     richDescription,
-        //     brand,
-        //     price,
-        //     category,
-        //     countInStock,
-        //     rating,
-        //     numReviews,
-        //     isFeatured
-        // }, config));
+        const res = await ProductService.AddOne(product, config);
         dispatch({
             type: POST_PRODUCTS,
             payload: res.data,
         });
-        // return Promise.resolve(res.data);
-
     } catch (err) {
         console.log(err);
-        // return Promise.reject(err);
     }
 };
 
-export const deleteProducts = (id) => async(dispatch, getState) => {
+export const deleteProducts = (id) => async (dispatch, getState) => {
     try {
         const {
             userLoginReducer: { userInfo },
@@ -137,9 +100,13 @@ export const deleteProducts = (id) => async(dispatch, getState) => {
             },
         };
         const res = await ProductService.deleteOne(id, config);
+        let { productReducer } = getState();
+        productReducer.data.data = productReducer.data.data.filter((val) => val._id !== id);
+        productReducer.results--;
+        console.log(productReducer)
         dispatch({
             type: DELETE_PRODUCTS,
-            payload: res.data,
+            payload: productReducer,
         });
     } catch (err) {
         console.log(err);
