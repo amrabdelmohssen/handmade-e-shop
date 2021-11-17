@@ -88,7 +88,7 @@ const CategoryAdmin = ({ history }) => {
         <React.Fragment>
           <Link
             className="userEditeLink"
-            to={`edituser/${rowData[item.field]}`}
+            to={`categoryupdate/${rowData[item.field]}`}
             s
           >
             <i class="fas fa-user-edit userEditeIcon"></i>
@@ -125,8 +125,8 @@ const CategoryAdmin = ({ history }) => {
                 <Column field="icon" header="icon" sortable></Column>
      
                 <Column field="id" header="Delete" body={actionBodyTemplateDelete} exportable={false}></Column>
-                {/* <Column field="id" header = "Update" body={actionBodyTemplateEdite} exportable={false}
-                ></Column> */}
+                <Column field="id" header = "Update" body={actionBodyTemplateEdite} exportable={false}
+                ></Column>
               </DataTable>
             </div>
           )}

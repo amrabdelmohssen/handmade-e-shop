@@ -46,7 +46,7 @@ export function Routes() {
             <Route path="/single/:id" exact component={singleOrder} />
             <Route path = "/admin" exact component = {Mainbody} />
             <Route path = "/getcategoryadmin" exact component = {CategoryAdmin} />
-            <Route path = "/categoryupdate" exact component = {CategoryUpdate} />
+            <Route path = "/categoryupdate/:id" exact component = {CategoryUpdate} />
            
 
 
