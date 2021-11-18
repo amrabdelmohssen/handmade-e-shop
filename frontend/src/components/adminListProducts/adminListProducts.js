@@ -67,7 +67,7 @@ const AdminListProducts = ({ history }) => {
             } else {
                 dispatch(getProducts());
                 dispatch(getCateAction());
-                setProducts(allProducts)
+                setProducts(allProducts);
             }
         } else {
             history.push("/login");
@@ -119,8 +119,10 @@ const AdminListProducts = ({ history }) => {
                 formData.append("category", category);
                 formData.append("price", price);
                 formData.append("countInStock", countInStock);
-                formData.append("image", imageUploaded);
-
+                if (imageUploaded) {
+                    formData.append("image", imageUploaded);
+                }
+                
                 dispatch(updateProducts(product.id, formData));
                 toast.current.show({
                     severity: "success",
@@ -137,14 +139,14 @@ const AdminListProducts = ({ history }) => {
                 formData.append("price", price);
                 formData.append("countInStock", countInStock);
                 formData.append("image", imageUploaded);
-              
+                
                 dispatch(AddProduct(formData));
                 toast.current.show({
-                  severity: "success",
-                  summary: "Successful",
-                  detail: "Product Created successfully",
-                  life: 3000,
-              });
+                    severity: "success",
+                    summary: "Successful",
+                    detail: "Product Created successfully",
+                    life: 3000,
+                });
             }
 
             setProducts(_products);
@@ -164,9 +166,9 @@ const AdminListProducts = ({ history }) => {
     };
 
     const deleteProduct = () => {
-      setDeleteProductDialog(false);
-      setProduct(emptyProduct);
-      dispatch(deleteProducts(product.id));
+        setDeleteProductDialog(false);
+        setProduct(emptyProduct);
+        dispatch(deleteProducts(product.id));
         toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -182,7 +184,7 @@ const AdminListProducts = ({ history }) => {
     const deleteSelectedProducts = () => {
         let _products = allProducts.data.data.filter((val) => !selectedProducts.includes(val));
         selectedProducts.map((val) => {
-          console.log(val.id);
+            console.log(val.id);
             dispatch(deleteProducts(val.id));
         });
         setProducts(_products);
@@ -197,12 +199,12 @@ const AdminListProducts = ({ history }) => {
     };
 
     const onImageChange = (e, name) => {
-      if (name === "image") {
-        formData.append(name, e.files[0]);
-        setImageUploaded(e.files[0])
-          } else {
+        if (name === "image") {
+            formData.append(name, e.files[0]);
+            setImageUploaded(e.files[0]);
+        } else {
             formData.append(name, e.files);
-          }
+        }
     };
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || "";
