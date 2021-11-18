@@ -13,6 +13,7 @@ import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
 
 import "./getallusers.css";
+import NavBar from "../../../adminComponents/NavBar/NavBar";
 export const GetAllUsersPage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLoginReducer);
   const { userInfo } = userLogin;
@@ -123,6 +124,7 @@ export const GetAllUsersPage = ({ history }) => {
   );
   return (
     <>
+    <NavBar/>
       <div className="datatable-crud-demo my-5 py-5">
         <div className=" container ">
           {typeof users.data !== "undefined" && (
