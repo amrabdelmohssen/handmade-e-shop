@@ -24,8 +24,10 @@ import { InputNumber } from "primereact/inputnumber";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import "./table.css";
+import NavBar from "../../adminComponents/NavBar/NavBar";
 
 const AdminListProducts = ({ history }) => {
+    
     const userLogin = useSelector((state) => state.userLoginReducer);
     const { userInfo } = userLogin;
     let emptyProduct = {
@@ -310,6 +312,8 @@ const AdminListProducts = ({ history }) => {
     );
 
     return (
+        <>
+        <NavBar/>
         <div className="container">
             {allProducts.length !== 0 && (
                 <div className="datatable-crud-demo">
@@ -516,6 +520,7 @@ const AdminListProducts = ({ history }) => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 export default AdminListProducts;

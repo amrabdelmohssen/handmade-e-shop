@@ -12,6 +12,7 @@ import { confirmDialog } from "primereact/confirmdialog";
 import { useSelector, useDispatch } from "react-redux"; //
 import { deleteOrder, loadedData } from "../../actions/orderAdminAction";
 import "./order.css";
+import NavBar from "../../adminComponents/NavBar/NavBar";
 
 const ListOrders = ({ history }) => {
     const userLogin = useSelector((state) => state.userLoginReducer);
@@ -112,6 +113,8 @@ const ListOrders = ({ history }) => {
     };
 
     return (
+        <>
+        <NavBar/>
         <div className="container">
             {orders.Data !== 0 && orders.Data && (
                 <div className="">
@@ -142,6 +145,7 @@ const ListOrders = ({ history }) => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 
