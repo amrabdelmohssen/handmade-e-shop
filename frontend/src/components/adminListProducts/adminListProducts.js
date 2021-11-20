@@ -185,9 +185,13 @@ const AdminListProducts = ({ history }) => {
 
     const deleteSelectedProducts = () => {
         let _products = allProducts.data.data.filter((val) => !selectedProducts.includes(val));
-        selectedProducts.map((val) => {
+      
+          
+           selectedProducts.map((val) => {
             console.log(val.id);
             dispatch(deleteProducts(val.id));
+            
+
         });
         setProducts(_products);
         setDeleteProductsDialog(false);
@@ -198,7 +202,15 @@ const AdminListProducts = ({ history }) => {
             detail: "Products Deleted",
             life: 3000,
         });
+
+       
+
     };
+
+    const r = ()=>{
+        dispatch(getProducts());
+
+    }
 
     const onImageChange = (e, name) => {
         if (name === "image") {
@@ -309,7 +321,7 @@ const AdminListProducts = ({ history }) => {
     const deleteProductsDialogFooter = (
         <React.Fragment>
             <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteProductsDialog} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedProducts} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedProducts,window.location.reload}/>
         </React.Fragment>
     );
 

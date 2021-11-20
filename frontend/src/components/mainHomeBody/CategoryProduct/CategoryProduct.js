@@ -97,20 +97,20 @@ const CategoryProduct = () => {
   return (
 
 
-    <div className ="container">
+    <div className ="container py-5 my-5">
 
       {category&& category.map((cate, index) => {
         return (
           <div  className="text-center" key={index}>
-              <Link className="links" to={`/products/${cate._id}`}>
-                <h1>{cate.name}</h1>
-              </Link>
-              <div className="card" style={{maxWidth: '100rem', marginTop: '2em'}}>
+             
+              <div className="card snip1168" style={{maxWidth: '100rem', marginTop: '2em'}}>
                 <Carousel value={ products.filter((prods, index) => {
     
-    return (prods.category === cate._id   ) && prods;
-  })} numVisible={4}  numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel" responsiveOptions={responsiveOptions} circular
-                    autoplayInterval={3000} itemTemplate={productTemplate}  header={<h5>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h5>} />
+                    return (prods.category === cate._id   ) && prods;
+                     })} numVisible={3}  numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel pt-3" responsiveOptions={responsiveOptions} circular
+                    autoplayInterval={10000} itemTemplate={productTemplate}  header={<Link className=" links current "  to={`/products/${cate._id}`}>
+                    <h1>{cate.name}</h1>
+                  </Link>} />
         </div>
            </div>
         );

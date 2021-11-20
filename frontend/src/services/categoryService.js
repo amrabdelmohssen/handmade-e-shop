@@ -23,7 +23,9 @@ const getOneCateApi = (id,data,config)=>{
     return http.get(`/categories/${id}`,data,config)
 }
   
-  
+const getAllCateUserApi = () =>{
+    return http.get(`/categories`)
+}  
 
 const CategoryService = {
     getAllCateApi,
@@ -31,6 +33,7 @@ const CategoryService = {
     createCateApi,
     updateCateApi,
     getOneCateApi,
+    getAllCateUserApi
 
 }
 

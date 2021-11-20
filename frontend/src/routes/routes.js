@@ -20,6 +20,7 @@ import singleOrder from "../components/order/singleOrder";
 import Mainbody from '../adminComponents/Mainbody/Mainbody';
 import CategoryAdmin from '../adminComponents/categroryAdmin/categoryAdmin'
 import CategoryUpdate from '../adminComponents/categroryAdmin/categoryUpdate'
+import {Footer} from '../components/footer/footer'
 
 
 export function Routes() {
@@ -27,7 +28,7 @@ export function Routes() {
         <div>
             <Route path="/products/:id" exact component={ListProducts} />
             <Route path="/product/:id" exact component={productDetail} />
-            <Route path="/productSearch/:name" exact component={ProductSearch} />
+            <Route path="/productSearch/:name" exact component={ProductSearch}/>
             <Route path="/cart/:id?" exact component={Cart} />
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
@@ -46,8 +47,9 @@ export function Routes() {
             <Route path="/single/:id" exact component={singleOrder} />
             <Route path = "/admin" exact component = {Mainbody} />
             <Route path = "/getcategoryadmin" exact component = {CategoryAdmin} />
-            <Route path = "/categoryupdate/:id" exact component = {CategoryUpdate} />
-           
+            <Route path = "/categoryupdate/:id" exact component = {CategoryUpdate}/>
+            <Route path = "/aboutus" exact component = {Footer}/>
+
 
 
 

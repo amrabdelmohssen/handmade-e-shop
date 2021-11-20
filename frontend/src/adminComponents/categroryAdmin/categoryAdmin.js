@@ -23,6 +23,8 @@ const CategoryAdmin = ({ history }) => {
 
   const { categoryReducer: categories } = useSelector((state) => state);
   const [globalFilter, setGlobalFilter] = useState(null);
+
+
   const dispatch = useDispatch();
   const toast = useRef(null);
 
