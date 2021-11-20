@@ -1,11 +1,10 @@
 import "../card/card.scss";
 import { Card } from "../card/card";
 import React, { useState, useEffect } from "react";
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
+import { Sidebar } from "primereact/sidebar";
+import { Button } from "primereact/button";
 import { Footer } from "../footer/footer";
 import { Navbar } from "../navbar/navbar";
-
 
 import {
   // getProducts,
@@ -18,6 +17,8 @@ import { faStar as starOutline } from "@fortawesome/free-regular-svg-icons";
 // import { useLocation } from  "react-router-dom";
 const ListProducts = ({ match, location, history }) => {
   const [visibleLeft, setVisibleLeft] = useState(false);
+  const [sortName, setSortName] = useState("alt");
+  const [sortPrice, setSortPrice] = useState("alt");
 
   // const [dataState, setDataState] = useState([]);
   // const [sortType, setSortType] = useState("sort");
@@ -30,6 +31,21 @@ const ListProducts = ({ match, location, history }) => {
     if (match.params.id) {
       if (location.search) {
         dispatch(getProductsByCategoryId(match.params.id, location.search)); //?sort=rating
+
+        if (location.search === "?sort=-price") {
+          setSortPrice("amount-down");
+          setSortName("alt");
+        } else if (location.search === "?sort=price") {
+          setSortPrice("amount-up-alt");
+          setSortName("alt");
+        } else if (location.search === "?sort=-name") {
+          setSortName("amount-down");
+          setSortPrice("alt");
+        } else if (location.search === "?sort=name") {
+          setSortName("amount-up-alt");
+          setSortPrice("alt");
+        }
+
       } else {
         if (starRating) {
           dispatch(getProductsByCategoryId(match.params.id, location.search));
@@ -38,6 +54,7 @@ const ListProducts = ({ match, location, history }) => {
       }
 
       console.log(location.search);
+      console.log(typeof location.search);
     }
   }, [dispatch, match.params.id, location.search]);
   const ratingFunction = (e) => {
@@ -68,169 +85,174 @@ const ListProducts = ({ match, location, history }) => {
   // console.log("location search for query", history);
   // history.push(`products/5f15d467f3a046427a1c26e1/?sort=`);
 
-
   const customIcons = (
     <React.Fragment>
-        <button className="p-sidebar-icon p-link p-mr-1">
-            <span className="pi pi-print" />
-        </button>
-        <button className="p-sidebar-icon p-link p-mr-1">
-            <span className="pi pi-arrow-right" />
-        </button>
+      <button className="p-sidebar-icon p-link p-mr-1">
+        <span className="pi pi-print" />
+      </button>
+      <button className="p-sidebar-icon p-link p-mr-1">
+        <span className="pi pi-arrow-right" />
+      </button>
     </React.Fragment>
-);
+  );
+  const nameSortHandel = () => {
+    if (sortName === "alt") {
+      setSortName("amount-up-alt");
+      setSortPrice("alt");
+      history.push(`/products/${match.params.id}?sort=name`);
+    } else if (sortName === "amount-up-alt") {
+      setSortName("amount-down");
+      setSortPrice("alt");
+      history.push(`/products/${match.params.id}?sort=-name`);
+    } else if (sortName === "amount-down") {
+      setSortName("amount-up-alt");
+      setSortPrice("alt");
+      history.push(`/products/${match.params.id}?sort=name`);
+    }
+  };
+  const priceSortHandel = () => {
+    if (sortPrice === "alt") {
+      setSortPrice("amount-up-alt");
+      setSortName("alt");
+      history.push(`/products/${match.params.id}?sort=price`);
+    } else if (sortPrice === "amount-up-alt") {
+      setSortPrice("amount-down");
+      setSortName("alt");
+      history.push(`/products/${match.params.id}?sort=-price`);
+    } else if (sortPrice === "amount-down") {
+      setSortPrice("amount-up-alt");
+      setSortName("alt");
+      history.push(`/products/${match.params.id}?sort=price`);
+    }
+  };
+
   return (
     <>
-    <Navbar />
+      <Navbar />
       {products.productReducer.length !== 0 &&
         typeof products.productReducer !== "undefined" && (
           <div className="search-body-background">
-          <div className ="container">
-          <div className ="col-4 ">
-          <Button  onClick={() => setVisibleLeft(true)} className="p-mr-2" > Sort 	&amp; Filter</Button>
-          </div>
-          <div className=" mt-5 pt-5 card-container  py-5 search-body-background">
-          
-            <div className="row ">
-               
-
-              <Sidebar visible={visibleLeft} onHide={() => setVisibleLeft(false)}>
-
-                <div className="container large-left-sider">
-                  <div className="row pl-3">
-                    <div className="col-12 pt-3">
-                      <p
-                        style={{
-                          fontSize: "20px",
-                          textTransform: "uppercase",
-                          fontWeight: "600",
-                        }}
-                      >
-                        sort
-                      </p>
-                      {/* <select >
+            <div className="container">
+              <div className="col-4 ">
+                <Button onClick={() => setVisibleLeft(true)} className="p-mr-2">
+                  {" "}
+                  Sort &amp; Filter
+                </Button>
+              </div>
+              <div className=" mt-5 pt-5 card-container  py-5 search-body-background">
+                <div className="row ">
+                  <Sidebar
+                    visible={visibleLeft}
+                    onHide={() => setVisibleLeft(false)}
+                  >
+                    <div className="container large-left-sider">
+                      <div className="row pl-3">
+                        <div className="col-12 pt-3">
+                          <p
+                            style={{
+                              fontSize: "20px",
+                              textTransform: "uppercase",
+                              fontWeight: "600",
+                            }}
+                          >
+                            sort
+                          </p>
+                          {/* <select >
                       onChange={(e) => setSortType(e.target.value)}
                         <option value="sort">no sort</option>
                         <option value="price">price</option>
                         <option value="name">name</option>
                         <option value="rating">rating</option>
                       </select> */}
-                      {/* history.push(`/products/${match.params.id}?sort=-price,name`); */}
-                      <div
-                        onChange={(e) =>
-                          history.push(
-                            `/products/${match.params.id}?sort=${e.target.value}`
-                          )
-                        }
-                      >
-                        <input type="radio" value="price" name="sort" /> price{" "}
-                        <br />
-                        <input
-                          type="radio"
-                          value="name"
-                          name="sort"
-                        /> name <br />
-                        <input
-                          type="radio"
-                          value="rating"
-                          name="sort"
-                        /> rating <br />
+                          {/* history.push(`/products/${match.params.id}?sort=-price,name`); */}
+                          <div
+                          // onChange={(e) =>
+                          //   history.push(
+                          //     `/products/${match.params.id}?sort=${e.target.value}`
+                          //   )
+                          // }
+                          >
+                            {/* <input type="radio" value="price" name="sort" />{" "}
+                            price <br />
+                            <input
+                              type="radio"
+                              value="name"
+                              name="sort"
+                            /> name <br />
+                            <input
+                              type="radio"
+                              value="rating"
+                              name="sort"
+                            />{" "}
+                            rating <br />
+                            <span className="p-sortable-column-icon pi pi-fw pi-sort-alt"></span>
+                            <input
+                              id="windows"
+                              value="windows"
+                              name="platform"
+                              type="radio"
+                              // onChange={this.handleChange}
+                            />
+                            price <br />
+                            <span className="p-sortable-column-icon pi pi-fw pi-sort-amount-up-alt"></span>
+                            <input
+                              id="windows"
+                              value="windows"
+                              name="platform"
+                              type="radio"
+                              // onChange={this.handleChange}
+                            />
+                            name <br /> */}
+                            {/* <span > */}
+                            <span
+                              id="nameSort"
+                              className={`p-sortable-column-icon pi pi-fw pi-sort-${sortName}`} //alt
+                              onClick={nameSortHandel}
+                            >
+                              &nbsp;name
+                            </span>
+                            <br />
+                            <span
+                              id="priceSort"
+                              className={`p-sortable-column-icon pi pi-fw pi-sort-${sortPrice}`} //amount-up-alt
+                              onClick={priceSortHandel}
+                            >
+                              &nbsp;price
+                            </span>
+                            <br />
+                            {/* <span
+                              id="ratingSort"
+                              className={`p-sortable-column-icon pi pi-fw pi-sort-${}`}//amount-down
+                              onClick={ratingSortHandel}
+                            >
+                              &nbsp;rating
+                            </span> */}
+                            {/* </span> */}
+                            <br />
+                          </div>
+                          <br />
+                        </div>
                       </div>
-                      <br />
                     </div>
-                    <div className="col-12 pt-3">
-                      <p
-                        style={{
-                          fontSize: "20px",
-                          textTransform: "uppercase",
-                          fontWeight: "600",
-                        }}
-                      >
-                        rating
-                      </p>
-                      <div onChange={(e) => ratingFunction(e)}>
-                        <input type="radio" value="4" name="rating" />{" "}
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        &nbsp;& above
-                        <br />
-                        <input type="radio" value="3" name="rating" />{" "}
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        &nbsp;& above
-                        <br />
-                        <input type="radio" value="2" name="rating" />{" "}
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        &nbsp;& above
-                        <br />
-                        <input type="radio" value="1" name="rating" />{" "}
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        <FontAwesomeIcon icon={starOutline} />
-                        &nbsp;& above
-                        <br />
-                      </div>
-                      <br />
-                    </div>
-                    <div className="col-12 pt-3">
-                      <p
-                        style={{
-                          fontSize: "20px",
-                          textTransform: "uppercase",
-                          fontWeight: "600",
-                        }}
-                      >
-                        brands
-                      </p>
+                  </Sidebar>
 
-                      <select>
-                        {/* onChange={(e) => setFilterType(e.target.value)} */}
-                        <option value="filterBrand">no filter</option>
-                        {/* {brands.map((brand, index) => (
-                      <option value={brand} key={index}>
-                        {brand}
-                      </option>
-                    ))} */}
-                      </select>
-                      <br />
-                    </div>
+                  <div className="row container d-flex justify-content-center rounded-3">
+                    {products.productReducer.data.data.map((product, index) => (
+                      <Card
+                        key={index}
+                        name={product.name}
+                        description={product.description}
+                        price={product.price}
+                        image={product.image}
+                      />
+                    ))}
                   </div>
-                </div>
-
-                </Sidebar>
-                
-
-            
-             
-                <div className="row container d-flex justify-content-center rounded-3">
-                  {products.productReducer.data.data.map((product, index) => (
-                    <Card
-                      key={index}
-                      name={product.name}
-                      description={product.description}
-                      price={product.price}
-                    />
-                  ))}
                 </div>
               </div>
             </div>
           </div>
-          </div>
-          
         )}
-        <Footer />
+      <Footer />
     </>
   );
 };

@@ -17,8 +17,8 @@ function productReducer(products = [], action) {
             return payload;
 
         case POST_PRODUCTS:
-            return [...products, payload]
-                // return products.concat([payload]);
+             return [...products, payload]
+           // return products.concat([payload]);
 
         case GET_PRODUCT:
             return payload;
