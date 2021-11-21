@@ -75,7 +75,7 @@ const UpdatePassword = ({ history }) => {
                         onSubmit={submitForm}
                         initialValues={{ passwordCurrent: "", password: "", passwordConfirm: "" }}
                         validate={validate}
-                        render={({ handleSubmit }) => (
+                        render={({ handleSubmit ,errors}) => (
                             <form onSubmit={handleSubmit} className="p-fluid">
                                 <Field
                                     name="passwordCurrent"
@@ -146,7 +146,7 @@ const UpdatePassword = ({ history }) => {
                                     )}
                                 />
 
-                                <Button type="submit" label="Submit" className="p-mt-2" />
+                                <Button type="submit" label="Submit" disabled={Object.keys(errors).length > 0 ? true : false} className="p-mt-2" />
                             </form>
                         )}
                     />

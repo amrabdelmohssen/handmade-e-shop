@@ -144,7 +144,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
             type: USER_UPDATE_PROFILE_REQUEST,
         });
 
-        const {
+        let {
             userLoginReducer: { userInfo },
         } = getState();
 
@@ -156,11 +156,18 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         };
 
         let { data } = await UserService.updateMe(user, config);
-        data = data.data.data;
+        data = data.data.user;
         dispatch({
             type: USER_UPDATE_PROFILE_SUCCESS,
             payload: data,
         });
+        userInfo.data.user = data;
+
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: userInfo,
+        });
+
     } catch (err) {
         dispatch({
             type: USER_UPDATE_PROFILE_FAIL,
