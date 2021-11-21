@@ -73,7 +73,7 @@ const Register = ({ history, location }) => {
                         onSubmit={submitForm}
                         initialValues={{ name: "", email: "", password: "", passwordConfirm: "" }}
                         validate={validate}
-                        render={({ handleSubmit }) => (
+                        render={({ handleSubmit,errors }) => (
                             <form onSubmit={handleSubmit} className="p-fluid">
                                 <Field
                                     name="name"
@@ -164,7 +164,7 @@ const Register = ({ history, location }) => {
                                         </div>
                                     )}
                                 />
-                                <Button type="submit" label="Submit" className="p-mt-2" />
+                                <Button type="submit" disabled={Object.keys(errors).length > 0 ? true : false} label="Submit" className="p-mt-2" />
                             </form>
                         )}
                     />
