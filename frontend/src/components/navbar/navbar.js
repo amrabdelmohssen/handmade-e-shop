@@ -1,20 +1,59 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import { logout } from "../../actions/userAction";
+import CategoryService from "../../services/categoryService";
+
 import "./navbar.scss";
 export function Navbar() {
+  const [ categories ,setCategories] = useState([]);
+  const [ isBusy ,setIsBusy] = useState(false);
+  const dispatch = useDispatch();
+
+const getcategory = ()=> async()=>{
+    const res = await CategoryService.getAllCateUserApi()
+
+    setCategories(res.data)
+
+    // console.log(categories,"ddddddddddddd")
+}
+
+  useEffect(() => {
+ 
+      // dispatch(getCateAction());
+
+      async function run(){CategoryService.getAllCateUserApi()
+        .then((res) => {
+          setCategories(res.data.data.data);
+          // if(typeof categories[0].name != "undefined"){
+            setIsBusy(true)
+          console.log(res.data,"ddddddddddddd")
+          console.log(categories[0].name)
+          // console.log(categories[0].name,"ddddddddddddd")
+
+          //  }
+  
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+      run()
+    
+  }, []);
+
   const userLogin = useSelector((state) => state.userLoginReducer);
   const { userInfo } = userLogin;
-  const dispatch = useDispatch();
   const logoutHandle = () => {
     dispatch(logout());
   };
   return (
     <>
       <nav className="navBar navbar-background navbar navbar-expand-lg navbar-light  px-5 d-flex justify-content-between ">
-        <a href="/users" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           HANDMADE{" "}
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler mb-2"
@@ -37,13 +76,38 @@ export function Navbar() {
                 HOME
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/products"} className="nav-links nav-link px-3">
+            <li className="nav-item ">
+            <Dropdown  className="nav-links ">
+              
+            <Dropdown.Toggle className="  navBar-drop-button"  id="dropdown-basic">
+              Categories
+            </Dropdown.Toggle>
+            <Dropdown.Menu
+              className="dropdown-menu text-center"
+              aria-labelledby="navbarDropdown"
+            >
+           {typeof categories !== "undefined" ? categories.map((cate, index)=>{
+                return(
+
+
+              <Dropdown.Item className=" nav-links" >
+                <Link key = {index} to={`/products/${cate._id}`}>
+                    {cate.name}
+                </Link>
+              </Dropdown.Item>
+                )}):""}
+            </Dropdown.Menu>
+          </Dropdown>
+
+
+
+
+              {/* <Link to={"/products"} className="nav-links nav-link px-3">
                 PRODUCTS
-              </Link>
+              </Link> */}
             </li>
             <li className="nav-item">
-              <Link to={"/about"} className="nav-links nav-link px-3">
+              <Link to={"/aboutus"} className="nav-links nav-link px-3">
                 ABOUT
               </Link>
             </li>
@@ -80,12 +144,12 @@ export function Navbar() {
                     </Link>
                   </li>
                   <li className="nav-item" onClick={logoutHandle}>
-                    <div className="nav-links nav-link">Logout</div>
+                    <div className="nav-links nav-link " style={{cursor:"pointer"}}>Logout</div>
                   </li>
                 </ul>
               </li>
             ) : (
-              <li>
+              <li className="nav-item">
                 <Link to={"/login"} className="nav-links nav-link px-3">
                   Sign in
                 </Link>

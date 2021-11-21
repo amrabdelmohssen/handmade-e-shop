@@ -5,6 +5,8 @@ import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { Footer } from "../footer/footer";
 import { Navbar } from "../navbar/navbar";
+import { ProductSearch } from '../../pages/productSearch/productSearch';
+
 
 import {
   // getProducts,
@@ -129,34 +131,50 @@ const ListProducts = ({ match, location, history }) => {
   return (
     <>
       <Navbar />
+      <ProductSearch/>
+
       {products.productReducer.length !== 0 &&
         typeof products.productReducer !== "undefined" && (
           <div className="search-body-background">
             <div className="container">
               <div className="col-4 ">
+                
                 <Button onClick={() => setVisibleLeft(true)} className="p-mr-2">
                   {" "}
-                  Sort &amp; Filter
+                  Sort
                 </Button>
               </div>
               <div className=" mt-5 pt-5 card-container  py-5 search-body-background">
                 <div className="row ">
                   <Sidebar
                     visible={visibleLeft}
+
                     onHide={() => setVisibleLeft(false)}
+                    style={{
+                      background: "#eee",
+                      width:"12rem"
+                    }}
                   >
+                  
+                   <div className="mt-5"> 
+                    </div>
+
                     <div className="container large-left-sider">
-                      <div className="row pl-3">
-                        <div className="col-12 pt-3">
+                      
+                      <div className="row pl-3 text-center">
+                        <div className="col-12 pt-5">
+
                           <p
                             style={{
-                              fontSize: "20px",
+                              fontSize: "25px",
                               textTransform: "uppercase",
                               fontWeight: "600",
                             }}
                           >
                             sort
                           </p>
+                          <hr/>
+
                           {/* <select >
                       onChange={(e) => setSortType(e.target.value)}
                         <option value="sort">no sort</option>
@@ -204,21 +222,27 @@ const ListProducts = ({ match, location, history }) => {
                             />
                             name <br /> */}
                             {/* <span > */}
+                            
+                            <Button className="pe-5 ps-3 m-4"  onClick={nameSortHandel}>
                             <span
                               id="nameSort"
                               className={`p-sortable-column-icon pi pi-fw pi-sort-${sortName}`} //alt
                               onClick={nameSortHandel}
                             >
-                              &nbsp;name
+                              &nbsp;Name
                             </span>
-                            <br />
+                            </Button>
+                            <br/>
+                            <Button className="pe-5 ps-3 m-4" 
+                                onClick={priceSortHandel}
+                            >
                             <span
                               id="priceSort"
                               className={`p-sortable-column-icon pi pi-fw pi-sort-${sortPrice}`} //amount-up-alt
-                              onClick={priceSortHandel}
                             >
-                              &nbsp;price
+                              &nbsp;Price
                             </span>
+                            </Button>
                             <br />
                             {/* <span
                               id="ratingSort"

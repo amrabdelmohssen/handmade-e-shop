@@ -41,6 +41,18 @@ $mainColor :lightskyblue;
     
 
 }
+
+.navBar-drop-button{
+    border: none !important;
+    font-weight: bold !important;
+    color: #61686E !important ;
+    background-color: transparent !important;
+    &:hover{
+        color: white !important;
+
+    }
+
+}
 .form-control{
     border: $mainColor solid 1px !important;
     // background-color: #eee !important;
