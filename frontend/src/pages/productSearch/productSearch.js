@@ -81,9 +81,11 @@ export  function ProductSearch() {
           searchProducts.data.data.map((e, i) => {
             return (
               <div className="container">
+
                 <Link className="search-name-link " to={`/product/${e.id}`}>
-                  <div key={i} className="search-name">
-                    <h6>{e.name}</h6>
+                  <div key={i} className="search-name d-flex align-items-center">
+                    <h6 className ="pe-4">{e.name}</h6>
+                    <img width="40px" height="40px"  src={e.image} />
                   </div>
                 </Link>
               </div>

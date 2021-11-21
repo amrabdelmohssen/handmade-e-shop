@@ -14,7 +14,7 @@ export function Card({name, description, image, price}) {
     <>
         
           <div className="col-lg-3 col-sm-8 col-md-5 card-div-parent text-center bg-light px-1 my-5 mx-4">
-                  <img  className="cart-image" src="https://i.imgur.com/9UYzfny.png" alt="" />
+                  <img  className="cart-image" src={image} alt="" />
                
                     <p className="pt-1" id="name-display">
                       {name}

@@ -51,9 +51,9 @@ const getcategory = ()=> async()=>{
   return (
     <>
       <nav className="navBar navbar-background navbar navbar-expand-lg navbar-light  px-5 d-flex justify-content-between ">
-        <a href="/users" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           HANDMADE{" "}
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler mb-2"
@@ -144,7 +144,7 @@ const getcategory = ()=> async()=>{
                     </Link>
                   </li>
                   <li className="nav-item" onClick={logoutHandle}>
-                    <div className="nav-links nav-link">Logout</div>
+                    <div className="nav-links nav-link " style={{cursor:"pointer"}}>Logout</div>
                   </li>
                 </ul>
               </li>
