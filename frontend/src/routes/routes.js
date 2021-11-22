@@ -21,6 +21,8 @@ import Mainbody from '../adminComponents/Mainbody/Mainbody';
 import CategoryAdmin from '../adminComponents/categroryAdmin/categoryAdmin'
 import CategoryUpdate from '../adminComponents/categroryAdmin/categoryUpdate'
 import {Footer} from '../components/footer/footer'
+import AboutUs from "../components/aboutUs/AboutUs";
+
 
 
 export function Routes() {
@@ -49,6 +51,8 @@ export function Routes() {
             <Route path = "/getcategoryadmin" exact component = {CategoryAdmin} />
             <Route path = "/categoryupdate/:id" exact component = {CategoryUpdate}/>
             <Route path = "/aboutus" exact component = {Footer}/>
+            <Route path = "/aboutuscontact" exact component = {AboutUs} />
+
 
 
 

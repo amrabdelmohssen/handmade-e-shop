@@ -3,18 +3,38 @@ import axios from "axios";
 import NavBar from "../NavBar/NavBar";
 import { Card } from "primereact/card";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersAction } from "../../actions/userAction"; 
 
 import "./Mainbody.scss";
 import { Router } from "react-router";
 import ChartData from "../ChartData/ChartData";
 const Mainbody = ({history}) => {
+    const dispatch = useDispatch();
+
     const [orders, setOrders] = useState([]);
     const [products, setProducts] = useState([]);
     const [users, setUsers] = useState([]);
     const [totalSales, setTotalSales] = useState([]);
     const userLogin = useSelector((state) => state.userLoginReducer);
     const { userInfo } = userLogin;
+
+    useEffect(() => {
+        if (userInfo.length !== 0) {
+          if(userInfo.data.user.isAdmin === false){
+            
+            history.push("/");
+          }else{
+            dispatch(getUsersAction());
+          }
+        } 
+        else {
+          history.push("/login");
+    
+        }
+      }, [dispatch, userInfo]);
+
+    
     const getOrderCount = ()=>{
         axios({
             method: "GET",
