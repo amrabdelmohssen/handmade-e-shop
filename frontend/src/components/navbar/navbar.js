@@ -107,12 +107,12 @@ const getcategory = ()=> async()=>{
               </Link> */}
             </li>
             <li className="nav-item">
-              <Link to={"/aboutus"} className="nav-links nav-link px-3">
+              <Link to={"/aboutuscontact"} className="nav-links nav-link px-3">
                 ABOUT
               </Link>
             </li>
             <li className="nav-item me-5">
-              <Link to={"/contact"} className="nav-links nav-link px-3">
+              <Link to={"/aboutuscontact"} className="nav-links nav-link px-3">
                 CONTACT
               </Link>
             </li>
