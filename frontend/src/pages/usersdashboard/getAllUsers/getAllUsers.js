@@ -17,7 +17,7 @@ import NavBar from "../../../adminComponents/NavBar/NavBar";
 export const GetAllUsersPage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLoginReducer);
   const { userInfo } = userLogin;
-
+ 
   const [globalFilter, setGlobalFilter] = useState(null);
 
   //toast
