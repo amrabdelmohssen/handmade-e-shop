@@ -106,7 +106,7 @@ const CategoryProduct = () => {
               <div className="card snip1168" style={{maxWidth: '100rem', marginTop: '2em'}}>
                 <Carousel value={ products.filter((prods, index) => {
     
-                    return (prods.category === cate._id   ) && prods;
+                    return (prods.category === cate._id && prods.isFeatured  ) && prods;
                      })} numVisible={3}  numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel pt-3" responsiveOptions={responsiveOptions} circular
                     autoplayInterval={10000} itemTemplate={productTemplate}  header={<Link className=" links current "  to={`/products/${cate._id}`}>
                     <h1>{cate.name}</h1>

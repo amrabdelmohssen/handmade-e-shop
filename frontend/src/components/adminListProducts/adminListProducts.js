@@ -177,7 +177,7 @@ const AdminListProducts = ({ history }) => {
         formData.append("brand", brand);
         formData.append("isFeatured", isFeatured);
         formData.append("image", imageUploaded);
-        formData.append("images", imagesUploaded);
+        // formData.append("images", imagesUploaded);
         console.log(formData);
         dispatch(AddProduct(formData));
         // setAddedProduct(addedProduct+1)
@@ -256,11 +256,11 @@ const AdminListProducts = ({ history }) => {
       //       console.log(e.files[i]);
       //   }
       //   formData.append(name, arrOfImgs);
-      [...e.files].map((file) => {
-        formData.append("images", file);
-        arrOfImgs.push("images", file);
-      });
-      setImagesUploaded(arrOfImgs);
+      // [...e.files].map((file) => {
+      //   formData.append("images", file);
+      //   arrOfImgs.push("images", file);
+      // });
+      // setImagesUploaded(arrOfImgs);
     }
     // else {
     //     for (let i = 0; i < e.files.length; i++) {
@@ -590,7 +590,7 @@ const AdminListProducts = ({ history }) => {
                     <small className="p-error">Image is required.</small>
                   )} */}
                 </div>
-                <div className="p-field">
+                {/* <div className="p-field">
                   <FileUpload
                     name="images"
                     //   auto
@@ -609,7 +609,7 @@ const AdminListProducts = ({ history }) => {
                     uploadHandler={(e) => onImageChange(e, "images")}
                     // onUpload={onUpload}
                   />
-                </div>
+                </div> */}
                 <div className="p-field">
                   <label htmlFor="name">Name</label>
                   <InputText

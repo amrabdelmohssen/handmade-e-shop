@@ -17,7 +17,7 @@ import NavBar from "../../../adminComponents/NavBar/NavBar";
 export const GetAllUsersPage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLoginReducer);
   const { userInfo } = userLogin;
- 
+
   const [globalFilter, setGlobalFilter] = useState(null);
 
   //toast
@@ -29,28 +29,34 @@ export const GetAllUsersPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const deleletUserOnClick = (id) => {
-    dispatch(deletUserAction(id));
-    toast.current.show({
-      severity: "success",
-      summary: "Successful",
-      detail: "User Deleted",
-      life: 3000,
-    });
-    dispatch(getUsersAction());
+    if (id === "619121f0f26540685249ac39") {
+      toast.current.show({
+        severity: "error",
+        summary: "Error Message",
+        detail: "can not delete main admin",
+        life: 3000,
+      });
+    } else {
+      dispatch(deletUserAction(id));
+      toast.current.show({
+        severity: "success",
+        summary: "Successful",
+        detail: "User Deleted",
+        life: 3000,
+      });
+      dispatch(getUsersAction());
+    }
   };
 
   useEffect(() => {
     if (userInfo.length !== 0) {
-      if(userInfo.data.user.isAdmin === false){
-        
+      if (userInfo.data.user.isAdmin === false) {
         history.push("/");
-      }else{
+      } else {
         dispatch(getUsersAction());
       }
-    } 
-    else {
+    } else {
       history.push("/login");
-
     }
   }, [dispatch, userInfo]);
 
@@ -59,19 +65,22 @@ export const GetAllUsersPage = ({ history }) => {
   const actionBodyTemplateDelete = (rowData) => {
     return (
       <React.Fragment>
+        {rowData.id==="619121f0f26540685249ac39"?"":
         <Button
           icon="pi pi-trash"
           className=" userDeleteButton p-button-rounded p-button-warning "
           onClick={() => confirm(rowData)}
           label=""
-        />
+        />}
       </React.Fragment>
     );
   };
 
   const confirm = (rowData) => {
+    console.log(rowData.id);
+    console.log(typeof rowData.id);
     confirmDialog({
-      message: `Are you sure you want to delete this ${rowData.name} `,
+      message: `Are you sure you want to delete ${rowData.name} `,
       header: "Confirmation",
       icon: "pi pi-exclamation-triangle",
       acceptClassName: "p-button-danger",
@@ -85,13 +94,17 @@ export const GetAllUsersPage = ({ history }) => {
     return (
       <>
         <React.Fragment>
-          <Link
-            className="userEditeLink"
-            to={`edituser/${rowData[item.field]}`}
-            s
-          >
-            <i class="fas fa-user-edit userEditeIcon"></i>
-          </Link>
+          {rowData.id === "619121f0f26540685249ac39" ? (
+            ""
+          ) : (
+            <Link
+              className="userEditeLink"
+              to={`edituser/${rowData[item.field]}`}
+              s
+            >
+              <i class="fas fa-user-edit userEditeIcon"></i>
+            </Link>
+          )}
         </React.Fragment>
       </>
     );
@@ -124,7 +137,7 @@ export const GetAllUsersPage = ({ history }) => {
   );
   return (
     <>
-    <NavBar/>
+      <NavBar />
       <div className="datatable-crud-demo my-5 py-5">
         <div className=" container ">
           {typeof users.data !== "undefined" && (
@@ -150,10 +163,24 @@ export const GetAllUsersPage = ({ history }) => {
                 <Column field="city" header="City" sortable></Column>
                 <Column field="street" header="Street" sortable></Column>
                 <Column field="apartment" header="Apartment" sortable></Column>
-                <Column field="isAdmin" header="Role" body={bool} sortable></Column>
+                <Column
+                  field="isAdmin"
+                  header="Role"
+                  body={bool}
+                  sortable
+                ></Column>
                 <Column field="zip" header="ZIP" sortable></Column>
-                <Column field="id" header="Delete" body={actionBodyTemplateDelete} exportable={false}></Column>
-                <Column field="id" header = "Update" body={actionBodyTemplateEdite} exportable={false}
+                <Column
+                  field="id"
+                  header="Delete"
+                  body={actionBodyTemplateDelete}
+                  exportable={false}
+                ></Column>
+                <Column
+                  field="id"
+                  header="Update"
+                  body={actionBodyTemplateEdite}
+                  exportable={false}
                 ></Column>
               </DataTable>
             </div>

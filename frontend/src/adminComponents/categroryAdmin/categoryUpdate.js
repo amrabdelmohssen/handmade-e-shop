@@ -3,6 +3,7 @@ import CategoryService from "../../services/categoryService";
 import { useDispatch, useSelector } from "react-redux";
 import UserService from "../../services/userService";
 import { Toast } from 'primereact/toast';
+import NavBar from "../NavBar/NavBar";
 
 
 const CategoryUpdate = (props) => {
@@ -107,9 +108,10 @@ const CategoryUpdate = (props) => {
 
   return (
     <>
+    <NavBar/>
    
 
-    <div className="container col-sm-6 p-5 my-5 user-updated-form "> <h3 className= "text-center pm-5"> User Update</h3>
+    <div className="container col-sm-6 p-5 my-5 user-updated-form "> <h3 className= "text-center pm-5"> Category Update</h3>
      <Toast ref={toast} />
 
         <div class="mb-3">
@@ -119,18 +121,13 @@ const CategoryUpdate = (props) => {
 
     </div>
     <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email </label>    
+            <label for="exampleFormControlInput1" class="form-label">Color </label>    
 
             <input type="text" class="form-control" id="email" name="color" onChange={e=>{valid(e);setColor (e.target.value)}}  placeholder="color" defaultValue={color}/>
             <small className = "text-danger">{validColor}</small>
     </div>
 
-    <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="icon" onChange={e=>{valid(e); setIcon (e.target.value)}} placeholder="icon" defaultValue={icon}/>
-            <small className = "text-danger">{validIcon}</small>
-
-    </div>
+    
    
      
     <br/>

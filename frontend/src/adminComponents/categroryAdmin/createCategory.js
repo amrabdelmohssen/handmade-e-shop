@@ -129,18 +129,7 @@ const CreateCategory = () => {
                   onChange={(e) => setColor2(e.value)}
                 ></ColorPicker>
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Icon</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="icon"
-                  required
-                  value={categoryCrate.icon}
-                  onChange={handleInputChange}
-                  name="icon"
-                />
-              </div>
+             
 
               <button onClick={saveUser} className="btn btn-success">
                 Submit
