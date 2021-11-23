@@ -261,13 +261,14 @@ const ListProducts = ({ match, location, history }) => {
                   </Sidebar>
 
                   <div className="row container d-flex justify-content-center rounded-3">
-                    {products.productReducer.data.data.map((product, index) => (
+                    {products.productReducer.data.data && products.productReducer.data.data.map((product, index) => (
                       <Card
                         key={index}
                         name={product.name}
                         description={product.description}
                         price={product.price}
                         image={product.image}
+                        id={product.id}
                       />
                     ))}
                   </div>

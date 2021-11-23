@@ -115,10 +115,13 @@ const Mainbody = ({history}) => {
         }
     }, []);
     return (
-        <div>
-            <NavBar />
+        <>
+        <NavBar />
+        <div className="container my-5  ">
+            
             <Card>
-                <div className="p-grid">
+                <div className=" p-2">
+                <div className="pb-5 d-flex flex-wrap ">
                     <SidebarCard stats={orders} css={"d-orders"} name={"Orders"} icon={"pi-shopping-cart"} />
                     <SidebarCard stats={products} css={"d-products"} name={"Products"} icon={"pi-briefcase"} />
                     <SidebarCard stats={users} css={"d-users"} name={"Users"} icon={"pi-users"} />
@@ -127,8 +130,11 @@ const Mainbody = ({history}) => {
                 <div className="p-grid">
                     <ChartData />
                 </div>
+                </div>
             </Card>
+           
         </div>
+        </>
     );
 };
 

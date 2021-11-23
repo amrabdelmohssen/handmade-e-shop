@@ -5,6 +5,7 @@ import { Card } from "primereact/card";
 import { Fieldset } from "primereact/fieldset";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
+import NavBar from "../../adminComponents/NavBar/NavBar";
 
 const Order = ({ match }) => {
     const { id } = match.params;
@@ -60,7 +61,9 @@ const Order = ({ match }) => {
     };
 
     return (
-        <div>
+        <>
+        <NavBar/>
+        <div className="container my-5 ">
             {Object.keys(single.singleOrderData).length !== 0 && (
                 <div>
                     <Toast ref={toast} />
@@ -149,6 +152,7 @@ const Order = ({ match }) => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 

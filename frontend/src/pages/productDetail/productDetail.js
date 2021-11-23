@@ -15,12 +15,15 @@ import { Navbar } from "../../components/navbar/navbar";
 function ProductDetail({ match, history }) {
     const [qty, setQty] = useState(1);
     const { productReducer: product } = useSelector((state) => state);
+    const [flagx ,setFlagx] = useState(false)
     const dispatch = useDispatch();
     useEffect(() => {
         if (match.params.id) {
             dispatch(getProduct(match.params.id));
+            setFlagx(true)
+
         }
-    }, [dispatch, match.params.id]);
+    }, [dispatch, match.params.id,flagx]);
     const addProductToCart = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`);
     };
@@ -39,11 +42,14 @@ function ProductDetail({ match, history }) {
                         <Row>
                             <Col lg={5} className="mt-5 me-5">
                                 <Carousel variant="dark">
-                                    {product.data.data.images.map((image, index) => (
+                                    {/* {product.data.data.images.map((image, index) => (
                                         <Carousel.Item key={index} interval={2000}>
                                             <img className="d-block w-100" src={image} alt="First slide" style={{ height: "25rem" }} />
                                         </Carousel.Item>
-                                    ))}
+                                    ))} */}
+                                    <Carousel.Item  interval={2000}>
+                                            <img className="d-block w-100" src={product.data.data.image} alt="First slide" style={{ height: "25rem" }} />
+                                        </Carousel.Item>
                                 </Carousel>
                             </Col>
                             <Col lg={6} className="product mt-5">

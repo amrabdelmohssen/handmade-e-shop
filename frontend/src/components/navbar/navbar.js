@@ -108,14 +108,10 @@ const getcategory = ()=> async()=>{
             </li>
             <li className="nav-item">
               <Link to={"/aboutuscontact"} className="nav-links nav-link px-3">
-                ABOUT
+                ABOUT &amp; CONTACT
               </Link>
             </li>
-            <li className="nav-item me-5">
-              <Link to={"/aboutuscontact"} className="nav-links nav-link px-3">
-                CONTACT
-              </Link>
-            </li>
+           
             {typeof userInfo !== "undefined" && !Array.isArray(userInfo) ? (
               <li className="nav-item dropdown">
                 <Link

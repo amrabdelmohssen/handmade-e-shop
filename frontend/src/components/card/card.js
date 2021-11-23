@@ -2,7 +2,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import React from "react";
 import "./card.scss";
 import { Link } from "react-router-dom";
-export function Card({name, description, image, price}) {
+export function Card({name, description, image, price,id}) {
   // const products = [
   //   {
   //     name: "labtop lenovo ",
@@ -25,7 +25,7 @@ export function Card({name, description, image, price}) {
 
                       <h5>{price}</h5>
                     </div>
-                    <Link className="button-details cart-button py-1" to="">
+                    <Link className="button-details cart-button py-1" to={`/product/${id}`}>
                         Details
                       </Link>{" "}
                 

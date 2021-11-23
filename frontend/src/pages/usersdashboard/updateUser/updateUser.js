@@ -4,6 +4,7 @@ import React, { useState, useEffect ,useRef} from "react";
 import UserService from "../../../services/userService";
 import { Toast } from 'primereact/toast';
 import './updateUsers.scss'
+import NavBar from "../../../adminComponents/NavBar/NavBar";
 
 
  export const UpdateUser = (props)=>{
@@ -129,6 +130,7 @@ function updateContent(){
 
 return (
     <>
+    <NavBar/>
     {typeof email !== "undefined"?
 
     <div className="container col-sm-6 p-5 my-5 user-updated-form "> <h3 className= "text-center pm-5"> User Update</h3>
@@ -140,12 +142,8 @@ return (
             <small className = "text-danger">{validName}</small>
 
     </div>
-    <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email </label>    
+  
 
-            <input type="text" class="form-control" id="email" name="email" onChange={e=>{valid(e);setEmail (e.target.value)}}  placeholder="email" defaultValue={email}/>
-            <small className = "text-danger">{validEmail}</small>
-    </div>
 
     <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Phone</label>

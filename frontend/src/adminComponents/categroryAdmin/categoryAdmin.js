@@ -38,7 +38,7 @@ const CategoryAdmin = ({ history }) => {
 
   const header = (
     <div className="table-header">
-      <h5 className="p-mx-0 p-my-1">Manage Users</h5>
+      <h5 className="p-mx-0 p-my-1">Manage Categories</h5>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -74,14 +74,14 @@ const CategoryAdmin = ({ history }) => {
   };
  
   const deleletCateOnClick = (id)=>{
-    dispatch(deletCateAction(id));
+     dispatch(deletCateAction(id));   
     toast.current.show({
       severity: "success",
       summary: "Successful",
       detail: "Category Deleted",
       life: 3000,
     });
-    dispatch(getCateAction());
+     dispatch(getCateAction());
   }
 
   const actionBodyTemplateEdite = (rowData, item) => {
@@ -124,7 +124,6 @@ const CategoryAdmin = ({ history }) => {
               >
                 <Column field="name" header="name" sortable></Column>
                 <Column field="color" header="color" sortable></Column>
-                <Column field="icon" header="icon" sortable></Column>
      
                 <Column field="id" header="Delete" body={actionBodyTemplateDelete} exportable={false}></Column>
                 <Column field="id" header = "Update" body={actionBodyTemplateEdite} exportable={false}
