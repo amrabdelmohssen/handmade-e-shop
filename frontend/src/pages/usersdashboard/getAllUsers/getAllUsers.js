@@ -161,15 +161,13 @@ export const GetAllUsersPage = ({ history }) => {
                 <Column field="phone" header="Phone" sortable></Column>
                 <Column field="country" header="Country" sortable></Column>
                 <Column field="city" header="City" sortable></Column>
-                <Column field="street" header="Street" sortable></Column>
-                <Column field="apartment" header="Apartment" sortable></Column>
+               
                 <Column
                   field="isAdmin"
                   header="Role"
                   body={bool}
                   sortable
                 ></Column>
-                <Column field="zip" header="ZIP" sortable></Column>
                 <Column
                   field="id"
                   header="Delete"

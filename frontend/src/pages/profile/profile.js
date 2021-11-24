@@ -107,7 +107,7 @@ const Profile = ({ history }) => {
                                 }}
                                 validate={validate}
                                 render={({ handleSubmit }) => (
-                                    <form onSubmit={handleSubmit} className="p-fluid mt-2">
+                                    <form onSubmit={handleSubmit} className="p-fluid mt-2 p-3">
                                         <Field
                                             name="name"
                                             render={({ input, meta }) => (

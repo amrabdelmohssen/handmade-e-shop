@@ -11,19 +11,10 @@ const AboutUs = () => {
     <div className="body-aboutus">
       <h1 className="h1-aboutus">ABOUT US</h1>
       <article>
-        <p className="p-aboutus">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining. Lorem Ipsum is simply dummy text of the printing and
-          typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book. It has survived
-          not only five centuries, but also the leap into electronic
-          typesetting, remaining .
-        </p>
+        <h2 className="p-aboutus">
+        YADDAWY is an online marketplace for handmade , where people come together to make, sell, buy, and collect unique items. We are also a community pushing for positive change for small businesses and people.
+        Your privacy is the highest priority of our dedicated team. And if you ever need assistance, we are always ready to step in for support.
+        </h2>
       </article>
       <div class="social_icons">
         <div class="square-aboutus">

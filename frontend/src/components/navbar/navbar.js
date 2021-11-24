@@ -52,7 +52,7 @@ const getcategory = ()=> async()=>{
     <>
       <nav className="navBar navbar-background navbar navbar-expand-lg navbar-light  px-5 d-flex justify-content-between ">
         <Link to="/" className="navbar-brand">
-          HANDMADE{" "}
+          YADDAWY{" "}
         </Link>
 
         <button

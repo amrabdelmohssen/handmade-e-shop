@@ -138,7 +138,7 @@ const ListProducts = ({ match, location, history }) => {
                                     Sort
                                 </Button>
                             </div>
-                            <div className=" mt-5 pt-5 card-container  py-5 search-body-background">
+                            <div className=" card-container search-body-background">
                                 <div className="row ">
                                     <Sidebar
                                         visible={visibleLeft}

@@ -165,15 +165,12 @@ return (
             <input type="text" class="form-control" id="street" name="street" onChange={e=>{setStreet (e.target.value)}} placeholder="street" defaultValue={street}/>
     </div>
 
-    
+
     <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Apartment</label>
             <input type="text" class="form-control" id="apartment" name="apartment"  onChange={e=>{setApartment (e.target.value)}} placeholder="apartment" defaultValue={apartment}/>
     </div>
-    <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">ZIP code</label>
-            <input type="text" class="form-control" id="zip" name="zip"placeholder="ZIP" onChange={e=>{setZip (e.target.value)}} defaultValue={zip}/>
-    </div>
+  
 
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" name="isAdmin" id="isAdmin" onChange={e=>{setIsAdmin (!isAdmin)}} checked ={isAdmin} />

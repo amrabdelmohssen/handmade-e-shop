@@ -31,10 +31,10 @@
   padding: 0;
   color: whitesmoke;
   font-family: OpenSans;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 300;
-  line-height: 22px;
-  text-align: center;
+  /* line-height: 22px; */
+  text-align: justify;
   margin: 30px auto ;
   
 
